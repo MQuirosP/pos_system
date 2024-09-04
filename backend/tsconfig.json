@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "strict": true,
+    "outDir": "./dist", // Directorio de salida para los archivos compilados
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": "./",
+    "paths": {
+      "@models/*": ["src/models/*"],
+      "@config/*": ["config/*"]
+    }
+  },
+  "include": [
+    "src/**/*.ts",
+    "config/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

@@ -1,0 +1,14 @@
+node_modules/
+.env
+dist/
+
+build/
+out/
+
+.vscode/
+.idea/
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
