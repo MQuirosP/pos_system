@@ -2,12 +2,12 @@
   "name": "backend",
   "version": "1.0.0",
   "description": "",
-  "type": "module",
+  "type": "commonjs",
   "main": "dist/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "start": "node dist/index.js",
+    "start": "ts-node dist/index.js",
     "dev": "nodemon --watch src --exec ts-node --esm --experimental-specifier-resolution=node src/index.ts",
     "dev:watch": "nodemon --watch src --exec ts-node --esm --experimental-specifier-resolution=node src/index.ts",
     "migrate": "npx typeorm migration:run -d ./dist/ormconfig.js",
@@ -23,7 +23,8 @@
     "express": "^4.19.2",
     "pg": "^8.12.0",
     "reflect-metadata": "^0.2.2",
-    "typeorm": "^0.3.20"
+    "typeorm": "^0.3.20",
+    "url": "^0.11.4"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",
@@ -31,6 +32,7 @@
     "@types/express": "^4.17.21",
     "@types/node": "^22.5.3",
     "nodemon": "^3.1.4",
+    "ts-loader": "^9.5.1",
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "tsconfig-paths": "^4.2.0",
