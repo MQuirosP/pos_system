@@ -3,7 +3,7 @@ import express from "express";
 import cors from 'cors';
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
-import dataSource from "./ormconfig"; // Importa la configuración de TypeORM
+import dataSource from "../config/ormconfig"; // Importa la configuración de TypeORM
 
 dotenv.config();
 
