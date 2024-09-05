@@ -12,13 +12,13 @@ const dataSource = new DataSource({
   database: process.env.DB_NAME,
   entities: [
     process.env.NODE_ENV === 'production' 
-      ? './dist/entities/*.js' 
-      : './src/entities/*.ts'
+      ? './dist/database/entities/*.js' 
+      : './src/database/entities/*.ts'
   ],
   migrations: [
     process.env.NODE_ENV === 'production' 
-      ? './dist/migrations/*.js' 
-      : './src/migrations/*.ts'
+      ? './dist/database/migrations/*.js' 
+      : './src/database/migrations/*.ts'
   ],
   synchronize: process.env.NODE_ENV !== 'production',
 });

@@ -12,15 +12,14 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": "./",
     "paths": {
-      "@models/*": ["src/models/*"],
-      "@config/*": ["config/*"]
+      "@models/*": ["src/database/models/*"],
+      "@database/*": ["src/database/*"]
     }
   },
   "include": [
     "src/**/*.ts",
-    "config/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules", "config"
   ]
 }
