@@ -4,6 +4,7 @@ import cors from 'cors';
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import dataSource from "./config/ormconfig"; // Importa la configuración de TypeORM
+import { UserController } from "./controllers/UserController"; // Importa el controlador
 
 dotenv.config();
 
@@ -19,9 +20,10 @@ app.use(bodyParser.json());
 dataSource.initialize().then(() => {
   console.log("Connected to the database!");
 
-  app.get("/", (req, res) => {
-    res.send("Hello World!!!");
-  });
+  const userController = new UserController();
+
+  // Ruta para obtener usuarios
+  app.get("/users", (req, res) => userController.getUsers(req, res));
 
   app.listen(PORT, () => {
     console.log(`Server running at PORT: ${PORT}`);

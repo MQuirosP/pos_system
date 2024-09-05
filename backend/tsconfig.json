@@ -16,7 +16,8 @@
     "paths": {
       "@models/*": ["src/database/models/*"],
       "@config/*": ["src/config/*"],
-      "@database/*": ["src/database/*"]
+      "@database/*": ["src/database/*"],
+      "@entities/*": ["src/entities/*"]
     }
   },
   "include": ["src/**/*.ts"],
