@@ -20,7 +20,7 @@ dataSource.initialize().then(() => {
   console.log("Connected to the database!");
 
   app.get("/", (req, res) => {
-    res.send("Hello World");
+    res.send("Hello World!!!");
   });
 
   app.listen(PORT, () => {
