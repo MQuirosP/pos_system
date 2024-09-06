@@ -9,7 +9,7 @@ export class UserController {
     try {
       const users = await this.userService.getAllUsers();
       if (users.length === 0) {
-        return res.status(200).json({ success: true, data: "empty"}); // Devuelve un arreglo vacío si no hay usuarios
+        return res.status(200).json({ success: true, data: users}); // Devuelve un arreglo vacío si no hay usuarios
       }
       res.json(users);
     } catch (error) {
