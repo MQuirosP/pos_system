@@ -6,7 +6,8 @@ export class ResponseHandler {
       res.status(statusCode).json({
         success: true,
         message: message || "Request successfull",
-        data
+        data,
+        statusCode: statusCode
       });
     }
   }
@@ -15,7 +16,8 @@ export class ResponseHandler {
     if (!res.headersSent) {
       res.status(statusCode).json({
         success: false,
-        message: error.message || "Internal Server Error"
+        message: error.message || "Internal Server Error",
+        statusCode: statusCode
       });
     }
   }
