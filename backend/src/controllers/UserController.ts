@@ -8,6 +8,7 @@ export class UserController {
 
   async getUsers(req: Request, res: Response, next: NextFunction) {
     try {
+      // return ResponseHandler.sendErrorResponse(res, "test of error", 404)
       const users = await this.userService.getAllUsers();
       if (users.length === 0) {
         return ResponseHandler.sendSuccessResponse(res, users, "No users found.", 200)
