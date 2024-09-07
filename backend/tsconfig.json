@@ -12,8 +12,9 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "baseUrl": "./",
+    "baseUrl": "./src",
     "paths": {
+      "*": ["node_modules"],
       "@models/*": ["src/database/models/*"],
       "@config/*": ["src/config/*"],
       "@database/*": ["src/database/*"],

@@ -8,7 +8,7 @@
   "test": "echo \"Error: no test specified\" && exit 1",
   "build": "tsc",
   "start": "ts-node dist/index.js",
-  "dev": "ts-node src/index.ts",
+  "dev": "nodemon ts-node src/index.ts",
   "dev:watch": "nodemon --watch src --exec ts-node src/index.ts",
   "migrate": "npx typeorm migration:run -d ./dist/ormconfig.js",
   "migrate:revert": "npx typeorm migration:revert -d ./dist/ormconfig.js"

@@ -1,20 +1,20 @@
 // src/controllers/UserController.ts
-import { Request, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import { UserService } from "../services/UserService";
+import { ResponseHandler } from "../utils/responseHandler";
 
 export class UserController {
   private userService = new UserService();
 
-  async getUsers(req: Request, res: Response) {
+  async getUsers(req: Request, res: Response, next: NextFunction) {
     try {
       const users = await this.userService.getAllUsers();
       if (users.length === 0) {
-        return res.status(200).json({ success: true, data: users}); // Devuelve un arreglo vacío si no hay usuarios
+        return ResponseHandler.sendSuccessResponse(res, users, "No users found.", 200)
       }
-      res.json(users);
+      return ResponseHandler.sendSuccessResponse(res, users, "Users fetched successfully.");
     } catch (error) {
-      res.status(500).json({ error: "Error fetching users" });
-      console.log(error);
+      next(error); // Pasar el error al middleware de errores
     }
   }
 }
