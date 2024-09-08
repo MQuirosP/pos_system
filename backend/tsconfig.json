@@ -12,13 +12,9 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "baseUrl": "./src",
+    "baseUrl": "./",
     "paths": {
       "*": ["node_modules"],
-      "@models/*": ["src/database/models/*"],
-      "@config/*": ["src/config/*"],
-      "@database/*": ["src/database/*"],
-      "@entities/*": ["src/entities/*"]
     }
   },
   "include": ["src/**/*.ts"],

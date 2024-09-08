@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import dataSource from "./config/ormconfig";
 import { UserController } from "./controllers/UserController";
 import { globalErrorHandler } from "./utils/errorHandler";
+import routes from "./routes/index";
 
 dotenv.config();
 
@@ -20,7 +21,8 @@ dataSource.initialize().then(() => {
 
   const userController = new UserController();
 
-  app.get("/users", (req, res, next) => userController.getUsers(req, res, next));
+  // app.use("/users", (req, res, next) => userController.getUsers(req, res, next));
+  app.use('/api/', routes)
 
   app.use(globalErrorHandler);
 
