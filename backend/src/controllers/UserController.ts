@@ -2,6 +2,7 @@
 import { Request, Response, NextFunction } from "express";
 import { UserService } from "../services/UserService";
 import { ResponseHandler } from "../utils/responseHandler";
+import { error } from 'console';
 
 export class UserController {
   
@@ -20,7 +21,6 @@ export class UserController {
   }
 
   async createUser(req: Request, res: Response, next: NextFunction) {
-    console.log("createUser called")
     try {
       const userData = req.body;
       const newUser = await this.userService.createUser(userData);
@@ -30,4 +30,19 @@ export class UserController {
       next(error);
     }
   }
+
+  async getUserById(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userId = parseInt(req.params.id);
+      const user = await this.userService.getUserByPK(userId);
+
+      if(!user) {
+        return ResponseHandler.sendErrorResponse(res, { message: "User not found." }, 404 )
+      }
+      return ResponseHandler.sendSuccessResponse(res, user, "User fetched succesfully.", 200)
+    } catch (error) {
+      next(error)
+    }
+  }
+  
 }
