@@ -1,5 +1,5 @@
 import { Users } from "../entities/Users";
-import dataSource  from "../config/ormconfig"; 
+import dataSource from "../config/ormconfig";
 import { Repository, EntityManager, QueryFailedError } from "typeorm";
 import { AppError } from '../utils/errorHandler';
 import { UserModel } from "../database/models/User";
@@ -7,14 +7,14 @@ import { UserModel } from "../database/models/User";
 export class UserService {
   private userRepository: Repository<Users>;
 
-  constructor(userRepository: Repository<Users>){
+  constructor(userRepository: Repository<Users>) {
     this.userRepository = userRepository;
   }
 
   async getAllUsers(): Promise<Users[]> {
     try {
       return await this.userRepository.find();
-      
+
     } catch (error) {
       throw new AppError("Error fetching users.", 500)
     }
