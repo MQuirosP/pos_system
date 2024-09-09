@@ -1,7 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, BaseEntity } from "typeorm";
 
 @Entity('users')
-export class Users {
+export class Users extends BaseEntity {
   @PrimaryGeneratedColumn('increment', { name: 'userId' })
   userId!: number; // Usa el modificador `!` para indicar que la propiedad será inicializada
 

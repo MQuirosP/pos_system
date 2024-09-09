@@ -2,6 +2,7 @@ import { Users } from "../entities/Users";
 import dataSource  from "../config/ormconfig"; 
 import { Repository, EntityManager, QueryFailedError } from "typeorm";
 import { AppError } from '../utils/errorHandler';
+import { UserModel } from "../database/models/User";
 
 export class UserService {
   private userRepository: Repository<Users>;
@@ -43,5 +44,15 @@ export class UserService {
       where: { userId },
     })
     return user;
+  }
+
+  async updateUser(userId: number, updates: Partial<UserModel>): Promise<UserModel | null> {
+    const user = await this.getUserByPK(userId)
+    if (!user) {
+      return null;
+    }
+    const userModel = new UserModel();
+    Object.assign(userModel, user);
+    return await userModel.updateUser(updates);
   }
 }
