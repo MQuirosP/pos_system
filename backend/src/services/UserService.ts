@@ -1,6 +1,5 @@
 import { Users } from "../entities/Users";
 import dataSource  from "../config/ormconfig"; 
-import { User } from "../database/models/User";
 import { Repository, EntityManager, QueryFailedError } from "typeorm";
 import { AppError } from '../utils/errorHandler';
 
@@ -20,7 +19,7 @@ export class UserService {
     }
   }
 
-  async createUser(userData: User): Promise<Users> {
+  async createUser(userData: Users): Promise<Users> {
     const entityManager = dataSource.manager;
     try {
       return await entityManager.transaction(async (transactionalEntityManager: EntityManager) => {
