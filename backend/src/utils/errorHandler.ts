@@ -22,6 +22,6 @@ export const globalErrorHandler = (err: any, req: any, res: any, next: any) => {
 
     res.status(err.statusCode).json({
         status: err.status,
-        message: err.message
+        message: err.message,
     });
 };

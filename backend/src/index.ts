@@ -4,9 +4,8 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import dataSource from "./config/ormconfig";
-import { UserController } from "./controllers/UserController";
 import { globalErrorHandler } from "./utils/errorHandler";
-import routes from "./routes/index";
+import routes from "./routes";
 
 dotenv.config();
 
@@ -18,8 +17,6 @@ app.use(bodyParser.json());
 
 dataSource.initialize().then(() => {
   console.log("Connected to the database!");
-
-  const userController = new UserController();
 
   // app.use("/users", (req, res, next) => userController.getUsers(req, res, next));
   app.use('/api/', routes)

@@ -1,12 +1,17 @@
-// src/controllers/UserController.ts
 import { Request, Response, NextFunction } from "express";
 import { UserService } from "../services/UserService";
 import { ResponseHandler } from "../utils/responseHandler";
-import { error } from 'console';
+import dataSource from "../config/ormconfig";
+import { Users } from "../entities/Users";
 
 export class UserController {
   
-  private userService = new UserService();
+  private userService: UserService;
+  
+  constructor() {
+    const userRepository = dataSource.getRepository(Users);
+    this.userService = new UserService(userRepository)
+  }
 
   async getUsers(req: Request, res: Response, next: NextFunction) {
     try {

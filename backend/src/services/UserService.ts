@@ -1,32 +1,27 @@
-import { error } from 'console';
-// src/services/UserService.ts
 import { Users } from "../entities/Users";
-import dataSource  from "../config/ormconfig"; // Asegúrate de importar dataSource correctamente
+import dataSource  from "../config/ormconfig"; 
 import { User } from "../database/models/User";
 import { Repository, EntityManager, QueryFailedError } from "typeorm";
 import { AppError } from '../utils/errorHandler';
 
 export class UserService {
-  // private userRepository = dataSource.getRepository(Users);
   private userRepository: Repository<Users>;
 
-  constructor(){
-    this.userRepository = dataSource.getRepository(Users);
+  constructor(userRepository: Repository<Users>){
+    this.userRepository = userRepository;
   }
 
   async getAllUsers(): Promise<Users[]> {
-
     try {
       return await this.userRepository.find();
       
     } catch (error) {
-      throw new Error("Error fetching users.")
+      throw new AppError("Error fetching users.", 500)
     }
   }
 
   async createUser(userData: User): Promise<Users> {
     const entityManager = dataSource.manager;
-
     try {
       return await entityManager.transaction(async (transactionalEntityManager: EntityManager) => {
         const newUser = transactionalEntityManager.create(Users, userData);
