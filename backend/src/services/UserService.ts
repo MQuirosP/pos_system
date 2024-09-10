@@ -1,6 +1,6 @@
 import { Users } from "../entities/Users";
 import dataSource from "../config/ormconfig";
-import { Repository, EntityManager, QueryFailedError } from "typeorm";
+import { Repository, EntityManager, QueryFailedError, DeleteResult } from "typeorm";
 import { AppError } from "../utils/errorHandler";
 import { UserModel } from "../database/models/User";
 import { UserCreateDTO } from "../dtos/user.dto";
@@ -67,4 +67,16 @@ export class UserService {
     // Guardar el usuario actualizado
     return await this.userRepository.save(user);
   }
+
+  async deleteUser(user_id: number): Promise<DeleteResult | null> {
+    const user = await this.userRepository.findOne({
+      where: { user_id },
+    });
+    if(!user) {
+      return null;
+    }
+
+    return await this.userRepository.delete(user_id)
+  }
+
 }

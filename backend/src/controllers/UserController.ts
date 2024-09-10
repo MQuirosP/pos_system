@@ -18,7 +18,7 @@ export class UserController {
     try {
       const users = await this.userService.getAllUsers();
       if (users.length === 0) {
-        return res.success(users, "No users found.", 200)
+        return res.success(users, "No users found.", 200);
       }
       const userResponseDTOs = users.map((user) => new UserResponseDTO(user));
 
@@ -27,10 +27,7 @@ export class UserController {
           ? "No users found."
           : "Users fetched succesfully.";
 
-      return res.success(
-        userResponseDTOs,
-        responseMessage
-      );
+      return res.success(userResponseDTOs, responseMessage);
     } catch (error) {
       next(error); // Pasar el error al middleware de errores
     }
@@ -42,10 +39,10 @@ export class UserController {
       const user = await this.userService.getUserByPK(user_id);
 
       if (!user) {
-        return res.error({ message: "User not found."}, 404)
+        return res.error({ message: "User not found." }, 404);
       }
       const userResponseDTO = new UserResponseDTO(user);
-      return res.success(userResponseDTO, "User fetched successfully.", 200)
+      return res.success(userResponseDTO, "User fetched successfully.", 200);
     } catch (error) {
       next(error);
     }
@@ -78,17 +75,36 @@ export class UserController {
 
   async updateUser(req: Request, res: Response, next: NextFunction) {
     try {
-      const userId = parseInt(req.params.id);
+      const user_id = parseInt(req.params.id);
       const updates = req.body;
-      const updatedUser = await this.userService.updateUser(userId, updates);
+      const updated_user = await this.userService.updateUser(user_id, updates);
 
-      if (!updatedUser) {
+      if (!updated_user) {
         return res.error({ message: "User not found." }, 404);
       }
-      const userResponseDTO = new UserResponseDTO(updatedUser);
+      const userResponseDTO = new UserResponseDTO(updated_user);
       return res.success(userResponseDTO, "User updated sucessfully.");
     } catch (error) {
       next(error);
     }
+  }
+
+  async deleteUser(req: Request, res: Response, next: NextFunction) {
+    try {
+      const user_id = parseInt(req.params.id);
+      const user_to_delete = await this.userService.getUserByPK(user_id)
+
+      if (!user_to_delete) {
+        return res.error({ message: "User not found."}, 404);
+      }
+
+      const delete_result = await this.userService.deleteUser(user_id);
+
+      if (!delete_result || delete_result.affected === 0) {
+        return res.error({ message: "Failed to delete user." }, 500);
+      }
+      const userResponseDTO = new UserResponseDTO(user_to_delete)
+      return res.success(userResponseDTO, "User deleted successfully.", 200);
+    } catch (error) {}
   }
 }
