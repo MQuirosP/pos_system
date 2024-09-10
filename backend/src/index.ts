@@ -15,17 +15,19 @@ const PORT = process.env.APP_PORT || 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
-dataSource.initialize().then(() => {
-  console.log("Connected to the database!");
+dataSource
+  .initialize()
+  .then(() => {
+    console.log("Connected to the database!");
 
-  // app.use("/users", (req, res, next) => userController.getUsers(req, res, next));
-  app.use('/api/', routes)
+    app.use("/api/", routes);
 
-  app.use(globalErrorHandler);
+    app.use(globalErrorHandler);
 
-  app.listen(PORT, () => {
-    console.log(`Server running at PORT: ${PORT}`);
+    app.listen(PORT, () => {
+      console.log(`Server running at PORT: ${PORT}`);
+    });
+  })
+  .catch((error) => {
+    console.error("Error connecting to the database:", error);
   });
-}).catch(error => {
-  console.error("Error connecting to the database:", error);
-});

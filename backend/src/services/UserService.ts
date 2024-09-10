@@ -1,10 +1,9 @@
 import { Users } from "../entities/Users";
 import dataSource from "../config/ormconfig";
 import { Repository, EntityManager, QueryFailedError } from "typeorm";
-import { AppError } from '../utils/errorHandler';
+import { AppError } from "../utils/errorHandler";
 import { UserModel } from "../database/models/User";
 import { UserCreateDTO } from "../dtos/user.dto";
-import { where } from "sequelize";
 
 export class UserService {
   private userRepository: Repository<Users>;
@@ -16,23 +15,24 @@ export class UserService {
   async getAllUsers(): Promise<Users[]> {
     try {
       return await this.userRepository.find();
-
     } catch (error) {
-      throw new AppError("Error fetching users.", 500)
+      throw new AppError("Error fetching users.", 500);
     }
   }
 
   async createUser(userData: UserCreateDTO): Promise<Users> {
     const entityManager = dataSource.manager;
     try {
-      return await entityManager.transaction(async (transactionalEntityManager: EntityManager) => {
-        const newUser = transactionalEntityManager.create(Users, userData);
-        return await transactionalEntityManager.save(newUser);
-      });
+      return await entityManager.transaction(
+        async (transactionalEntityManager: EntityManager) => {
+          const newUser = transactionalEntityManager.create(Users, userData);
+          return await transactionalEntityManager.save(newUser);
+        }
+      );
     } catch (error) {
       if (error instanceof QueryFailedError) {
         // Usar `error as any` para acceder al `code`
-        if ((error as any).code === '23505') {
+        if ((error as any).code === "23505") {
           // Maneja la violación de restricción única
           throw new AppError("User already exists.", 409);
         }
@@ -44,18 +44,21 @@ export class UserService {
   async getUserByPK(userId: number): Promise<Users | null> {
     const user = await this.userRepository.findOne({
       where: { userId },
-    })
+    });
     return user;
   }
 
-  async updateUser(userId: number, updates: Partial<UserModel>): Promise<UserModel | null> {
+  async updateUser(
+    userId: number,
+    updates: Partial<UserModel>
+  ): Promise<UserModel | null> {
     // Obtener el usuario directamente en el método updateUser
     const user = await this.userRepository.findOne({
-        where: { userId },
+      where: { userId },
     });
 
     if (!user) {
-        return null;
+      return null;
     }
 
     // Aplicar los cambios al usuario
@@ -63,6 +66,5 @@ export class UserService {
 
     // Guardar el usuario actualizado
     return await this.userRepository.save(user);
-}
-
+  }
 }
