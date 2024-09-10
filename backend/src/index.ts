@@ -6,7 +6,7 @@ import dotenv from "dotenv";
 import dataSource from "./config/ormconfig";
 import { globalErrorHandler } from "./utils/errorHandler";
 import routes from "./routes";
-import { responseMiddleware } from "./utils/responseMiddleware"
+import { responseMiddleware } from "./utils/responseMiddleware";
 
 dotenv.config();
 
