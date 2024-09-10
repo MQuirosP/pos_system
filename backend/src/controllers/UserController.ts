@@ -18,12 +18,7 @@ export class UserController {
     try {
       const users = await this.userService.getAllUsers();
       if (users.length === 0) {
-        return ResponseHandler.sendSuccessResponse(
-          res,
-          users,
-          "No users found.",
-          200
-        );
+        return res.success(users, "No users found.", 200)
       }
       const userResponseDTOs = users.map((user) => new UserResponseDTO(user));
 
@@ -32,8 +27,7 @@ export class UserController {
           ? "No users found."
           : "Users fetched succesfully.";
 
-      return ResponseHandler.sendSuccessResponse(
-        res,
+      return res.success(
         userResponseDTOs,
         responseMessage
       );
@@ -48,19 +42,10 @@ export class UserController {
       const user = await this.userService.getUserByPK(user_id);
 
       if (!user) {
-        return ResponseHandler.sendErrorResponse(
-          res,
-          { message: "User not found." },
-          404
-        );
+        return res.error({ message: "User not found."}, 404)
       }
       const userResponseDTO = new UserResponseDTO(user);
-      return ResponseHandler.sendSuccessResponse(
-        res,
-        userResponseDTO,
-        "User fetched succesfully.",
-        200
-      );
+      return res.success(userResponseDTO, "User fetched successfully.", 200)
     } catch (error) {
       next(error);
     }
@@ -85,12 +70,7 @@ export class UserController {
       const userResponseDTO = new UserResponseDTO(newUser);
 
       // Enviar la respuesta de éxito
-      return ResponseHandler.sendSuccessResponse(
-        res,
-        userResponseDTO,
-        "User created successfully",
-        201
-      );
+      return res.success(userResponseDTO, "User created successfully.", 201);
     } catch (error) {
       next(error);
     }
@@ -103,18 +83,10 @@ export class UserController {
       const updatedUser = await this.userService.updateUser(userId, updates);
 
       if (!updatedUser) {
-        return ResponseHandler.sendErrorResponse(
-          res,
-          { message: "User not found." },
-          404
-        );
+        return res.error({ message: "User not found." }, 404);
       }
       const userResponseDTO = new UserResponseDTO(updatedUser);
-      ResponseHandler.sendSuccessResponse(
-        res,
-        userResponseDTO,
-        "User updated succesfully."
-      );
+      return res.success(userResponseDTO, "User updated sucessfully.");
     } catch (error) {
       next(error);
     }

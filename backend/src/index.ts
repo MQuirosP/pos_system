@@ -6,6 +6,7 @@ import dotenv from "dotenv";
 import dataSource from "./config/ormconfig";
 import { globalErrorHandler } from "./utils/errorHandler";
 import routes from "./routes";
+import { responseMiddleware } from "./utils/responseMiddleware"
 
 dotenv.config();
 
@@ -20,8 +21,10 @@ dataSource
   .then(() => {
     console.log("Connected to the database!");
 
+    app.use(responseMiddleware);
+    
     app.use("/api/", routes);
-
+    
     app.use(globalErrorHandler);
 
     app.listen(PORT, () => {
