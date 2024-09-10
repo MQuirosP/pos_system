@@ -44,8 +44,8 @@ export class UserController {
 
   async getUserById(req: Request, res: Response, next: NextFunction) {
     try {
-      const userId = parseInt(req.params.id);
-      const user = await this.userService.getUserByPK(userId);
+      const user_id = parseInt(req.params.id);
+      const user = await this.userService.getUserByPK(user_id);
 
       if (!user) {
         return ResponseHandler.sendErrorResponse(

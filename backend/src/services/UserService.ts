@@ -41,20 +41,20 @@ export class UserService {
     }
   }
 
-  async getUserByPK(userId: number): Promise<Users | null> {
+  async getUserByPK(user_id: number): Promise<Users | null> {
     const user = await this.userRepository.findOne({
-      where: { userId },
+      where: {user_id}
     });
     return user;
   }
 
   async updateUser(
-    userId: number,
+    user_id: number,
     updates: Partial<UserModel>
   ): Promise<UserModel | null> {
     // Obtener el usuario directamente en el método updateUser
     const user = await this.userRepository.findOne({
-      where: { userId },
+      where: { user_id },
     });
 
     if (!user) {

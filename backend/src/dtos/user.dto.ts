@@ -36,11 +36,11 @@ export class UserCreateDTO {
 export class UserResponseDTO {
     username: string;
     email: string;
-    createdAt: Date;
+    created_at: Date;
 
     constructor(user: Users) {
         this.username = user.username;
         this.email = user.email;
-        this.createdAt = user.createdAt;
+        this.created_at = user.createdAt;
     }
 }

@@ -9,8 +9,8 @@ import {
 
 @Entity("users")
 export class Users extends BaseEntity {
-  @PrimaryGeneratedColumn("increment", { name: "userId" })
-  userId!: number; // Usa el modificador `!` para indicar que la propiedad será inicializada
+  @PrimaryGeneratedColumn("increment", { name: "user_id" })
+  user_id!: number; // Usa el modificador `!` para indicar que la propiedad será inicializada
 
   @Column({ type: "varchar", unique: true, nullable: false })
   username!: string;
@@ -40,14 +40,14 @@ export class Users extends BaseEntity {
   @CreateDateColumn({
     type: "timestamp",
     default: () => "CURRENT_TIMESTAMP",
-    name: "createdAt",
+    name: "created_at",
   })
   createdAt!: Date;
 
   @UpdateDateColumn({
     type: "timestamp",
     default: () => "CURRENT_TIMESTAMP",
-    name: "updatedAt",
+    name: "updated_at",
   })
   updatedAt!: Date;
 }
