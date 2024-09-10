@@ -42,12 +42,12 @@ export class Users extends BaseEntity {
     default: () => "CURRENT_TIMESTAMP",
     name: "created_at",
   })
-  createdAt!: Date;
+  created_at!: Date;
 
   @UpdateDateColumn({
     type: "timestamp",
     default: () => "CURRENT_TIMESTAMP",
     name: "updated_at",
   })
-  updatedAt!: Date;
+  updated_at!: Date;
 }

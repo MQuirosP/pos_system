@@ -41,6 +41,6 @@ export class UserResponseDTO {
     constructor(user: Users) {
         this.username = user.username;
         this.email = user.email;
-        this.created_at = user.createdAt;
+        this.created_at = user.created_at;
     }
 }
