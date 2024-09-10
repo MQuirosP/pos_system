@@ -1,7 +1,6 @@
 import { UserCreateDTO, UserResponseDTO } from "./../dtos/user.dto";
 import { Request, Response, NextFunction } from "express";
 import { UserService } from "../services/UserService";
-import { ResponseHandler } from "../utils/responseHandler";
 import dataSource from "../config/ormconfig";
 import { Users } from "../entities/Users";
 import { AppError } from "../utils/errorHandler";
@@ -29,7 +28,7 @@ export class UserController {
 
       return res.success(userResponseDTOs, responseMessage);
     } catch (error) {
-      next(error); // Pasar el error al middleware de errores
+      next(error);
     }
   }
 
@@ -53,20 +52,16 @@ export class UserController {
       // Crear DTO directamente con req.body
       const userData = new UserCreateDTO(req.body);
 
-      await userData.validate(); // Validar el DTO
+      await userData.validate();
 
-      // Crear usuario
       const newUser = await this.userService.createUser(userData);
 
-      // Verificar si newUser no es null o undefined
       if (!newUser) {
         throw new AppError("Failed to create user.", 500);
       }
 
-      // Crear DTO de respuesta directamente
       const userResponseDTO = new UserResponseDTO(newUser);
 
-      // Enviar la respuesta de éxito
       return res.success(userResponseDTO, "User created successfully.", 201);
     } catch (error) {
       next(error);
@@ -103,8 +98,11 @@ export class UserController {
       if (!delete_result || delete_result.affected === 0) {
         return res.error({ message: "Failed to delete user." }, 500);
       }
+
       const userResponseDTO = new UserResponseDTO(user_to_delete)
       return res.success(userResponseDTO, "User deleted successfully.", 200);
-    } catch (error) {}
+    } catch (error) {
+      next(error);
+    }
   }
 }
