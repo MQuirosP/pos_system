@@ -3,6 +3,8 @@ import dataSource from "../config/ormconfig";
 import { Repository, EntityManager, QueryFailedError } from "typeorm";
 import { AppError } from '../utils/errorHandler';
 import { UserModel } from "../database/models/User";
+import { UserCreateDTO } from "../dtos/user.dto";
+import { where } from "sequelize";
 
 export class UserService {
   private userRepository: Repository<Users>;
@@ -20,7 +22,7 @@ export class UserService {
     }
   }
 
-  async createUser(userData: Users): Promise<Users> {
+  async createUser(userData: UserCreateDTO): Promise<Users> {
     const entityManager = dataSource.manager;
     try {
       return await entityManager.transaction(async (transactionalEntityManager: EntityManager) => {
@@ -47,12 +49,20 @@ export class UserService {
   }
 
   async updateUser(userId: number, updates: Partial<UserModel>): Promise<UserModel | null> {
-    const user = await this.getUserByPK(userId)
+    // Obtener el usuario directamente en el método updateUser
+    const user = await this.userRepository.findOne({
+        where: { userId },
+    });
+
     if (!user) {
-      return null;
+        return null;
     }
-    const userModel = new UserModel();
-    Object.assign(userModel, user);
-    return await userModel.updateUser(updates);
-  }
+
+    // Aplicar los cambios al usuario
+    Object.assign(user, updates);
+
+    // Guardar el usuario actualizado
+    return await this.userRepository.save(user);
+}
+
 }
