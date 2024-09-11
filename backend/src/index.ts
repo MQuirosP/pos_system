@@ -4,9 +4,9 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import dataSource from "./config/ormconfig";
-import { globalErrorHandler } from "./utils/errorHandler";
+import { globalErrorHandler } from "./middlewares/errorHandler";
 import routes from "./routes";
-import { responseMiddleware } from "./utils/responseMiddleware";
+import { responseMiddleware } from "./middlewares/responseMiddleware";
 
 dotenv.config();
 

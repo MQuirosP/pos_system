@@ -1,9 +1,10 @@
-import { UserCreateDTO, UserResponseDTO } from "./../dtos/user.dto";
+import { UserCreateDTO, UserResponseDTO, UserUpdateDTO } from "./../dtos/user.dto";
 import { Request, Response, NextFunction } from "express";
 import { UserService } from "../services/UserService";
 import dataSource from "../config/ormconfig";
 import { Users } from "../entities/Users";
-import { AppError } from "../utils/errorHandler";
+import { AppError } from "../middlewares/errorHandler";
+import { handleDatabaseError } from "../middlewares/databaseErrorHandler";
 
 export class UserController {
   private readonly userService: UserService;
@@ -49,11 +50,9 @@ export class UserController {
 
   async createUser(req: Request, res: Response, next: NextFunction) {
     try {
-      // Crear DTO directamente con req.body
+
       const userData = new UserCreateDTO(req.body);
-
       await userData.validate();
-
       const newUser = await this.userService.createUser(userData);
 
       if (!newUser) {
@@ -71,8 +70,11 @@ export class UserController {
   async updateUser(req: Request, res: Response, next: NextFunction) {
     try {
       const userId = parseInt(req.params.id);
-      const updates = req.body;
-      const updatedUser = await this.userService.updateUser(userId, updates);
+      const userUpdateDTO = new UserUpdateDTO(req.body);
+
+      await userUpdateDTO.validate();
+
+      const updatedUser = await this.userService.updateUser(userId, userUpdateDTO);
 
       if (!updatedUser) {
         return res.error({ message: "User not found." }, 404);

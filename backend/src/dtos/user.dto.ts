@@ -1,46 +1,134 @@
-import { validateOrReject } from "class-validator";
+import {
+  IsNotEmpty,
+  IsOptional,
+  validateOrReject,
+  IsString,
+  IsEmail,
+  IsEnum,
+  ValidateIf,
+} from "class-validator";
 import { Users } from "../entities/Users";
+import { USER_KEYS } from "./dtoKeys";
+import { DTOBase } from "./DTOBase";
 
-export class UserCreateDTO {
+export class UserCreateDTO extends DTOBase{
+  static expectedKeys = USER_KEYS;
+
+  @IsNotEmpty()
+  @IsString()
+  username: string;
+
+  @IsNotEmpty()
+  @IsEmail()
+  email: string;
+
+  @IsNotEmpty()
+  @IsString()
+  password: string;
+
+  @IsNotEmpty()
+  @IsEnum(["administrator", "user"])
+  role: "administrator" | "user";
+
+  @IsNotEmpty()
+  @IsEnum(["active", "suspended", "pending"])
+  status: "active" | "suspended" | "pending";
+
+  @IsNotEmpty()
+  @IsString()
+  name: string;
+
+  @IsNotEmpty()
+  @IsString()
+  lastname: string;
+
+  constructor(data: {
     username: string;
     email: string;
     password: string;
-    role: 'administrator' | 'user';
-    status: 'active' | 'suspended' | 'pending';
+    role: "administrator" | "user";
+    status: "active" | "suspended" | "pending";
     name: string;
     lastname: string;
+  }) {
+      super();
+    this.username = data.username;
+    this.email = data.email;
+    this.password = data.password;
+    this.role = data.role;
+    this.status = data.status;
+    this.name = data.name;
+    this.lastname = data.lastname;
+  }
 
-    constructor(data: {
-        username: string;
-        email: string;
-        password: string;
-        role: 'administrator' | 'user';
-        status: 'active' | 'suspended' | 'pending';
-        name: string;
-        lastname: string;
-    }) {
-        this.username = data.username;
-        this.email = data.email;
-        this.password = data.password;
-        this.role = data.role;
-        this.status = data.status;
-        this.name = data.name;
-        this.lastname = data.lastname;
-    }
+  async validate() {
+    await validateOrReject(this);
+  }
+}
 
-    async validate() {
-        await validateOrReject(this)
-    }
+export class UserUpdateDTO extends DTOBase{
+  static expectedKeys = USER_KEYS;
+  @IsOptional()
+  @IsString()
+  @IsNotEmpty()
+  @ValidateIf((o) => o.username !== undefined)
+  username?: string;
+
+  @IsOptional()
+  @IsString()
+  @IsNotEmpty()
+  @ValidateIf((o) => o.username !== undefined)
+  email?: string;
+
+  @IsOptional()
+  @IsString()
+  @IsNotEmpty()
+  @ValidateIf((o) => o.username !== undefined)
+  password?: string;
+
+  @IsOptional()
+  @IsEnum(["administrator", "user"])
+  @IsNotEmpty()
+  @ValidateIf((o) => o.username !== undefined)
+  role?: "administrator" | "user";
+
+  @IsOptional()
+  @ValidateIf((o) => o.username !== undefined)
+  @IsNotEmpty()
+  @IsEnum(["active", "suspended", "pending"])
+  status?: "active" | "suspended" | "pending";
+
+  @IsOptional()
+  @IsString()
+  @IsNotEmpty()
+  @ValidateIf((o) => o.username !== undefined)
+  name?: string;
+
+  @IsOptional()
+  @IsString()
+  @IsNotEmpty()
+  @ValidateIf((o) => o.username !== undefined)
+  lastname?: string;
+
+  constructor(data: Partial<UserUpdateDTO>) {
+      super();
+    Object.assign(this, data);
+  }
+
+  async validate() {
+    // You may add custom validation logic here if needed
+    await validateOrReject(this);
+  }
 }
 
 export class UserResponseDTO {
-    username: string;
-    email: string;
-    created_at: Date;
+  username: string;
+  email: string;
+  created_at: Date;
 
-    constructor(user: Users) {
-        this.username = user.username;
-        this.email = user.email;
-        this.created_at = user.created_at;
-    }
+  constructor(user: Users) {
+    this.username = user.username;
+    this.email = user.email;
+    this.created_at = user.created_at;
+  }
 }
