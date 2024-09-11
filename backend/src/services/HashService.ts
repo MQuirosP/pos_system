@@ -1,6 +1,6 @@
 import * as bcrypt from "bcrypt";
 
-const saltRounds = 10;
+const saltRounds = parseInt(process.env.SALT_ROUNDS ?? '10', 10);
 
 export class HashingService {
     async hashPassword(password: string): Promise<string> {
