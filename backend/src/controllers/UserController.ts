@@ -34,8 +34,8 @@ export class UserController {
 
   async getUserById(req: Request, res: Response, next: NextFunction) {
     try {
-      const user_id = parseInt(req.params.id);
-      const user = await this.userService.getUserByPK(user_id);
+      const userId = parseInt(req.params.id);
+      const user = await this.userService.getUserByPK(userId);
 
       if (!user) {
         return res.error({ message: "User not found." }, 404);
@@ -70,14 +70,14 @@ export class UserController {
 
   async updateUser(req: Request, res: Response, next: NextFunction) {
     try {
-      const user_id = parseInt(req.params.id);
+      const userId = parseInt(req.params.id);
       const updates = req.body;
-      const updated_user = await this.userService.updateUser(user_id, updates);
+      const updatedUser = await this.userService.updateUser(userId, updates);
 
-      if (!updated_user) {
+      if (!updatedUser) {
         return res.error({ message: "User not found." }, 404);
       }
-      const userResponseDTO = new UserResponseDTO(updated_user);
+      const userResponseDTO = new UserResponseDTO(updatedUser);
       return res.success(userResponseDTO, "User updated sucessfully.");
     } catch (error) {
       next(error);
@@ -86,20 +86,20 @@ export class UserController {
 
   async deleteUser(req: Request, res: Response, next: NextFunction) {
     try {
-      const user_id = parseInt(req.params.id);
-      const user_to_delete = await this.userService.getUserByPK(user_id)
+      const userId = parseInt(req.params.id);
+      const userToDelete = await this.userService.getUserByPK(userId)
 
-      if (!user_to_delete) {
+      if (!userToDelete) {
         return res.error({ message: "User not found."}, 404);
       }
 
-      const delete_result = await this.userService.deleteUser(user_id);
+      const deleteResult = await this.userService.deleteUser(userId);
 
-      if (!delete_result || delete_result.affected === 0) {
+      if (!deleteResult || deleteResult.affected === 0) {
         return res.error({ message: "Failed to delete user." }, 500);
       }
 
-      const userResponseDTO = new UserResponseDTO(user_to_delete)
+      const userResponseDTO = new UserResponseDTO(userToDelete)
       return res.success(userResponseDTO, "User deleted successfully.", 200);
     } catch (error) {
       next(error);
