@@ -15,19 +15,12 @@ export class UserService {
     this.hashingService = new HashingService();
   }
 
-  async getAllUsers(): Promise<Users[]> {
-    try {
-      return await this.userRepository.find();
-    } catch (error) {
-      throw new AppError("Error fetching users.", 500);
+  private async hashPassword(password: string): Promise<string> {
+    const hashedPassword = await this.hashingService.hashPassword(password);
+    if (!hashedPassword) {
+      throw new AppError("Hashing password couldn't be processed.", 422);
     }
-  }
-
-  async getUserByPK(userId: number): Promise<Users | null> {
-    const user = await this.userRepository.findOne({
-      where: { user_id: userId },
-    });
-    return user;
+    return hashedPassword;
   }
 
   async createUser(userData: UserCreateDTO): Promise<Users | undefined> {
@@ -58,12 +51,19 @@ export class UserService {
     }
   }
 
-  private async hashPassword(password: string): Promise<string> {
-    const hashedPassword = await this.hashingService.hashPassword(password);
-    if (!hashedPassword) {
-      throw new AppError("Hashing password couldn't be processed.", 422);
+  async getAllUsers(): Promise<Users[]> {
+    try {
+      return await this.userRepository.find();
+    } catch (error) {
+      throw new AppError("Error fetching users.", 500);
     }
-    return hashedPassword;
+  }
+
+  async getUserByPK(userId: number): Promise<Users | null> {
+    const user = await this.userRepository.findOne({
+      where: { user_id: userId },
+    });
+    return user;
   }
 
   async updateUser(
