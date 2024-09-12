@@ -15,7 +15,7 @@ export const validateDTO = (DTOClass: any) => {
             req.body = dto;
             next();
         } catch (error) {
-            next(new AppError("Validation error, some properties doesn't exists.", 400))
+            next(new AppError("Validation error, some properties doesn't exist.", 400))
         }
     }
 }

@@ -25,11 +25,10 @@ export class Users extends BaseEntity {
   role!: "administrator" | "user";
 
   @Column({
-    type: "enum",
-    enum: ["active", "suspended", "pending"],
-    default: "pending",
+    type: "boolean",
+    default: false,
   })
-  status!: "active" | "suspended" | "pending";
+  status!: boolean;
 
   @Column({ type: "varchar", nullable: false })
   name: string | null = null;

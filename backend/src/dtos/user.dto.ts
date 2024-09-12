@@ -6,6 +6,7 @@ import {
   IsEmail,
   IsEnum,
   ValidateIf,
+  IsBoolean,
 } from "class-validator";
 import { Users } from "../entities/Users";
 import { USER_KEYS } from "./dtoKeys";
@@ -31,8 +32,8 @@ export class UserCreateDTO extends DTOBase{
   role: "administrator" | "user";
 
   @IsNotEmpty()
-  @IsEnum(["active", "suspended", "pending"])
-  status: "active" | "suspended" | "pending";
+  @IsBoolean()
+  status: boolean;
 
   @IsNotEmpty()
   @IsString()
@@ -47,7 +48,7 @@ export class UserCreateDTO extends DTOBase{
     email: string;
     password: string;
     role: "administrator" | "user";
-    status: "active" | "suspended" | "pending";
+    status: boolean;
     name: string;
     lastname: string;
   }) {
@@ -77,37 +78,37 @@ export class UserUpdateDTO extends DTOBase{
   @IsOptional()
   @IsString()
   @IsNotEmpty()
-  @ValidateIf((o) => o.username !== undefined)
+  @ValidateIf((o) => o.email !== undefined)
   email?: string;
 
   @IsOptional()
   @IsString()
   @IsNotEmpty()
-  @ValidateIf((o) => o.username !== undefined)
+  @ValidateIf((o) => o.password !== undefined)
   password?: string;
 
   @IsOptional()
   @IsEnum(["administrator", "user"])
   @IsNotEmpty()
-  @ValidateIf((o) => o.username !== undefined)
+  @ValidateIf((o) => o.role !== undefined)
   role?: "administrator" | "user";
 
   @IsOptional()
-  @ValidateIf((o) => o.username !== undefined)
+  @ValidateIf((o) => o.status !== undefined)
   @IsNotEmpty()
-  @IsEnum(["active", "suspended", "pending"])
-  status?: "active" | "suspended" | "pending";
+  @IsBoolean()
+  status?: boolean;
 
   @IsOptional()
   @IsString()
   @IsNotEmpty()
-  @ValidateIf((o) => o.username !== undefined)
+  @ValidateIf((o) => o.name !== undefined)
   name?: string;
 
   @IsOptional()
   @IsString()
   @IsNotEmpty()
-  @ValidateIf((o) => o.username !== undefined)
+  @ValidateIf((o) => o.lastname !== undefined)
   lastname?: string;
 
   constructor(data: Partial<UserUpdateDTO>) {
