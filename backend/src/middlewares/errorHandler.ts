@@ -1,9 +1,7 @@
-// se enfoca en manejar errores no controlados o excepciones más graves
+// src/middlewares/errorHandler.ts
+import { Request, Response, NextFunction } from "express";
 
-import { json } from "body-parser";
-import { error } from "console";
-
-// extiende la clase Error para agregar información adicional
+// Extiende la clase Error para agregar información adicional
 export class AppError extends Error {
   statusCode: number;
   status: string;
@@ -21,22 +19,39 @@ export class AppError extends Error {
 }
 
 // Middleware para manejar errores globales
-export const globalErrorHandler = (err: any, req: any, res: any, next: any) => {
+export const globalErrorHandler = (
+  err: any,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  // Manejo de errores de análisis JSON
+  if (err.type === "entity.parse.failed") {
+    return res.status(400).json({
+      status: "fail",
+      message: "Invalid JSON format in request body.",
+      statusCode: err.statusCode,
+    });
+  }
+
+  // Configura el código de estado y el mensaje de error
   err.statusCode = err.statusCode || 500;
   err.status = err.status || "error";
 
+  // Manejo de errores controlados por el usuario (AppError)
   if (err.isOperational) {
-    // Errores controlados por el usuario
-    res.status(err.statusCode).json({
+    return res.status(err.statusCode).json({
       status: err.status,
       message: err.message,
-    });
-  } else {
-    // Errores inesperados
-    console.error('Unexpected error:', err);
-    res.status(500).json({
-      status: "error",
-      message: "Something went wrong. Please try again later.",
+      statusCode: err.statusCode,
     });
   }
+
+  // Manejo de errores inesperados
+  console.error("Unexpected error:", err);
+  return res.status(500).json({
+    status: "error",
+    message: "Something went wrong. Please try again later.",
+    statusCode: err.statusCode,
+  });
 };

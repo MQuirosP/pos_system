@@ -69,6 +69,7 @@ export class UserCreateDTO extends DTOBase{
 
 export class UserUpdateDTO extends DTOBase{
   static expectedKeys = USER_KEYS;
+  
   @IsOptional()
   @IsString()
   @IsNotEmpty()
