@@ -14,7 +14,11 @@ const app = express();
 const PORT = process.env.APP_PORT || 3000;
 
 app.use(cors());
-app.use(bodyParser.json());
+app.use(bodyParser.json({
+  limit: '10mb',
+  strict: true,
+  type: 'application/json'
+}));
 
 dataSource
   .initialize()
@@ -22,9 +26,7 @@ dataSource
     console.log("Connected to the database!");
 
     app.use(responseMiddleware);
-    
     app.use("/api/", routes);
-    
     app.use(globalErrorHandler);
 
     app.listen(PORT, () => {

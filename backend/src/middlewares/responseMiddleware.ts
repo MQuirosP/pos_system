@@ -16,7 +16,6 @@ export const responseMiddleware = (req: Request, res: Response, next: NextFuncti
                 success: true,
                 message,
                 data,
-                statusCode,
             });
         }
     }
@@ -26,7 +25,6 @@ export const responseMiddleware = (req: Request, res: Response, next: NextFuncti
             res.status(statusCode).json({
                 success: false,
                 message: error.message || "Internal server error.",
-                statusCode,
             });
         }
     }

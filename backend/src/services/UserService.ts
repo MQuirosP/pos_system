@@ -23,24 +23,12 @@ export class UserService {
     return hashedPassword;
   }
 
-  async createUser(userData: UserCreateDTO): Promise<Users | undefined> {
-    // Verifica si la contraseña está presente
-    if (!userData.password) {
-      throw new AppError("Password is required", 400);
-    }
+  async createUser(userData: UserCreateDTO): Promise<Users> {
+
+    userData.password = await this.hashPassword(userData.password);
 
     try {
-      // Hashea la contraseña
-      userData.password = await this.hashPassword(userData.password);
-    } catch (error) {
-      throw new AppError("Error hashing password", 500);
-    }
-
-    const entityManager = dataSource.manager;
-
-    try {
-      // Ejecuta la transacción para crear el usuario
-      return await entityManager.transaction(
+      return await dataSource.manager.transaction(
         async (transactionalEntityManager: EntityManager) => {
           const newUser = transactionalEntityManager.create(Users, userData);
           return await transactionalEntityManager.save(newUser);
@@ -50,20 +38,24 @@ export class UserService {
       throw handleDatabaseError(error);
     }
   }
-
+  
   async getAllUsers(): Promise<Users[]> {
     try {
       return await this.userRepository.find();
     } catch (error) {
-      throw new AppError("Error fetching users.", 500);
+      throw handleDatabaseError(error);
     }
   }
 
   async getUserByPK(userId: number): Promise<Users | null> {
-    const user = await this.userRepository.findOne({
-      where: { user_id: userId },
-    });
-    return user;
+    try {
+      const user = await this.userRepository.findOne({
+        where: { user_id: userId },
+      });
+      return user;
+    } catch (error) {
+      throw handleDatabaseError(error);
+    }
   }
 
   async updateUser(
@@ -77,7 +69,7 @@ export class UserService {
       });
 
       if (!user) {
-        return null;
+        throw handleDatabaseError(user);
       }
 
       if (updates.password) {
@@ -103,8 +95,9 @@ export class UserService {
     const user = await this.userRepository.findOne({
       where: { user_id: userId },
     });
+
     if (!user) {
-      return null;
+      throw new AppError("User not found.", 404);
     }
 
     return await this.userRepository.delete(userId);

@@ -3,8 +3,7 @@ import { Request, Response, NextFunction } from "express";
 import { UserService } from "../services/UserService";
 import dataSource from "../config/ormconfig";
 import { Users } from "../entities/Users";
-import { AppError } from "../middlewares/errorHandler";
-import { handleDatabaseError } from "../middlewares/databaseErrorHandler";
+import { error } from "console";
 
 export class UserController {
   private readonly userService: UserService;
@@ -55,11 +54,7 @@ export class UserController {
       await userData.validate();
       const newUser = await this.userService.createUser(userData);
 
-      if (!newUser) {
-        throw new AppError("Failed to create user.", 500);
-      }
-
-      const userResponseDTO = new UserResponseDTO(newUser);
+      const userResponseDTO = new UserResponseDTO(newUser!);
 
       return res.success(userResponseDTO, "User created successfully.", 201);
     } catch (error) {
@@ -71,15 +66,15 @@ export class UserController {
     try {
       const userId = parseInt(req.params.id);
       const userUpdateDTO = new UserUpdateDTO(req.body);
-
+      
       await userUpdateDTO.validate();
-
       const updatedUser = await this.userService.updateUser(userId, userUpdateDTO);
 
       if (!updatedUser) {
-        return res.error({ message: "User not found." }, 404);
+        // return res.error({ message: "User not found." }, 404);
+        next(error)
       }
-      const userResponseDTO = new UserResponseDTO(updatedUser);
+      const userResponseDTO = new UserResponseDTO(updatedUser!);
       return res.success(userResponseDTO, "User updated sucessfully.");
     } catch (error) {
       next(error);

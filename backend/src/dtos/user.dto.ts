@@ -4,15 +4,19 @@ import {
   validateOrReject,
   IsString,
   IsEmail,
-  IsEnum,
   ValidateIf,
   IsBoolean,
+  registerDecorator,
+  ValidationArguments,
+  ValidationOptions,
 } from "class-validator";
 import { Users } from "../entities/Users";
 import { USER_KEYS } from "./dtoKeys";
 import { DTOBase } from "./DTOBase";
+import { IsEnumWithMessage } from "../decorators/isEnumWithMessage";
 
-export class UserCreateDTO extends DTOBase{
+
+export class UserCreateDTO extends DTOBase {
   static expectedKeys = USER_KEYS;
 
   @IsNotEmpty()
@@ -28,7 +32,7 @@ export class UserCreateDTO extends DTOBase{
   password: string;
 
   @IsNotEmpty()
-  @IsEnum(["administrator", "user"])
+  @IsEnumWithMessage(["administrator", "user"])
   role: "administrator" | "user";
 
   @IsNotEmpty()
@@ -52,7 +56,7 @@ export class UserCreateDTO extends DTOBase{
     name: string;
     lastname: string;
   }) {
-      super();
+    super();
     this.username = data.username;
     this.email = data.email;
     this.password = data.password;
@@ -67,9 +71,9 @@ export class UserCreateDTO extends DTOBase{
   }
 }
 
-export class UserUpdateDTO extends DTOBase{
+export class UserUpdateDTO extends DTOBase {
   static expectedKeys = USER_KEYS;
-  
+
   @IsOptional()
   @IsString()
   @IsNotEmpty()
@@ -89,7 +93,7 @@ export class UserUpdateDTO extends DTOBase{
   password?: string;
 
   @IsOptional()
-  @IsEnum(["administrator", "user"])
+  @IsEnumWithMessage(["administrator", "user"])
   @IsNotEmpty()
   @ValidateIf((o) => o.role !== undefined)
   role?: "administrator" | "user";
@@ -113,7 +117,7 @@ export class UserUpdateDTO extends DTOBase{
   lastname?: string;
 
   constructor(data: Partial<UserUpdateDTO>) {
-      super();
+    super();
     Object.assign(this, data);
   }
 

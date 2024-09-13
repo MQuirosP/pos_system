@@ -10,5 +10,5 @@ export function handleDatabaseError(error: any): void {
       throw new AppError("Invalid data. Some fields cannot be empty.", 400);
     }
   }
-  throw new AppError("Error creating user.", 500);
+  throw new AppError(error, 500);
 }

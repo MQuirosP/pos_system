@@ -1,4 +1,5 @@
 // src/middlewares/errorHandler.ts
+import { ValidationError } from "class-validator";
 import { Request, Response, NextFunction } from "express";
 
 // Extiende la clase Error para agregar información adicional
@@ -9,11 +10,9 @@ export class AppError extends Error {
 
   constructor(message: string, statusCode: number) {
     super(message);
-
     this.statusCode = statusCode;
     this.status = `${statusCode}`.startsWith("4") ? "fail" : "error";
     this.isOperational = true;
-
     Error.captureStackTrace(this, this.constructor);
   }
 }
@@ -25,25 +24,57 @@ export const globalErrorHandler = (
   res: Response,
   next: NextFunction
 ) => {
+  // Manejo de errores de validación
+  if (Array.isArray(err)) {
+    const validationErrors = err as ValidationError[];
+    const errorMessages = validationErrors
+      .map((e) => {
+        const constraints = e.constraints || {};
+        return Object.values(constraints).join(", ");
+      })
+      .join(", ");
+    return res.status(400).json({
+      status: "fail",
+      message: `Validation error: ${errorMessages}.`,
+    });
+  }
+
+  if (err.message.includes('Database error')) {
+    console.error("Database error:", err.message);
+    return res.status(500).json({
+      status: "error",
+      message: "A database error occurred.",
+    });
+  }
+
+  // Manejo de errores personalizados (AppError)
+  if (err instanceof AppError) {
+    return res.status(err.statusCode).json({
+      status: err.status,
+      message: err.message,
+    });
+  }
+
+  if (err.isOperational) {
+    return res.status(err.statusCode).json({
+      status: err.status,
+      message: err.message,
+    });
+  }
+
   // Manejo de errores de análisis JSON
   if (err.type === "entity.parse.failed") {
     return res.status(400).json({
       status: "fail",
       message: "Invalid JSON format in request body.",
-      statusCode: err.statusCode,
     });
   }
 
-  // Configura el código de estado y el mensaje de error
-  err.statusCode = err.statusCode || 500;
-  err.status = err.status || "error";
-
-  // Manejo de errores controlados por el usuario (AppError)
-  if (err.isOperational) {
+  // Manejo de errores de tamaño excesivo
+  if (err.type === "entity.too.large") {
     return res.status(err.statusCode).json({
-      status: err.status,
-      message: err.message,
-      statusCode: err.statusCode,
+      status: "fail",
+      message: "Request body is too large",
     });
   }
 
@@ -52,6 +83,5 @@ export const globalErrorHandler = (
   return res.status(500).json({
     status: "error",
     message: "Something went wrong. Please try again later.",
-    statusCode: err.statusCode,
   });
 };
