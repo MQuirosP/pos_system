@@ -37,10 +37,7 @@ export const validateDTO =
             400
           )
         );
-      } else if (error instanceof AppError) {
-        // Manejo de errores personalizados
-        next(error);
-      } else {
+      }  else {
         // Manejo de otros errores
         next(
           new AppError(
