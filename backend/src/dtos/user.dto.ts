@@ -6,9 +6,6 @@ import {
   IsEmail,
   ValidateIf,
   IsBoolean,
-  registerDecorator,
-  ValidationArguments,
-  ValidationOptions,
 } from "class-validator";
 import { Users } from "../entities/Users";
 import { USER_KEYS } from "./dtoKeys";
