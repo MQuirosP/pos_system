@@ -9,6 +9,9 @@ export function handleDatabaseError(error: any): void {
     if ((error as any).code === "23514") {
       throw new AppError("Invalid data. Some fields cannot be empty.", 400);
     }
+    if ((error as any).code === 'P0001') {  
+      throw new AppError('The username cannot be modified.', 500);
+    }
   }
   throw new AppError(error, 500);
 }
