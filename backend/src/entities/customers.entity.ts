@@ -1,3 +1,4 @@
+import { ICustomers } from './../interfaces/customers.interface';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -9,9 +10,9 @@ import {
 import { Sale } from "./sales.entity";
 
 @Entity("customers")
-export class Customer {
+export class Customer implements ICustomers{
   @PrimaryGeneratedColumn({ name: "customer_id" })
-  customerId!: number;
+  customer_id!: number;
 
   @Column({
     name: "customer_name",
@@ -19,7 +20,7 @@ export class Customer {
     length: 255,
     nullable: false,
   })
-  customerName?: string;
+  customer_name?: string;
 
   @Column({
     name: "customer_first_lastname",
@@ -27,7 +28,7 @@ export class Customer {
     length: 255,
     nullable: false,
   })
-  customerFirstLastname?: string;
+  customer_first_lastname?: string;
 
   @Column({
     name: "customer_second_lastname",
@@ -35,7 +36,7 @@ export class Customer {
     length: 255,
     nullable: false,
   })
-  customerSecondLastname?: string;
+  customer_second_lastname?: string;
 
   @Column({
     name: "customer_address",
@@ -43,7 +44,7 @@ export class Customer {
     length: 255,
     nullable: false,
   })
-  customerAddress!: string;
+  customer_address!: string;
 
   @Column({
     name: "customer_phone",
@@ -51,7 +52,7 @@ export class Customer {
     length: 20,
     nullable: false,
   })
-  customerPhone!: string;
+  customer_phone!: string;
 
   @Column({
     name: "customer_email",
@@ -59,7 +60,7 @@ export class Customer {
     length: 255,
     nullable: false,
   })
-  customerEmail!: string;
+  customer_email!: string;
 
   @Column({
     name: "customer_dni",
@@ -68,21 +69,21 @@ export class Customer {
     nullable: false,
     unique: false,
   })
-  customerDni?: string;
+  customer_dni?: string;
 
   @CreateDateColumn({
     name: "created_at",
     type: "timestamp",
     default: () => "CURRENT_TIMESTAMP",
   })
-  createdAt!: Date;
+  created_at!: Date;
 
   @UpdateDateColumn({
     name: "updated_at",
     type: "timestamp",
     default: () => "CURRENT_TIMESTAMP",
   })
-  updatedAt!: Date;
+  updated_at!: Date;
 
   @OneToMany(() => Sale, sale => sale.customer)
     sales!: Sale[];

@@ -12,9 +12,10 @@ import { Sale } from "./sales.entity";
 import { SaleItem } from "./saleItems.entity";
 import { Purchase } from "./purchases.entity";
 import { PurchaseItem } from "./purchaseItems.entity";
+import { IProduct } from "../interfaces/products.interface";
 
 @Entity("products")
-export class Product {
+export class Product implements IProduct {
   @PrimaryGeneratedColumn({ name: "product_id" })
   product_id!: number;
 
