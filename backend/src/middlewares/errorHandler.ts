@@ -40,7 +40,7 @@ export const globalErrorHandler = (
   }
 
   if (err.message.includes('Database error')) {
-    console.error("Database error:", err.message);
+    // console.error("Database error:", err.message);
     return res.status(500).json({
       status: "error",
       message: "A database error occurred.",
@@ -79,7 +79,7 @@ export const globalErrorHandler = (
   }
 
   // Manejo de errores inesperados
-  console.error("Unexpected error:", err);
+  // console.error("Unexpected error:", err);
   return res.status(500).json({
     status: "error",
     message: "Something went wrong. Please try again later.",
