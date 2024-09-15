@@ -1,0 +1,92 @@
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
+  ManyToOne,
+  JoinTable,
+  ManyToMany,
+} from "typeorm";
+import { Product } from "./Products";
+import { Customer } from "./Customers"; // Asegúrate de ajustar la ruta según sea necesario
+
+@Entity("sales")
+export class Sale {
+  @PrimaryGeneratedColumn({ name: "sale_id" })
+  sale_id!: number;
+
+  @Column({ name: "customer_id", type: "int", nullable: false })
+  customer_id?: number;
+
+  @Column({ name: "customer_name", type: "varchar" })
+  customer_name!: string;
+
+  @Column({ name: "payment_method", type: "varchar", nullable: false })
+  payment_method?: string;
+
+  @Column({ name: "doc_number", type: "varchar", unique: false })
+  doc_number!: string;
+
+  @CreateDateColumn({
+    name: "created_at",
+    type: "timestamp",
+    default: () => "CURRENT_TIMESTAMP",
+  })
+  created_at!: Date;
+
+  @UpdateDateColumn({
+    name: "updated_at",
+    type: "timestamp",
+    default: () => "CURRENT_TIMESTAMP",
+  })
+  updated_at!: Date;
+
+  @Column({ name: "status", type: "varchar", nullable: false })
+  status?: string;
+
+  @Column({ name: "observations", type: "text", nullable: false })
+  observations?: string;
+
+  @Column({
+    name: "sub_total",
+    type: "decimal",
+    precision: 10,
+    scale: 2,
+    nullable: false,
+  })
+  sub_total?: number;
+
+  @Column({
+    name: "taxes_amount",
+    type: "decimal",
+    precision: 10,
+    scale: 2,
+    nullable: false,
+  })
+  taxes_amount?: number;
+
+  @Column({
+    name: "total",
+    type: "decimal",
+    precision: 10,
+    scale: 2,
+    nullable: false,
+  })
+  total?: number;
+
+  // Relación Many-to-One con Customer
+    @ManyToOne(() => Customer, customer => customer.sales, { nullable: false })
+    customer?: Customer;
+
+  @ManyToMany(() => Product, (product) => product.sales)
+  @JoinTable({
+    name: "sale_items", // Tabla intermedia para productos y ventas
+    joinColumn: { name: "sale_id", referencedColumnName: "sale_id" },
+    inverseJoinColumn: {
+      name: "product_id",
+      referencedColumnName: "product_id",
+    },
+  })
+  products!: Product[];
+}
