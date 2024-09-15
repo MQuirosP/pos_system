@@ -2,6 +2,13 @@ import { DataSource } from "typeorm";
 import * as dotenv from "dotenv";
 import { Users } from "../entities/users.entity";
 import { UserModel } from "../database/models/User";
+import { Product } from "../entities/products.entity";
+import { Purchase } from "../entities/purchases.entity";
+import { PurchaseItem } from "../entities/purchaseItems.entity";
+import { Sale } from "../entities/sales.entity";
+import { SaleItem } from "../entities/saleItems.entity";
+import { Customer } from "../entities/customers.entity";
+import { Provider } from "../entities/providers.entity";
 
 dotenv.config(); // Cargar variables de entorno
 
@@ -15,6 +22,8 @@ const dataSource = new DataSource({
   entities: [
     Users,
     UserModel,
+    Product, Purchase, PurchaseItem, 
+    Sale, SaleItem, Customer, Provider,
     process.env.NODE_ENV === "production"
       ? "./dist/database/entities/*.js"
       : "./src/database/entities/*.ts",
