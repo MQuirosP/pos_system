@@ -14,7 +14,7 @@ import { IsEnumWithMessage } from "../decorators/isEnumWithMessage";
 
 
 export class UserCreateDTO extends DTOBase {
-  static expectedKeys = USER_KEYS;
+  static expectedKeys: string[] = USER_KEYS;
 
   @IsNotEmpty()
   @IsString()
@@ -119,7 +119,6 @@ export class UserUpdateDTO extends DTOBase {
   }
 
   async validate() {
-    // You may add custom validation logic here if needed
     await validateOrReject(this);
   }
 }

@@ -17,6 +17,20 @@ export class UserController {
     this.userService = new UserService(userRepository);
   }
 
+  async createUser(req: Request, res: Response, next: NextFunction) {
+    try {
+      const userData = new UserCreateDTO(req.body);
+      await userData.validate();
+      const newUser = await this.userService.createUser(userData);
+
+      const userResponseDTO = new UserResponseDTO(newUser!);
+
+      return res.success(userResponseDTO, "User created successfully.", 201);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async getUsers(req: Request, res: Response, next: NextFunction) {
     try {
       const users = await this.userService.getAllUsers();
@@ -30,7 +44,7 @@ export class UserController {
           ? "No users found."
           : "Users fetched succesfully.";
 
-      return res.success(userResponseDTOs, responseMessage);
+      return res.success(userResponseDTOs, responseMessage, 200);
     } catch (error) {
       next(error);
     }
@@ -46,20 +60,6 @@ export class UserController {
       }
       const userResponseDTO = new UserResponseDTO(user);
       return res.success(userResponseDTO, "User fetched successfully.", 200);
-    } catch (error) {
-      next(error);
-    }
-  }
-
-  async createUser(req: Request, res: Response, next: NextFunction) {
-    try {
-      const userData = new UserCreateDTO(req.body);
-      await userData.validate();
-      const newUser = await this.userService.createUser(userData);
-
-      const userResponseDTO = new UserResponseDTO(newUser!);
-
-      return res.success(userResponseDTO, "User created successfully.", 201);
     } catch (error) {
       next(error);
     }

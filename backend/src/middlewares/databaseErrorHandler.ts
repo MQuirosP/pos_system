@@ -2,19 +2,21 @@ import { QueryFailedError } from "typeorm";
 import { AppError } from "./errorHandler";
 
 export function handleDatabaseError(error: any): void {
+  console.log(error);
   if (error instanceof QueryFailedError) {
     const code = (error as any).code;
 
     switch (code) {
       case "23505":
-        throw new AppError("User already exists.", 409);
+        throw new AppError(
+          `Data already exists in table ${(error as any).table}`,
+          409
+        );
       case "23514":
         throw new AppError("Invalid data. Some fields cannot be empty.", 400);
       case "P0001":
         throw new AppError(
-          `The username cannot be modified. Details: ${
-            (error as any).where || ""
-          }`,
+          `The data cannot be modified. Details: ${(error as any).where || ""}`,
           500
         );
       default:

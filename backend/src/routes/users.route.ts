@@ -6,13 +6,13 @@ import { UserCreateDTO, UserUpdateDTO } from "../dtos/users.dto";
 const router = express.Router();
 const userController = new UserController();
 
-router.get("/", userController.getUsers.bind(userController));
 router.post(
   "/",
   validateDTO(UserCreateDTO),
   userController.createUser.bind(userController)
 );
-router.get("/:id", userController.getUserById.bind(userController));
+router.get("/", userController.getUsers.bind(userController));
+router.get("/id/:id", userController.getUserById.bind(userController));
 router.put(
   "/:id",
   validateDTO(UserUpdateDTO),

@@ -7,3 +7,17 @@ export const USER_KEYS = [
   "name",
   "lastname",
 ];
+
+export const PRODUCT_KEYS = [
+  "int_code",
+  "name",
+  "description",
+  "purchase_price",
+  "quantity",
+  "sale_price",
+  "is_taxed",
+  "margin",
+  "tax_percentage",
+  "category_id",
+  "category_name"
+]

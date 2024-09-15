@@ -8,6 +8,7 @@ import {
 } from "typeorm";
 import { handleDatabaseError } from "../middlewares/databaseErrorHandler";
 import { AppError } from "../middlewares/errorHandler";
+import { ProductCreateDTO } from "../dtos/products.dto";
 
 export class ProductService {
   private productRepository: Repository<Product>;
@@ -16,7 +17,7 @@ export class ProductService {
     this.productRepository = productRepository;
   }
 
-  async createProduct(productData: Product): Promise<Product> {
+  async createProduct(productData: ProductCreateDTO): Promise<Product> {
     try {
       return await dataSource.manager.transaction(
         async (transactionalEntityManager: EntityManager) => {
