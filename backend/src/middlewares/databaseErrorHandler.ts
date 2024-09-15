@@ -9,7 +9,7 @@ export function handleDatabaseError(error: any): void {
     switch (code) {
       case "23505":
         throw new AppError(
-          `Data already exists in table ${(error as any).table}`,
+          `Some data already exists in table ${(error as any).table}`,
           409
         );
       case "23514":
