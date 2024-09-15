@@ -1,6 +1,6 @@
 import { DataSource } from "typeorm";
 import * as dotenv from "dotenv";
-import { Users } from "../entities/Users";
+import { Users } from "../entities/users.entity";
 import { UserModel } from "../database/models/User";
 
 dotenv.config(); // Cargar variables de entorno

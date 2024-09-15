@@ -7,11 +7,12 @@ import {
   CreateDateColumn,
   UpdateDateColumn
 } from "typeorm";
-import { Sale } from "./Sales";
-import { Product } from "./Products";
+import { Sale } from "./sales.entity";
+import { Product } from "./products.entity";
+import { ISaleItems } from "../interfaces/saleItems.interface";
 
 @Entity("sale_items")
-export class SaleItem {
+export class SaleItem implements ISaleItems {
   @PrimaryGeneratedColumn({ name: "sequence" })
   sequence!: number;
 

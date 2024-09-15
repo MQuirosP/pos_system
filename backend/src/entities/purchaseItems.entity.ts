@@ -7,11 +7,12 @@ import {
   UpdateDateColumn,
   JoinColumn,
 } from "typeorm";
-import { Purchase } from "./Purchases";
-import { Product } from "./Products";
+import { Purchase } from "./purchases.entity";
+import { Product } from "./products.entity";
+import { IPurchaseItems } from "../interfaces/purchaseItems.interface";
 
 @Entity("purchase_items")
-export class PurchaseItem {
+export class PurchaseItem implements IPurchaseItems {
   @PrimaryGeneratedColumn({ name: "sequence" })
   sequence!: number;
 

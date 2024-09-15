@@ -6,12 +6,13 @@ import {
   UpdateDateColumn,
   OneToMany,
 } from "typeorm";
-import { Purchase } from "./Purchases";
+import { Purchase } from "./purchases.entity";
+import { IProviders } from "../interfaces/providers.interface";
 
 @Entity("providers")
-export class Provider {
+export class Provider implements IProviders {
   @PrimaryGeneratedColumn({ name: "provider_id" })
-  providerId!: number;
+  provider_id!: number;
 
   @Column({
     name: "provider_name",
@@ -19,7 +20,7 @@ export class Provider {
     length: 50,
     nullable: false,
   })
-  providerName!: string;
+  provider_name!: string;
 
   @Column({
     name: "provider_address",
@@ -27,7 +28,7 @@ export class Provider {
     length: 100,
     nullable: false,
   })
-  providerAddress!: string;
+  provider_address!: string;
 
   @Column({
     name: "provider_phone",
@@ -35,7 +36,7 @@ export class Provider {
     length: 20,
     nullable: false,
   })
-  providerPhone!: string;
+  provider_phone!: string;
 
   @Column({
     name: "provider_email",
@@ -43,7 +44,7 @@ export class Provider {
     length: 50,
     nullable: false,
   })
-  providerEmail!: string;
+  provider_email!: string;
 
   @Column({
     name: "provider_dni",
@@ -52,21 +53,21 @@ export class Provider {
     nullable: false,
     unique: true,
   })
-  providerDni!: string;
+  provider_dni!: string;
 
   @CreateDateColumn({
     name: "created_at",
     type: "timestamp",
     default: () => "CURRENT_TIMESTAMP",
   })
-  createdAt!: Date;
+  created_at!: Date;
 
   @UpdateDateColumn({
     name: "updated_at",
     type: "timestamp",
     default: () => "CURRENT_TIMESTAMP",
   })
-  updatedAt!: Date;
+  updated_at!: Date;
 
   @OneToMany(() => Purchase, purchase => purchase.provider)
       purchases!: Purchase[];

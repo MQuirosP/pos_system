@@ -7,7 +7,7 @@ import {
   ValidateIf,
   IsBoolean,
 } from "class-validator";
-import { Users } from "../entities/Users";
+import { Users } from "../entities/users.entity";
 import { USER_KEYS } from "./dtoKeys";
 import { DTOBase } from "./DTOBase";
 import { IsEnumWithMessage } from "../decorators/isEnumWithMessage";

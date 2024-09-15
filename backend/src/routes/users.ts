@@ -1,7 +1,7 @@
 import express from "express";
 import { UserController } from "../controllers/UserController";
 import { validateDTO } from "../middlewares/validateDTO";
-import { UserCreateDTO, UserUpdateDTO } from "../dtos/user.dto";
+import { UserCreateDTO, UserUpdateDTO } from "../dtos/users.dto";
 
 const router = express.Router();
 const userController = new UserController();

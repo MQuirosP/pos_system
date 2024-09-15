@@ -8,10 +8,10 @@ import {
   ManyToMany,
   OneToMany,
 } from "typeorm";
-import { Sale } from "./Sales";
-import { SaleItem } from "./SaleItems";
-import { Purchase } from "./Purchases";
-import { PurchaseItem } from "./PurchaseItems";
+import { Sale } from "./sales.entity";
+import { SaleItem } from "./saleItems.entity";
+import { Purchase } from "./purchases.entity";
+import { PurchaseItem } from "./purchaseItems.entity";
 
 @Entity("products")
 export class Product {

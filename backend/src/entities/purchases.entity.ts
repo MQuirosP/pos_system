@@ -9,12 +9,12 @@ import {
   ManyToMany,
   JoinTable,
 } from "typeorm";
-import { Product } from "./Products";
-import { Provider } from "./Providers";
-// import { Provider } from "./Provider"; // Asegúrate de tener la entidad Provider en tu proyecto
+import { Product } from "./products.entity";
+import { Provider } from "./providers.entity";
+import { IPurchases } from "../interfaces/purchases.interface";
 
 @Entity("purchases")
-export class Purchase {
+export class Purchase implements IPurchases {
   @PrimaryGeneratedColumn({ name: "purchase_id" })
   purchase_id!: number;
 
@@ -77,9 +77,11 @@ export class Purchase {
   })
   updated_at!: Date;
 
-    @ManyToOne(() => Provider, (provider) => provider.purchases, { onDelete: 'SET NULL' })
-    @JoinColumn({ name: "provider_id" })
-    provider!: Provider;
+  @ManyToOne(() => Provider, (provider) => provider.purchases, {
+    onDelete: "SET NULL",
+  })
+  @JoinColumn({ name: "provider_id" })
+  provider!: Provider;
 
   @ManyToMany(() => Product, (product) => product.purchases)
   @JoinTable({

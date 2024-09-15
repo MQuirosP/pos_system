@@ -1,8 +1,8 @@
-import { UserCreateDTO, UserResponseDTO, UserUpdateDTO } from "./../dtos/user.dto";
+import { UserCreateDTO, UserResponseDTO, UserUpdateDTO } from "../dtos/users.dto";
 import { Request, Response, NextFunction } from "express";
 import { UserService } from "../services/UserService";
 import dataSource from "../config/ormconfig";
-import { Users } from "../entities/Users";
+import { Users } from "../entities/users.entity";
 import { error } from "console";
 
 export class UserController {

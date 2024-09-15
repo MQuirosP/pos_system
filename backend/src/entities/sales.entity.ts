@@ -8,16 +8,17 @@ import {
   JoinTable,
   ManyToMany,
 } from "typeorm";
-import { Product } from "./Products";
-import { Customer } from "./Customers"; // Asegúrate de ajustar la ruta según sea necesario
+import { Product } from "./products.entity";
+import { Customer } from "./customers.entity"; // Asegúrate de ajustar la ruta según sea necesario
+import { ISales } from "../interfaces/sales.interface";
 
 @Entity("sales")
-export class Sale {
+export class Sale implements ISales {
   @PrimaryGeneratedColumn({ name: "sale_id" })
   sale_id!: number;
 
   @Column({ name: "customer_id", type: "int", nullable: false })
-  customer_id?: number;
+  customer_id!: number;
 
   @Column({ name: "customer_name", type: "varchar" })
   customer_name!: string;
