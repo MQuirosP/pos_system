@@ -24,7 +24,6 @@ export class UserService {
   }
 
   async createUser(userData: UserCreateDTO): Promise<Users> {
-
     userData.password = await this.hashPassword(userData.password);
 
     try {
@@ -38,7 +37,7 @@ export class UserService {
       throw handleDatabaseError(error);
     }
   }
-  
+
   async getAllUsers(): Promise<Users[]> {
     try {
       return await this.userRepository.find();

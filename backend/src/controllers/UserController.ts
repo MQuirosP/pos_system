@@ -1,4 +1,8 @@
-import { UserCreateDTO, UserResponseDTO, UserUpdateDTO } from "../dtos/users.dto";
+import {
+  UserCreateDTO,
+  UserResponseDTO,
+  UserUpdateDTO,
+} from "../dtos/users.dto";
 import { Request, Response, NextFunction } from "express";
 import { UserService } from "../services/UserService";
 import dataSource from "../config/ormconfig";
@@ -49,7 +53,6 @@ export class UserController {
 
   async createUser(req: Request, res: Response, next: NextFunction) {
     try {
-
       const userData = new UserCreateDTO(req.body);
       await userData.validate();
       const newUser = await this.userService.createUser(userData);
@@ -66,13 +69,16 @@ export class UserController {
     try {
       const userId = parseInt(req.params.id);
       const userUpdateDTO = new UserUpdateDTO(req.body);
-      
+
       await userUpdateDTO.validate();
-      const updatedUser = await this.userService.updateUser(userId, userUpdateDTO);
+      const updatedUser = await this.userService.updateUser(
+        userId,
+        userUpdateDTO
+      );
 
       if (!updatedUser) {
         // return res.error({ message: "User not found." }, 404);
-        next(error)
+        next(error);
       }
       const userResponseDTO = new UserResponseDTO(updatedUser!);
       return res.success(userResponseDTO, "User updated sucessfully.");
@@ -84,10 +90,10 @@ export class UserController {
   async deleteUser(req: Request, res: Response, next: NextFunction) {
     try {
       const userId = parseInt(req.params.id);
-      const userToDelete = await this.userService.getUserByPK(userId)
+      const userToDelete = await this.userService.getUserByPK(userId);
 
       if (!userToDelete) {
-        return res.error({ message: "User not found."}, 404);
+        return res.error({ message: "User not found." }, 404);
       }
 
       const deleteResult = await this.userService.deleteUser(userId);
@@ -96,7 +102,7 @@ export class UserController {
         return res.error({ message: "Failed to delete user." }, 500);
       }
 
-      const userResponseDTO = new UserResponseDTO(userToDelete)
+      const userResponseDTO = new UserResponseDTO(userToDelete);
       return res.success(userResponseDTO, "User deleted successfully.", 200);
     } catch (error) {
       next(error);
