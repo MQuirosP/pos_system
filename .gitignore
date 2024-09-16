@@ -8,6 +8,7 @@ out/
 .vscode/
 .idea/
 
+.\src\estructura_proyecto.txt
 # Windows
 Thumbs.db
 ehthumbs.db
