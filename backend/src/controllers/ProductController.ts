@@ -7,7 +7,6 @@ import { Request, Response, NextFunction, json } from "express";
 import dataSource from "../config/ormconfig";
 import { Product } from "../entities/products.entity";
 import { ProductService } from "../services/ProductService";
-import { error } from "console";
 
 export class ProductController {
   private readonly productService: ProductService;
@@ -35,26 +34,26 @@ export class ProductController {
     }
   }
 
-  async getProducts(req: Request, res: Response, next: NextFunction) {
-    try {
-      const products = await this.productService.getAllProducts();
-      if (products.length === 0) {
-        return res.success(products, "No products found.", 200);
-      }
+  // async getProducts(req: Request, res: Response, next: NextFunction) {
+  //   try {
+  //     const products = await this.productService.getAllProducts();
+  //     if (products.length === 0) {
+  //       return res.success(products, "No products found.", 200);
+  //     }
 
-      const productResponseDTOs = products.map(
-        (products) => new ProductResponseDTO(products)
-      );
+  //     const productResponseDTOs = products.map(
+  //       (products) => new ProductResponseDTO(products)
+  //     );
 
-      const responseMessage =
-        productResponseDTOs.length === 0
-          ? "No products found."
-          : "Products fetched successfully.";
-      return res.success(productResponseDTOs, responseMessage, 200);
-    } catch (error) {
-      next(error);
-    }
-  }
+  //     const responseMessage =
+  //       productResponseDTOs.length === 0
+  //         ? "No products found."
+  //         : "Products fetched successfully.";
+  //     return res.success(productResponseDTOs, responseMessage, 200);
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // }
 
   async getProductById(req: Request, res: Response, next: NextFunction) {
     try {
@@ -75,20 +74,24 @@ export class ProductController {
     }
   }
 
-  async getProductByName(req: Request, res: Response, next: NextFunction) {
+  async getProducts(req: Request, res: Response, next: NextFunction) {
     try {
-      const productName = req.params.name.trim().toLowerCase();
-      const products = await this.productService.getProductByName(productName);
-      if (!products) {
-        return res.error({ message: "Products not found" }, 400);
+      
+      const { name } = req.query;
+      let products: Product[] | null = [];
+
+      if (name && typeof name === "string" && name.trim() !== "") {
+        products = await this.productService.getProductByName(name as string);
+      } else {
+        products = await this.productService.getAllProducts();
       }
-      const productResponseDTOs = products.map(
+      const productResponseDTOs = products?.map(
         (product) => new ProductResponseDTO(product)
       );
       const responseMessage =
-        productResponseDTOs.length === 0
+        productResponseDTOs?.length === 0
           ? "No products found."
-          : "Products fetched successfully.";
+          : "All products fetched successfully.";
       return res.success(productResponseDTOs, responseMessage, 200);
     } catch (error) {
       next(error);
@@ -107,7 +110,10 @@ export class ProductController {
       );
 
       if (!updatedProduct) {
-        next(error);
+        return res.error(
+          { message: "Failed to update product." },
+          400
+        )
       }
       const productResponseDTO = new ProductResponseDTO(updatedProduct!)
       return res.success(productResponseDTO, "Product updated successfully.");

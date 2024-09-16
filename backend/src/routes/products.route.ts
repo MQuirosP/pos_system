@@ -12,11 +12,7 @@ router.post(
   productController.createProduct.bind(productController)
 );
 router.get("/", productController.getProducts.bind(productController));
-router.get("/id/:id", productController.getProductById.bind(productController));
-router.get(
-  "/name/:name",
-  productController.getProductByName.bind(productController)
-);
+router.get("/:id", productController.getProductById.bind(productController));
 router.put(
   "/:id",
   validateDTO(ProductUpdateDTO),
