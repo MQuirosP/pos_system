@@ -7,10 +7,15 @@ import {
   ManyToOne,
   JoinTable,
   ManyToMany,
+  JoinColumn,
+  OneToMany,
 } from "typeorm";
 import { Product } from "./products.entity";
 import { Customer } from "./customers.entity"; // Asegúrate de ajustar la ruta según sea necesario
 import { ISales } from "../interfaces/sales.interface";
+import { SaleItem } from "./saleItems.entity";
+import { ISaleItems } from "../interfaces/saleItems.interface";
+import { IProduct } from "../interfaces/products.interface";
 
 @Entity("sales")
 export class Sale implements ISales {
@@ -77,17 +82,22 @@ export class Sale implements ISales {
   total?: number;
 
   // Relación Many-to-One con Customer
-    @ManyToOne(() => Customer, customer => customer.sales, { nullable: false })
-    customer?: Customer;
+  @ManyToOne(() => Customer, (customer) => customer.sales, { nullable: false })
+  @JoinColumn({ name: "customer_id" })
+  customer?: Customer;
 
+  @OneToMany(() => SaleItem, (saleItem) => saleItem.sale, { cascade: true })
+  sale_items!: ISaleItems[];
+
+  // Sale
   @ManyToMany(() => Product, (product) => product.sales)
   @JoinTable({
-    name: "sale_items", // Tabla intermedia para productos y ventas
+    name: "sale_items",
     joinColumn: { name: "sale_id", referencedColumnName: "sale_id" },
     inverseJoinColumn: {
       name: "product_id",
       referencedColumnName: "product_id",
     },
   })
-  products!: Product[];
+  products!: IProduct[];
 }

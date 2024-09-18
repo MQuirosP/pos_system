@@ -10,5 +10,6 @@ export interface IPurchaseItems {
     updated_at: Date;
     name?: string;
     total?: number;
-    status?: string;
+    status: string;
+    purchase_items?: IPurchaseItems[];
 }

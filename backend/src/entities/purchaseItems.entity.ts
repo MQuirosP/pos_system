@@ -10,6 +10,7 @@ import {
 import { Purchase } from "./purchases.entity";
 import { Product } from "./products.entity";
 import { IPurchaseItems } from "../interfaces/purchaseItems.interface";
+import { IPurchases } from "../interfaces/purchases.interface";
 
 @Entity("purchase_items")
 export class PurchaseItem implements IPurchaseItems {
@@ -79,7 +80,7 @@ export class PurchaseItem implements IPurchaseItems {
   total?: number;
 
   @Column({ name: "status", type: "varchar", nullable: false })
-  status?: string;
+  status!: string;
 
   @ManyToOne(() => Purchase, (purchase) => purchase.products, {
     onDelete: "SET NULL" })

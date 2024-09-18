@@ -12,6 +12,8 @@ import {
 import { Product } from "./products.entity";
 import { Provider } from "./providers.entity";
 import { IPurchases } from "../interfaces/purchases.interface";
+import { PurchaseItem } from "./purchaseItems.entity";
+import { IPurchaseItems } from "../interfaces/purchaseItems.interface";
 
 @Entity("purchases")
 export class Purchase implements IPurchases {
@@ -82,6 +84,9 @@ export class Purchase implements IPurchases {
   })
   @JoinColumn({ name: "provider_id" })
   provider!: Provider;
+
+  @ManyToMany(() => PurchaseItem, (purchaseItem) => purchaseItem.purchase, { cascade: true})
+  purchase_items!: IPurchaseItems[];
 
   @ManyToMany(() => Product, (product) => product.purchases)
   @JoinTable({

@@ -5,11 +5,13 @@ import {
   ManyToOne,
   JoinColumn,
   CreateDateColumn,
-  UpdateDateColumn
+  UpdateDateColumn,
 } from "typeorm";
 import { Sale } from "./sales.entity";
 import { Product } from "./products.entity";
 import { ISaleItems } from "../interfaces/saleItems.interface";
+import { ISales } from "../interfaces/sales.interface";
+import { IProduct } from "../interfaces/products.interface";
 
 @Entity("sale_items")
 export class SaleItem implements ISaleItems {
@@ -81,13 +83,13 @@ export class SaleItem implements ISaleItems {
   })
   total?: number;
 
-  @ManyToOne(() => Sale, (sale) => sale.products, { 
-    onDelete: 'SET NULL' })
+  @ManyToOne(() => Sale, (sale) => sale.sale_items, { onDelete: "SET NULL" })
   @JoinColumn({ name: "sale_id" })
-  sale!: Sale;
+  sale!: ISales;
 
-  @ManyToOne(() => Product, (product) => product.sale_items, { 
-    onDelete: 'SET NULL' })
+  @ManyToOne(() => Product, (product) => product.sale_items, {
+    onDelete: "SET NULL",
+  })
   @JoinColumn({ name: "int_code" })
-  product!: Product;
+  product!: IProduct;
 }

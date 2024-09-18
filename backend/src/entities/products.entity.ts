@@ -111,13 +111,15 @@ export class Product implements IProduct {
   purchase_items!: PurchaseItem[];
 
   // Relación Many-to-Many con Sale
+  // Product
   @ManyToMany(() => Sale, (sale) => sale.products)
   @JoinTable({
-    name: "sale_items", // Tabla intermedia para productos y ventas
+    name: "sale_items",
     joinColumn: { name: "product_id", referencedColumnName: "product_id" },
     inverseJoinColumn: { name: "sale_id", referencedColumnName: "sale_id" },
   })
   sales!: Sale[];
+
   @OneToMany(() => SaleItem, (saleItem) => saleItem.product)
   sale_items!: SaleItem[];
 }
