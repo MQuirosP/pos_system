@@ -38,7 +38,7 @@ export class UserService {
     }
   }
 
-  async getAllUsers(): Promise<Users[]> {
+  async fetchAllUsers(): Promise<Users[]> {
     try {
       return await this.userRepository.find();
     } catch (error) {
@@ -46,7 +46,7 @@ export class UserService {
     }
   }
 
-  async getUserByPK(userId: number): Promise<Users | null> {
+  async fetchUserByPk(userId: number): Promise<Users | null> {
     try {
       const user = await this.userRepository.findOne({
         where: { user_id: userId },

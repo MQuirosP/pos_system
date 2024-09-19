@@ -5,34 +5,29 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
-  JoinTable,
-  ManyToMany,
   JoinColumn,
   OneToMany,
 } from "typeorm";
-import { Product } from "./products.entity";
 import { Customer } from "./customers.entity"; // Asegúrate de ajustar la ruta según sea necesario
-import { ISales } from "../interfaces/sales.interface";
 import { SaleItem } from "./saleItems.entity";
-import { ISaleItems } from "../interfaces/saleItems.interface";
-import { IProduct } from "../interfaces/products.interface";
+import { ISales } from "../interfaces/sales.interface";
 
 @Entity("sales")
 export class Sale implements ISales {
   @PrimaryGeneratedColumn({ name: "sale_id" })
-  sale_id!: number;
+  sale_id?: number;
 
   @Column({ name: "customer_id", type: "int", nullable: false })
-  customer_id!: number;
+  customer_id?: number;
 
   @Column({ name: "customer_name", type: "varchar" })
-  customer_name!: string;
+  customer_name?: string;
 
   @Column({ name: "payment_method", type: "varchar", nullable: false })
   payment_method?: string;
 
   @Column({ name: "doc_number", type: "varchar", unique: false })
-  doc_number!: string;
+  doc_number?: string;
 
   @CreateDateColumn({
     name: "created_at",
@@ -86,18 +81,18 @@ export class Sale implements ISales {
   @JoinColumn({ name: "customer_id" })
   customer?: Customer;
 
-  @OneToMany(() => SaleItem, (saleItem) => saleItem.sale, { cascade: true })
-  sale_items!: ISaleItems[];
+  @OneToMany(() => SaleItem, (saleItem) => saleItem.sale, { cascade: true, eager: true })
+  products!: SaleItem[];
 
   // Sale
-  @ManyToMany(() => Product, (product) => product.sales)
-  @JoinTable({
-    name: "sale_items",
-    joinColumn: { name: "sale_id", referencedColumnName: "sale_id" },
-    inverseJoinColumn: {
-      name: "product_id",
-      referencedColumnName: "product_id",
-    },
-  })
-  products!: IProduct[];
+  // @ManyToMany(() => Product, (product) => product.sales)
+  // @JoinTable({
+  //   name: "sale_items",
+  //   joinColumn: { name: "sale_id", referencedColumnName: "sale_id" },
+  //   inverseJoinColumn: {
+  //     name: "product_id",
+  //     referencedColumnName: "product_id",
+  //   },
+  // })
+  // products!: IProduct[];
 }

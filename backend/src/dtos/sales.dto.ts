@@ -1,0 +1,141 @@
+import { Sale } from "./../entities/sales.entity";
+import {
+  IsArray,
+  IsBoolean,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+  ValidateNested,
+  validateOrReject,
+} from "class-validator";
+import { DTOBase } from "./DTOBase";
+import { SALE_KEYS, SALEITEMS_KEYS } from "./dtoKeys";
+import { Type } from "class-transformer";
+import { ISaleItems } from "../interfaces/saleItems.interface";
+
+export class SaleCreateDTO extends DTOBase {
+  static expectedKeys: string[] = SALE_KEYS;
+
+  @IsNotEmpty()
+  @IsNumber()
+  customer_id?: number;
+
+  @IsNotEmpty()
+  @IsString()
+  customer_name!: string;
+
+  @IsNotEmpty()
+  @IsString()
+  payment_method!: string;
+
+  @IsNotEmpty()
+  @IsString()
+  doc_number!: string;
+
+  @IsNotEmpty()
+  @IsString()
+  status!: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @IsOptional()
+  observations!: string;
+
+  @IsNotEmpty()
+  @IsNumber()
+  sub_total!: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  taxes_amount!: number;
+
+  @IsNotEmpty()
+  @IsNumber()
+  total!: number;
+
+  @IsArray()
+  @ValidateNested({ each: true })
+  @Type(() => CreateSaleItemDTO)
+  products!: CreateSaleItemDTO[];
+
+  constructor(data: Partial<SaleCreateDTO>) {
+    super();
+    Object.assign(this, data);
+  }
+
+  async validate(): Promise<void> {
+    await validateOrReject(this);
+  }
+}
+
+function mapProductToCreateSaleItemDTO(product: ISaleItems): CreateSaleItemDTO {
+  return new CreateSaleItemDTO({
+    int_code: product.int_code,
+    name: product.name,
+    quantity: product.quantity,
+    sale_price: product.sale_price,
+    sub_total: product.sub_total,
+    taxes_amount: product.taxes_amount,
+    total: product.total,
+  });
+}
+export class SaleResponseDto {
+  sale_id!: number;
+  customer_name?: string;
+  doc_number?: string;
+  total?: number;
+  created_at!: Date;
+  products!: CreateSaleItemDTO[];
+
+  constructor(data: Sale) {
+    this.customer_name = data.customer_name;
+    this.doc_number = data.doc_number;
+    this.total = data.total;
+    this.created_at = data.created_at;
+    this.products = data.products.map((product) =>
+      mapProductToCreateSaleItemDTO(product)
+    );
+  }
+}
+
+export class CreateSaleItemDTO extends DTOBase {
+  static expectedKeys: string[] = SALEITEMS_KEYS;
+
+  @IsNotEmpty()
+  @IsString()
+  int_code!: string;
+
+  @IsOptional()
+  @IsString()
+  name?: string;
+
+  @IsOptional()
+  @IsNumber()
+  quantity?: number;
+
+  @IsOptional()
+  @IsNumber()
+  sale_price?: number;
+
+  @IsOptional()
+  @IsNumber()
+  sub_total?: number;
+
+  @IsOptional()
+  @IsNumber()
+  taxes_amount?: number;
+
+  @IsOptional()
+  @IsNumber()
+  total?: number;
+
+  constructor(data: Partial<CreateSaleItemDTO>) {
+    super();
+    Object.assign(this, data);
+  }
+
+  async validate(): Promise<void> {
+    await validateOrReject(this);
+  }
+}

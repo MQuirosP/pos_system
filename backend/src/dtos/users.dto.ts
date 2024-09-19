@@ -18,52 +18,38 @@ export class UserCreateDTO extends DTOBase {
 
   @IsNotEmpty()
   @IsString()
-  username: string;
+  username: string | undefined;
 
   @IsNotEmpty()
   @IsEmail()
-  email: string;
+  email!: string;
 
   @IsNotEmpty()
   @IsString()
-  password: string;
+  password!: string;
 
   @IsNotEmpty()
   @IsEnumWithMessage(["administrator", "user"])
-  role: "administrator" | "user";
+  role!: "administrator" | "user";
 
   @IsNotEmpty()
   @IsBoolean()
-  status: boolean;
+  status!: boolean;
 
   @IsNotEmpty()
   @IsString()
-  name: string;
+  name!: string;
 
   @IsNotEmpty()
   @IsString()
-  lastname: string;
+  lastname!: string;
 
-  constructor(data: {
-    username: string;
-    email: string;
-    password: string;
-    role: "administrator" | "user";
-    status: boolean;
-    name: string;
-    lastname: string;
-  }) {
+  constructor(data: Partial<UserCreateDTO>) {
     super();
-    this.username = data.username;
-    this.email = data.email;
-    this.password = data.password;
-    this.role = data.role;
-    this.status = data.status;
-    this.name = data.name;
-    this.lastname = data.lastname;
+    Object.assign(this, data)
   }
 
-  async validate() {
+  async validate(): Promise<void> {
     await validateOrReject(this);
   }
 }
@@ -118,7 +104,7 @@ export class UserUpdateDTO extends DTOBase {
     Object.assign(this, data);
   }
 
-  async validate() {
+  async validate(): Promise<void> {
     await validateOrReject(this);
   }
 }

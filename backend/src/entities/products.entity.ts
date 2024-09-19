@@ -121,6 +121,6 @@ export class Product implements IProduct {
   sales!: Sale[];
 
   @OneToMany(() => SaleItem, (saleItem) => saleItem.product)
-  sale_items!: SaleItem[];
+  products!: SaleItem[];
 }
 // export { Sale };

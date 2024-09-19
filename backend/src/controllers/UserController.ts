@@ -33,7 +33,7 @@ export class UserController {
 
   async getUsers(req: Request, res: Response, next: NextFunction) {
     try {
-      const users = await this.userService.getAllUsers();
+      const users = await this.userService.fetchAllUsers();
       if (users.length === 0) {
         return res.success(users, "No users found.", 200);
       }
@@ -53,7 +53,7 @@ export class UserController {
   async getUserById(req: Request, res: Response, next: NextFunction) {
     try {
       const userId = parseInt(req.params.id);
-      const user = await this.userService.getUserByPK(userId);
+      const user = await this.userService.fetchUserByPk(userId);
 
       if (!user) {
         return res.error({ message: "User not found." }, 404);
@@ -90,7 +90,7 @@ export class UserController {
   async deleteUser(req: Request, res: Response, next: NextFunction) {
     try {
       const userId = parseInt(req.params.id);
-      const userToDelete = await this.userService.getUserByPK(userId);
+      const userToDelete = await this.userService.fetchUserByPk(userId);
 
       if (!userToDelete) {
         return res.error({ message: "User not found." }, 404);

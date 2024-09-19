@@ -20,4 +20,25 @@ export const PRODUCT_KEYS = [
   "tax_percentage",
   "category_id",
   "category_name"
+];
+
+export const SALE_KEYS = [
+  "customer_name",
+  "payment_method",
+  "doc_number",
+  "status",
+  "observations",
+  "sub_total",
+  "taxes_amount",
+  "total"
+];
+
+export const SALEITEMS_KEYS = [
+  "int_code",
+  "name",
+  "quantity",
+  "sale_price",
+  "sub_total",
+  "taxes_amount",
+  "total"
 ]

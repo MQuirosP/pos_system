@@ -22,10 +22,10 @@ export class SaleItem implements ISaleItems {
   status?: string;
 
   @Column({ name: "sale_id", type: "int" })
-  sale_id!: number;
+  sale_id?: number;
 
   @Column({ name: "int_code", type: "varchar" })
-  int_code!: string;
+  int_code?: string;
 
   @Column({
     name: "sale_price",
@@ -83,13 +83,13 @@ export class SaleItem implements ISaleItems {
   })
   total?: number;
 
-  @ManyToOne(() => Sale, (sale) => sale.sale_items, { onDelete: "SET NULL" })
+  @ManyToOne(() => Sale, (sale) => sale.products, { onDelete: "SET NULL" })
   @JoinColumn({ name: "sale_id" })
-  sale!: ISales;
+  sale?: ISales;
 
-  @ManyToOne(() => Product, (product) => product.sale_items, {
+  @ManyToOne(() => Product, (product) => product.products, {
     onDelete: "SET NULL",
   })
   @JoinColumn({ name: "int_code" })
-  product!: IProduct;
+  product?: IProduct;
 }
