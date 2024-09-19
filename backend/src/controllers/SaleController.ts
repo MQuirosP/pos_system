@@ -48,7 +48,6 @@ export class SaleController {
     }
 }
 
-
   async fetchSaleByDocNumber(req: Request, res: Response, next: NextFunction) {
     try {
       const docNumber = req.params.doc_number.toString();
@@ -56,7 +55,8 @@ export class SaleController {
       if (!sale) {
         return res.error({ message: "Sale not found." }, 404);
       }
-      return res.success(sale, "Sale fetched successfully.", 200);
+      const saleResponseDto = new SaleResponseDto(sale)
+      return res.success(saleResponseDto, "Sale fetched successfully.", 200);
     } catch (error) {
       next(error);
     }
