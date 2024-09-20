@@ -13,6 +13,8 @@ import { DTOBase } from "./DTOBase";
 import { SALE_KEYS, SALEITEMS_KEYS } from "./dtoKeys";
 import { Type } from "class-transformer";
 import { ISaleItems } from "../interfaces/saleItems.interface";
+import { format, toZonedTime } from "date-fns-tz";
+import { formatDateToLocal } from "../utils/dateUtils";
 
 export class SaleCreateDTO extends DTOBase {
   static expectedKeys: string[] = SALE_KEYS;
@@ -85,14 +87,14 @@ export class SaleResponseDto {
   customer_name?: string;
   doc_number?: string;
   total?: number;
-  created_at!: Date;
+  created_at!: string;
   products!: CreateSaleItemDTO[];
 
   constructor(data: Sale) {
     this.customer_name = data.customer_name;
     this.doc_number = data.doc_number;
+    this.created_at = formatDateToLocal(data.created_at)
     this.total = data.total;
-    this.created_at = data.created_at;
     this.products = data.products.map((product) =>
       mapProductToCreateSaleItemDTO(product)
     );
