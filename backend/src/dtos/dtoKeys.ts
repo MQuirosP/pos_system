@@ -23,6 +23,7 @@ export const PRODUCT_KEYS = [
 ];
 
 export const SALE_KEYS = [
+  "customer_id",
   "customer_name",
   "payment_method",
   "doc_number",
@@ -30,7 +31,8 @@ export const SALE_KEYS = [
   "observations",
   "sub_total",
   "taxes_amount",
-  "total"
+  "total",
+  "products"
 ];
 
 export const SALEITEMS_KEYS = [

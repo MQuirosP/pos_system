@@ -12,9 +12,7 @@ import {
 import { DTOBase } from "./DTOBase";
 import { SALE_KEYS, SALEITEMS_KEYS } from "./dtoKeys";
 import { Type } from "class-transformer";
-import { ISaleItems } from "../interfaces/saleItems.interface";
-import { format, toZonedTime } from "date-fns-tz";
-import { formatDateToLocal } from "../utils/dateUtils";
+import { SaleItem } from "../entities/saleItems.entity";
 
 export class SaleCreateDTO extends DTOBase {
   static expectedKeys: string[] = SALE_KEYS;
@@ -59,7 +57,7 @@ export class SaleCreateDTO extends DTOBase {
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => CreateSaleItemDTO)
-  products!: CreateSaleItemDTO[];
+  products?: CreateSaleItemDTO[];
 
   constructor(data: Partial<SaleCreateDTO>) {
     super();
@@ -71,7 +69,7 @@ export class SaleCreateDTO extends DTOBase {
   }
 }
 
-function mapProductToCreateSaleItemDTO(product: ISaleItems): CreateSaleItemDTO {
+function mapProductToCreateSaleItemDTO(product: SaleItem): CreateSaleItemDTO {
   return new CreateSaleItemDTO({
     int_code: product.int_code,
     name: product.name,
@@ -87,13 +85,13 @@ export class SaleResponseDto {
   customer_name?: string;
   doc_number?: string;
   total?: number;
-  created_at!: string;
+  created_at!: Date;
   products!: CreateSaleItemDTO[];
 
   constructor(data: Sale) {
     this.customer_name = data.customer_name;
     this.doc_number = data.doc_number;
-    this.created_at = formatDateToLocal(data.created_at)
+    this.created_at = data.created_at;
     this.total = data.total;
     this.products = data.products.map((product) =>
       mapProductToCreateSaleItemDTO(product)
