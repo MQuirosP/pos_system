@@ -24,6 +24,7 @@ export const globalErrorHandler = (
   res: Response,
   next: NextFunction
 ) => {
+  console.log(err);
   // Manejo de errores de validación
   if (Array.isArray(err)) {
     const validationErrors = err as ValidationError[];
