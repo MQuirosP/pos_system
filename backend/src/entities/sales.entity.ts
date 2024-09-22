@@ -84,15 +84,4 @@ export class Sale implements ISales {
   @OneToMany(() => SaleItem, (saleItem) => saleItem.sale, { cascade: true, eager: true })
   products!: SaleItem[];
 
-  // Sale
-  // @ManyToMany(() => Product, (product) => product.sales)
-  // @JoinTable({
-  //   name: "sale_items",
-  //   joinColumn: { name: "sale_id", referencedColumnName: "sale_id" },
-  //   inverseJoinColumn: {
-  //     name: "product_id",
-  //     referencedColumnName: "product_id",
-  //   },
-  // })
-  // products!: IProduct[];
 }
