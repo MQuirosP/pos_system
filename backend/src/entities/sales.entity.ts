@@ -11,12 +11,11 @@ import {
 import { Customer } from "./customers.entity"; // Asegúrate de ajustar la ruta según sea necesario
 import { SaleItem } from "./saleItems.entity";
 import { ISales } from "../interfaces/sales.interface";
-import { CreateSaleItemDTO } from "../dtos/sales.dto";
 
 @Entity("sales")
 export class Sale implements ISales {
   @PrimaryGeneratedColumn({ name: "sale_id" })
-  sale_id!: number;
+  sale_id?: number;
 
   @Column({ name: "customer_id", type: "int", nullable: false })
   customer_id!: number;
@@ -25,7 +24,7 @@ export class Sale implements ISales {
   customer_name!: string;
 
   @Column({ name: "payment_method", type: "varchar", nullable: false })
-  payment_method?: string;
+  payment_method!: string;
 
   @Column({ name: "doc_number", type: "varchar", unique: false })
   doc_number!: string;
@@ -45,10 +44,10 @@ export class Sale implements ISales {
   updated_at!: Date;
 
   @Column({ name: "status", type: "varchar", nullable: false })
-  status?: string;
+  status!: string;
 
   @Column({ name: "observations", type: "text", nullable: false })
-  observations?: string;
+  observations!: string;
 
   @Column({
     name: "sub_total",
@@ -86,5 +85,5 @@ export class Sale implements ISales {
     cascade: true,
     eager: true,
   })
-  products!: CreateSaleItemDTO[];
+  products!: SaleItem[];
 }

@@ -17,10 +17,6 @@ import { convertToLocalTime } from "../utils/dateUtils";
 export class SaleCreateDTO extends DTOBase {
   static expectedKeys: string[] = SALE_KEYS;
 
-  @IsOptional()
-  @IsNumber()
-  sale_id!: number;
-
   @IsNotEmpty()
   @IsNumber()
   customer_id!: number;
@@ -41,7 +37,6 @@ export class SaleCreateDTO extends DTOBase {
   @IsString()
   status!: string;
 
-  @IsNotEmpty()
   @IsString()
   @IsOptional()
   observations!: string;
@@ -85,7 +80,7 @@ export class SaleResponseDto {
   doc_number!: string;
   total!: number;
   created_at!: string | Date;
-  products: SaleItem[];
+  products: CreateSaleItemDTO[];
 
   constructor(data: Sale) {
     this.customer_name = data.customer_name;
