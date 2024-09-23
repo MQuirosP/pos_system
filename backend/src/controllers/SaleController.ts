@@ -16,9 +16,7 @@ export class SaleController {
     try {
       const saleData = new SaleCreateDTO(req.body);
       await saleData.validate();
-      const newSale = await this.saleService.createSale(
-        saleData as unknown as Sale
-      );
+      const newSale = await this.saleService.createSale(saleData);
 
       if (!newSale) {
         return res.error("No sale created.", 400);
@@ -34,18 +32,18 @@ export class SaleController {
 
   async fetchAllSales(req: Request, res: Response, next: NextFunction) {
     try {
-        const sales = await this.saleService.fetchSales();
-        
-        if (sales.length === 0) {
-            return res.success(sales, "No sales found.", 200);
-        }
+      const sales = await this.saleService.fetchSales();
 
-        const saleResponseDTO = sales.map(sale => new SaleResponseDto(sale));
-        return res.success(saleResponseDTO, "Sales fetched successfully.", 200);
+      if (sales.length === 0) {
+        return res.success(sales, "No sales found.", 200);
+      }
+
+      const saleResponseDTO = sales.map((sale) => new SaleResponseDto(sale));
+      return res.success(saleResponseDTO, "Sales fetched successfully.", 200);
     } catch (error) {
-        next(error);
+      next(error);
     }
-}
+  }
 
   async fetchSaleByDocNumber(req: Request, res: Response, next: NextFunction) {
     try {
@@ -54,7 +52,7 @@ export class SaleController {
       if (!sale) {
         return res.error({ message: "Sale not found." }, 404);
       }
-      const saleResponseDto = new SaleResponseDto(sale)
+      const saleResponseDto = new SaleResponseDto(sale);
       return res.success(saleResponseDto, "Sale fetched successfully.", 200);
     } catch (error) {
       next(error);

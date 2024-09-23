@@ -44,14 +44,14 @@ export class SaleItem implements ISaleItems {
     type: "timestamp",
     default: () => "CURRENT_TIMESTAMP",
   })
-  created_at!: Date;
+  created_at?: Date;
 
   @UpdateDateColumn({
     name: "updated_at",
     type: "timestamp",
     default: () => "CURRENT_TIMESTAMP",
   })
-  updated_at!: Date;
+  updated_at?: Date;
 
   @Column({ name: "name", type: "varchar", nullable: false })
   name?: string;

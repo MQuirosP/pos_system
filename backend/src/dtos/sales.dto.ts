@@ -1,7 +1,6 @@
 import { Sale } from "./../entities/sales.entity";
 import {
   IsArray,
-  IsBoolean,
   IsNotEmpty,
   IsNumber,
   IsOptional,
@@ -18,9 +17,13 @@ import { convertToLocalTime } from "../utils/dateUtils";
 export class SaleCreateDTO extends DTOBase {
   static expectedKeys: string[] = SALE_KEYS;
 
+  @IsOptional()
+  @IsNumber()
+  sale_id!: number;
+
   @IsNotEmpty()
   @IsNumber()
-  customer_id?: number;
+  customer_id!: number;
 
   @IsNotEmpty()
   @IsString()
@@ -55,10 +58,16 @@ export class SaleCreateDTO extends DTOBase {
   @IsNumber()
   total!: number;
 
+  @IsOptional()
+  created_at!: Date;
+
+  @IsOptional()
+  updated_at!: Date;
+
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => CreateSaleItemDTO)
-  products?: CreateSaleItemDTO[];
+  products!: CreateSaleItemDTO[];
 
   constructor(data: Partial<SaleCreateDTO>) {
     super();
@@ -70,40 +79,40 @@ export class SaleCreateDTO extends DTOBase {
   }
 }
 
-function mapProductToCreateSaleItemDTO(product: SaleItem): CreateSaleItemDTO {
-  return new CreateSaleItemDTO({
-    int_code: product.int_code,
-    name: product.name,
-    quantity: product.quantity,
-    sale_price: product.sale_price,
-    sub_total: product.sub_total,
-    taxes_amount: product.taxes_amount,
-    total: product.total,
-  });
-}
 export class SaleResponseDto {
   sale_id!: number;
-  customer_name?: string;
-  doc_number?: string;
-  total?: number;
+  customer_name!: string;
+  doc_number!: string;
+  total!: number;
   created_at!: string | Date;
-  products!: CreateSaleItemDTO[];
+  products: SaleItem[];
 
   constructor(data: Sale) {
     this.customer_name = data.customer_name;
     this.doc_number = data.doc_number;
-    this.created_at =  convertToLocalTime(data.created_at);
+    this.created_at = convertToLocalTime(data.created_at);
     this.total = data.total;
-    this.products = data.products.map((product) =>
-      mapProductToCreateSaleItemDTO(product)
+    this.products = data.products.map(
+      (product) =>
+        new CreateSaleItemDTO({
+          int_code: product.int_code,
+          name: product.name,
+          quantity: product.quantity,
+          sale_price: product.sale_price,
+          sub_total: product.sub_total,
+          taxes_amount: product.taxes_amount,
+          total: product.total,
+        })
     );
   }
 }
 
-
-
 export class CreateSaleItemDTO extends DTOBase {
   static expectedKeys: string[] = SALEITEMS_KEYS;
+
+  @IsOptional()
+  @IsNumber()
+  sequence!: number;
 
   @IsNotEmpty()
   @IsString()

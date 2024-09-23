@@ -11,23 +11,24 @@ import {
 import { Customer } from "./customers.entity"; // Asegúrate de ajustar la ruta según sea necesario
 import { SaleItem } from "./saleItems.entity";
 import { ISales } from "../interfaces/sales.interface";
+import { CreateSaleItemDTO } from "../dtos/sales.dto";
 
 @Entity("sales")
 export class Sale implements ISales {
   @PrimaryGeneratedColumn({ name: "sale_id" })
-  sale_id?: number;
+  sale_id!: number;
 
   @Column({ name: "customer_id", type: "int", nullable: false })
-  customer_id?: number;
+  customer_id!: number;
 
   @Column({ name: "customer_name", type: "varchar" })
-  customer_name?: string;
+  customer_name!: string;
 
   @Column({ name: "payment_method", type: "varchar", nullable: false })
   payment_method?: string;
 
   @Column({ name: "doc_number", type: "varchar", unique: false })
-  doc_number?: string;
+  doc_number!: string;
 
   @CreateDateColumn({
     name: "created_at",
@@ -56,7 +57,7 @@ export class Sale implements ISales {
     scale: 2,
     nullable: false,
   })
-  sub_total?: number;
+  sub_total!: number;
 
   @Column({
     name: "taxes_amount",
@@ -65,7 +66,7 @@ export class Sale implements ISales {
     scale: 2,
     nullable: false,
   })
-  taxes_amount?: number;
+  taxes_amount!: number;
 
   @Column({
     name: "total",
@@ -74,14 +75,16 @@ export class Sale implements ISales {
     scale: 2,
     nullable: false,
   })
-  total?: number;
+  total!: number;
 
   // Relación Many-to-One con Customer
   @ManyToOne(() => Customer, (customer) => customer.sales, { nullable: false })
   @JoinColumn({ name: "customer_id" })
   customer?: Customer;
 
-  @OneToMany(() => SaleItem, (saleItem) => saleItem.sale, { cascade: true, eager: true })
-  products!: SaleItem[];
-
+  @OneToMany(() => SaleItem, (saleItem) => saleItem.sale, {
+    cascade: true,
+    eager: true,
+  })
+  products!: CreateSaleItemDTO[];
 }
