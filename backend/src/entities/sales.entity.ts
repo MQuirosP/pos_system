@@ -46,7 +46,7 @@ export class Sale implements ISales {
   @Column({ name: "status", type: "varchar", nullable: false })
   status!: string;
 
-  @Column({ name: "observations", type: "text", nullable: false })
+  @Column({ name: "observations", type: "text", nullable: true })
   observations!: string;
 
   @Column({
