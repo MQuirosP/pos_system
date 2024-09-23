@@ -27,25 +27,25 @@ export class SaleController {
       const saleResponseDTO = new SaleResponseDto(newSale);
       return res.success(saleResponseDTO, "Sale created successfully.", 201);
     } catch (error) {
-      // console.log(error);
+      console.log(error);
       next(error);
     }
   }
 
   async fetchAllSales(req: Request, res: Response, next: NextFunction) {
     try {
-      const sales = await this.saleService.fetchSales();
+        const sales = await this.saleService.fetchSales();
+        
+        if (sales.length === 0) {
+            return res.success(sales, "No sales found.", 200);
+        }
 
-      if (sales.length === 0) {
-        return res.success(sales, "No sales found.", 200);
-      }
-
-      const saleResponseDTO = sales.map((sale) => new SaleResponseDto(sale));
-      return res.success(saleResponseDTO, "Sales fetched successfully.", 200);
+        const saleResponseDTO = sales.map(sale => new SaleResponseDto(sale));
+        return res.success(saleResponseDTO, "Sales fetched successfully.", 200);
     } catch (error) {
-      next(error);
+        next(error);
     }
-  }
+}
 
   async fetchSaleByDocNumber(req: Request, res: Response, next: NextFunction) {
     try {
@@ -54,7 +54,7 @@ export class SaleController {
       if (!sale) {
         return res.error({ message: "Sale not found." }, 404);
       }
-      const saleResponseDto = new SaleResponseDto(sale);
+      const saleResponseDto = new SaleResponseDto(sale)
       return res.success(saleResponseDto, "Sale fetched successfully.", 200);
     } catch (error) {
       next(error);
