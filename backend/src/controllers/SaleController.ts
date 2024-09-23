@@ -24,10 +24,10 @@ export class SaleController {
         return res.error("No sale created.", 400);
       }
 
-      const saleResponseDTO = new SaleResponseDto(saleData as unknown as Sale);
+      const saleResponseDTO = new SaleResponseDto(newSale);
       return res.success(saleResponseDTO, "Sale created successfully.", 201);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       next(error);
     }
   }

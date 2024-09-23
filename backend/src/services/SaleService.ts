@@ -11,8 +11,13 @@ export class SaleService {
   }
 
   async createSale(saleData: ISales): Promise<ISales | null> {
-    const newSale = this.saleRepository.create(saleData);
-    return await this.saleRepository.save(newSale);
+    try {
+      const newSale = this.saleRepository.create(saleData);
+      return await this.saleRepository.save(newSale);
+      
+    } catch (error) {
+      throw handleDatabaseError(error)
+    }
   }
 
   async fetchSales(): Promise<ISales[]> {
