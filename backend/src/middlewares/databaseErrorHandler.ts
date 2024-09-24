@@ -2,6 +2,8 @@ import { QueryFailedError } from "typeorm";
 import { AppError } from "./errorHandler";
 
 export function handleDatabaseError(error: any): void {
+  console.log(error); // Verificar estructura completa del error
+
   if (error instanceof QueryFailedError) {
     const code = (error as any).code;
 
@@ -14,16 +16,18 @@ export function handleDatabaseError(error: any): void {
       case "23514":
         throw new AppError("Invalid data. Some fields cannot be empty.", 400);
       case "P0001":
+        // Aquí capturamos el driverError
+        const driverError = (error as any).driverError;
+        const driverErrorMessage =
+          driverError?.message || driverError || "The data cannot be modified.";
         throw new AppError(
-          `The data cannot be modified. Details: ${(error as any).where || ""}`,
+          `The data cannot be modified. Details: ${driverErrorMessage}`,
           500
         );
       default:
-        // Mensaje genérico para excepciones de PL/pgSQL
         throw new AppError("A database error occurred: " + error.message, 500);
     }
   }
 
-  // Manejo de errores no específicos
   throw new AppError("An unexpected error occurred: " + error.message, 500);
 }

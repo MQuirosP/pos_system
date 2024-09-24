@@ -34,7 +34,7 @@ export class SaleController {
     try {
       const sales = await this.saleService.fetchSales();
 
-      if (sales.length === 0) {
+      if (!sales || sales.length === 0) {
         return res.success(sales, "No sales found.", 200);
       }
 
