@@ -16,5 +16,10 @@ router.get(
   "/:doc_number",
   saleController.fetchSaleByDocNumber.bind(saleController)
 );
+router.put(
+  "/:doc_number",
+  validateDTO(SaleCreateDTO),
+  saleController.cancelSale.bind(saleController)
+);
 
 export default router;

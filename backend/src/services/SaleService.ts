@@ -2,6 +2,7 @@ import { Repository } from "typeorm";
 import { Sale } from "../entities/sales.entity";
 import { ISales } from "../interfaces/sales.interface";
 import { handleDatabaseError } from "../middlewares/databaseErrorHandler";
+import { AppError } from "../middlewares/errorHandler";
 
 export class SaleService {
   private saleRepository: Repository<Sale>;
@@ -34,6 +35,26 @@ export class SaleService {
         where: { doc_number: docNumber },
         relations: ["products"],
       });
+      return sale;
+    } catch (error) {
+      throw handleDatabaseError(error);
+    }
+  }
+
+  async cancelSale(docNumber: string): Promise<ISales | null> {
+    try {
+      const sale = await this.saleRepository.findOne({
+        where: { doc_number: docNumber },
+        relations: ['products'],
+      });
+      if(!sale) {
+        throw new AppError("Sale not found.", 404)
+      }
+      sale.status = "canceled"
+      for (const product of sale.products) {
+        product.status = "canceled"
+      }
+      await this.saleRepository.save(sale);
       return sale;
     } catch (error) {
       throw handleDatabaseError(error);

@@ -58,4 +58,18 @@ export class SaleController {
       next(error);
     }
   }
+
+  async cancelSale(req: Request, res: Response, next: NextFunction) {
+    try {
+      const docNumber = req.params.doc_number.toString();
+      const sale = await this.saleService.cancelSale(docNumber);
+      if(!sale) {
+        return res.error({ message: "Sale not found."}, 404);
+      }
+      const saleResponseDto = new SaleResponseDto(sale);
+      return res.success(saleResponseDto, "Sale canceled successfully.", 200);
+    } catch (error) {
+        next(error);
+    }
+  }
 }

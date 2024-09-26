@@ -79,14 +79,16 @@ export class SaleResponseDto {
   customer_name!: string;
   doc_number!: string;
   total!: number;
+  status!: string;
   created_at!: string | Date;
   products: CreateSaleItemDTO[];
 
   constructor(data: Sale) {
     this.customer_name = data.customer_name;
     this.doc_number = data.doc_number;
-    this.created_at = convertToLocalTime(data.created_at);
     this.total = data.total;
+    this.status = data.status;
+    this.created_at = convertToLocalTime(data.created_at);
     this.products = data.products.map(
       (product) =>
         new CreateSaleItemDTO({
