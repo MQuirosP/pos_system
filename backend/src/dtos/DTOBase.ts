@@ -10,7 +10,7 @@ export abstract class DTOBase {
     if (invalidKeys.length > 0) {
       throw new AppError(
         `Invalid keys in request body: ${invalidKeys.join(", ")}`,
-        404
+        422
       );
     }
   }
