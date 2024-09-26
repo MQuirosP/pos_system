@@ -16,7 +16,7 @@ import { IProduct } from "../interfaces/products.interface";
 @Entity("sale_items")
 export class SaleItem implements ISaleItems {
   @PrimaryGeneratedColumn({ name: "sequence" })
-  sequence!: number;
+  sequence?: number;
 
   @Column({ name: "status", type: "varchar", nullable: false, default: "completed" })
   status?: string;
