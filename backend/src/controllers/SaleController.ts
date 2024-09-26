@@ -25,7 +25,7 @@ export class SaleController {
       const saleResponseDTO = new SaleResponseDto(newSale);
       return res.success(saleResponseDTO, "Sale created successfully.", 201);
     } catch (error) {
-      console.log(error);
+      // console.log(error);
       next(error);
     }
   }

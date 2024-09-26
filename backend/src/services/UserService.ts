@@ -68,7 +68,7 @@ export class UserService {
       });
 
       if (!user) {
-        throw handleDatabaseError(user);
+        throw new AppError("User not found.", 404);
       }
 
       if (updates.password) {
@@ -76,7 +76,7 @@ export class UserService {
           const hashingPassword = await this.hashPassword(updates.password);
           updates.password = hashingPassword;
         } catch (error) {
-          throw new AppError("Error hashing password.", 500);
+          throw handleDatabaseError(error);
         }
       }
 

@@ -7,7 +7,6 @@ import { Request, Response, NextFunction } from "express";
 import { UserService } from "../services/UserService";
 import dataSource from "../config/ormconfig";
 import { Users } from "../entities/users.entity";
-import { error } from "console";
 
 export class UserController {
   private readonly userService: UserService;
@@ -76,10 +75,9 @@ export class UserController {
         userUpdateDTO
       );
 
-      if (!updatedUser) {
-        // return res.error({ message: "User not found." }, 404);
-        next(error);
-      }
+      // if (!updatedUser) {
+      //   return res.error({ message: "User not found." }, 404);
+      // }
       const userResponseDTO = new UserResponseDTO(updatedUser!);
       return res.success(userResponseDTO, "User updated sucessfully.");
     } catch (error) {
