@@ -94,6 +94,7 @@ export class SaleResponseDto {
         new CreateSaleItemDTO({
           int_code: product.int_code,
           name: product.name,
+          status: this.status,
           quantity: product.quantity,
           sale_price: product.sale_price,
           sub_total: product.sub_total,
@@ -122,6 +123,9 @@ export class CreateSaleItemDTO extends DTOBase {
   @IsOptional()
   @IsNumber()
   quantity?: number;
+
+  @IsString()
+  status!: string;
 
   @IsOptional()
   @IsNumber()

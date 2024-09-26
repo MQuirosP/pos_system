@@ -50,9 +50,13 @@ export class SaleService {
       if(!sale) {
         throw new AppError("Sale not found.", 404)
       }
+      if(sale.status === "canceled") {
+        throw new AppError("Sale already canceled", 409)
+      }
       sale.status = "canceled"
       for (const product of sale.products) {
         product.status = "canceled"
+        // await this.saleRepository.save(product);
       }
       await this.saleRepository.save(sale);
       return sale;
