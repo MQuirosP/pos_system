@@ -94,7 +94,7 @@ export class SaleResponseDto {
         new CreateSaleItemDTO({
           int_code: product.int_code,
           name: product.name,
-          status: this.status,
+          // status: this.status,
           quantity: product.quantity,
           sale_price: product.sale_price,
           sub_total: product.sub_total,
