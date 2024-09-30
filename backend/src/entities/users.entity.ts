@@ -6,8 +6,8 @@ import {
   UpdateDateColumn,
   BaseEntity,
 } from "typeorm";
-import { Capitalize } from "../decorators/toCapitalize";
-import { ToLowerCase } from "../decorators/toLowerCase";
+import { Capitalize } from "../decorators/toCapitalize.decorator";
+import { ToLowerCase } from "../decorators/toLowerCase.decorator";
 
 @Entity("users")
 export class Users extends BaseEntity {

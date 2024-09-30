@@ -10,7 +10,7 @@ import {
 import { Users } from "../entities/users.entity";
 import { USER_KEYS } from "./dtoKeys";
 import { DTOBase } from "./DTOBase";
-import { IsEnumWithMessage } from "../decorators/isEnumWithMessage";
+import { IsEnumWithMessage } from "../decorators/isEnumWithMessage.decorator";
 
 
 export class UserCreateDTO extends DTOBase {
