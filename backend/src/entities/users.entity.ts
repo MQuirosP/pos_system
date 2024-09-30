@@ -6,6 +6,8 @@ import {
   UpdateDateColumn,
   BaseEntity,
 } from "typeorm";
+import { Capitalize } from "../decorators/toCapitalize";
+import { ToLowerCase } from "../decorators/toLowerCase";
 
 @Entity("users")
 export class Users extends BaseEntity {
@@ -13,9 +15,11 @@ export class Users extends BaseEntity {
   user_id!: number; // Usa el modificador `!` para indicar que la propiedad será inicializada
 
   @Column({ type: "varchar", unique: true, nullable: false })
+  @ToLowerCase()
   username!: string;
 
   @Column({ type: "varchar", unique: true, nullable: false })
+  @ToLowerCase()
   email!: string;
 
   @Column({ type: "varchar", nullable: false })
@@ -31,9 +35,11 @@ export class Users extends BaseEntity {
   status!: boolean;
 
   @Column({ type: "varchar", nullable: false })
+  @Capitalize()
   name!: string;
 
   @Column({ type: "varchar", nullable: false })
+  @Capitalize()
   lastname!: string;
 
   @CreateDateColumn({

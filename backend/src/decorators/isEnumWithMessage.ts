@@ -11,9 +11,9 @@ export function IsEnumWithMessage(
       propertyName: propertyName,
       options: {
         ...validationOptions,
-        message: `${propertyName} must be one of the following values: ${values.join(
+        message: `${propertyName} must be one of the following values: [${values.join(
           ", "
-        )}`,
+        )}]`,
       },
       constraints: [values],
       validator: {
