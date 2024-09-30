@@ -31,10 +31,10 @@ export class Users extends BaseEntity {
   status!: boolean;
 
   @Column({ type: "varchar", nullable: false })
-  name: string | null = null;
+  name!: string;
 
   @Column({ type: "varchar", nullable: false })
-  lastname: string | null = null;
+  lastname!: string;
 
   @CreateDateColumn({
     type: "timestamp",

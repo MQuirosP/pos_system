@@ -111,11 +111,15 @@ export class UserUpdateDTO extends DTOBase {
 
 export class UserResponseDTO {
   username: string;
+  name: string;
+  lastname: string;
   email: string;
   created_at: Date;
 
   constructor(user: Users) {
     this.username = user.username;
+    this.name = user.name;
+    this.lastname = user.lastname;
     this.email = user.email;
     this.created_at = user.created_at;
   }
