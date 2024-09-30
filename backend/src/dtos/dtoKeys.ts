@@ -3,7 +3,7 @@ export const USER_KEYS = [
   "email",
   "password",
   "role",
-  "status",
+  "is_active",
   "name",
   "lastname",
 ];

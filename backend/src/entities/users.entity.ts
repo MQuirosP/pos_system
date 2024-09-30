@@ -8,9 +8,10 @@ import {
 } from "typeorm";
 import { Capitalize } from "../decorators/toCapitalize.decorator";
 import { ToLowerCase } from "../decorators/toLowerCase.decorator";
+import { IUser } from "../interfaces/users.interface";
 
 @Entity("users")
-export class Users extends BaseEntity {
+export class Users extends BaseEntity implements IUser {
   @PrimaryGeneratedColumn("increment", { name: "user_id" })
   user_id!: number; // Usa el modificador `!` para indicar que la propiedad será inicializada
 
@@ -23,7 +24,7 @@ export class Users extends BaseEntity {
   email!: string;
 
   @Column({ type: "varchar", nullable: false })
-  password: string | null = null;
+  password!: string;
 
   @Column({ type: "enum", enum: ["administrator", "user"], default: "user" })
   role!: "administrator" | "user";
@@ -32,7 +33,7 @@ export class Users extends BaseEntity {
     type: "boolean",
     default: false,
   })
-  status!: boolean;
+  is_active!: boolean;
 
   @Column({ type: "varchar", nullable: false })
   @Capitalize()

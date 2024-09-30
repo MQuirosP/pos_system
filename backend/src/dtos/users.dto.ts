@@ -34,7 +34,7 @@ export class UserCreateDTO extends DTOBase {
 
   @IsNotEmpty()
   @IsBoolean()
-  status!: boolean;
+  is_active!: boolean;
 
   @IsNotEmpty()
   @IsString()
@@ -82,10 +82,10 @@ export class UserUpdateDTO extends DTOBase {
   role?: "administrator" | "user";
 
   @IsOptional()
-  @ValidateIf((o) => o.status !== undefined)
+  @ValidateIf((o) => o.is_active !== undefined)
   @IsNotEmpty()
   @IsBoolean()
-  status?: boolean;
+  is_active?: boolean;
 
   @IsOptional()
   @IsString()
@@ -114,6 +114,7 @@ export class UserResponseDTO {
   name: string;
   lastname: string;
   email: string;
+  is_active: boolean;
   created_at: Date;
 
   constructor(user: Users) {
@@ -121,6 +122,7 @@ export class UserResponseDTO {
     this.name = user.name;
     this.lastname = user.lastname;
     this.email = user.email;
+    this.is_active = user.is_active;
     this.created_at = user.created_at;
   }
 }
