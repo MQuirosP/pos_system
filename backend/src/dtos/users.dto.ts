@@ -32,7 +32,7 @@ export class UserCreateDTO extends DTOBase {
   @IsEnumWithMessage(["administrator", "user"])
   role!: "administrator" | "user";
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsBoolean()
   is_active!: boolean;
 
