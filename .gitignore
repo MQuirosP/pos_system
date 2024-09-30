@@ -8,7 +8,7 @@ out/
 .vscode/
 .idea/
 
-backend/src/estructura_proyecto.txt
+backend\estructura_proyecto.txt
 # Windows
 Thumbs.db
 ehthumbs.db
