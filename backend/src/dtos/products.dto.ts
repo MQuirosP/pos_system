@@ -7,7 +7,7 @@ import {
   IsBoolean,
   IsNumber,
 } from "class-validator";
-import { Product } from "../entities/products.entity";
+import { Product } from "../database/entities/products.entity";
 import { PRODUCT_KEYS } from "./dtoKeys";
 import { DTOBase } from "./DTOBase";
 

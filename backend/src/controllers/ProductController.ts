@@ -5,7 +5,7 @@ import {
 } from "../dtos/products.dto";
 import { Request, Response, NextFunction, json } from "express";
 import dataSource from "../config/ormconfig";
-import { Product } from "../entities/products.entity";
+import { Product } from "../database/entities/products.entity";
 import { ProductService } from "../services/ProductService";
 
 export class ProductController {

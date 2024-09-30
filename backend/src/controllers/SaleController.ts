@@ -1,7 +1,7 @@
 import { SaleCreateDTO, SaleResponseDto } from "./../dtos/sales.dto";
 import { Request, Response, NextFunction } from "express";
 import dataSource from "../config/ormconfig";
-import { Sale } from "../entities/sales.entity";
+import { Sale } from "../database/entities/sales.entity";
 import { SaleService } from "./../services/SaleService";
 
 export class SaleController {

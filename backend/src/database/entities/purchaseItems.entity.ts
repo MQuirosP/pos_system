@@ -9,8 +9,8 @@ import {
 } from "typeorm";
 import { Purchase } from "./purchases.entity";
 import { Product } from "./products.entity";
-import { IPurchaseItems } from "../interfaces/purchaseItems.interface";
-import { IPurchases } from "../interfaces/purchases.interface";
+import { IPurchaseItems } from "../../interfaces/purchaseItems.interface";
+import { IPurchases } from "../../interfaces/purchases.interface";
 
 @Entity("purchase_items")
 export class PurchaseItem implements IPurchaseItems {

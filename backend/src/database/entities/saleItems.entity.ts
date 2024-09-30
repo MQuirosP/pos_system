@@ -9,9 +9,9 @@ import {
 } from "typeorm";
 import { Sale } from "./sales.entity";
 import { Product } from "./products.entity";
-import { ISaleItems } from "../interfaces/saleItems.interface";
-import { ISales } from "../interfaces/sales.interface";
-import { IProduct } from "../interfaces/products.interface";
+import { ISaleItems } from "../../interfaces/saleItems.interface";
+import { ISales } from "../../interfaces/sales.interface";
+import { IProduct } from "../../interfaces/products.interface";
 
 @Entity("sale_items")
 export class SaleItem implements ISaleItems {

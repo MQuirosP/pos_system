@@ -1,4 +1,4 @@
-import { Sale } from "./../entities/sales.entity";
+import { Sale } from "../database/entities/sales.entity";
 import {
   IsArray,
   IsNotEmpty,
@@ -11,7 +11,7 @@ import {
 import { DTOBase } from "./DTOBase";
 import { SALE_KEYS, SALEITEMS_KEYS } from "./dtoKeys";
 import { Type } from "class-transformer";
-import { SaleItem } from "../entities/saleItems.entity";
+import { SaleItem } from "../database/entities/saleItems.entity";
 import { convertToLocalTime } from "../utils/dateUtils";
 
 export class SaleCreateDTO extends DTOBase {

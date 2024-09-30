@@ -10,7 +10,7 @@ import {
 } from "typeorm";
 import { Customer } from "./customers.entity"; // Asegúrate de ajustar la ruta según sea necesario
 import { SaleItem } from "./saleItems.entity";
-import { ISales } from "../interfaces/sales.interface";
+import { ISales } from "../../interfaces/sales.interface";
 
 @Entity("sales")
 export class Sale implements ISales {

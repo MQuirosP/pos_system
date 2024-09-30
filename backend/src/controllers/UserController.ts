@@ -6,7 +6,7 @@ import {
 import { Request, Response, NextFunction } from "express";
 import { UserService } from "../services/UserService";
 import dataSource from "../config/ormconfig";
-import { Users } from "../entities/users.entity";
+import { Users } from "../database/entities/users.entity";
 
 export class UserController {
   private readonly userService: UserService;

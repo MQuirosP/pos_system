@@ -1,4 +1,4 @@
-import { ICustomers } from './../interfaces/customers.interface';
+import { ICustomers } from '../../interfaces/customers.interface';
 import {
   Entity,
   PrimaryGeneratedColumn,

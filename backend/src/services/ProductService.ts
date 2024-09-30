@@ -1,4 +1,4 @@
-import { Product } from "./../entities/products.entity";
+import { Product } from "../database/entities/products.entity";
 import dataSource from "../config/ormconfig";
 import {
   Repository,

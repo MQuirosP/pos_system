@@ -12,7 +12,7 @@ import { Sale } from "./sales.entity";
 import { SaleItem } from "./saleItems.entity";
 import { Purchase } from "./purchases.entity";
 import { PurchaseItem } from "./purchaseItems.entity";
-import { IProduct } from "../interfaces/products.interface";
+import { IProduct } from "../../interfaces/products.interface";
 
 @Entity("products")
 export class Product implements IProduct {

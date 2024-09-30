@@ -1,4 +1,4 @@
-import { SaleItem } from "../entities/saleItems.entity";
+import { SaleItem } from "../database/entities/saleItems.entity";
 
 export interface ISales {
   // sale_id: number;

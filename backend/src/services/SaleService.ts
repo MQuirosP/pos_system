@@ -1,5 +1,5 @@
 import { Repository } from "typeorm";
-import { Sale } from "../entities/sales.entity";
+import { Sale } from "../database/entities/sales.entity";
 import { ISales } from "../interfaces/sales.interface";
 import { handleDatabaseError } from "../middlewares/databaseErrorHandler";
 import { AppError } from "../middlewares/errorHandler";
