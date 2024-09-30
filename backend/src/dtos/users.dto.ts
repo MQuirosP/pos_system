@@ -18,7 +18,7 @@ export class UserCreateDTO extends DTOBase {
 
   @IsNotEmpty()
   @IsString()
-  username: string | undefined;
+  username!: string;
 
   @IsNotEmpty()
   @IsEmail()
@@ -44,7 +44,7 @@ export class UserCreateDTO extends DTOBase {
   @IsString()
   lastname!: string;
 
-  constructor(data: Partial<UserCreateDTO>) {
+  constructor(data: UserCreateDTO) {
     super();
     Object.assign(this, data)
   }
