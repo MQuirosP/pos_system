@@ -18,7 +18,7 @@ export class SaleItem implements ISaleItems {
   @PrimaryGeneratedColumn({ name: "sequence" })
   sequence?: number;
 
-  @Column({ name: "status", type: "varchar", nullable: true, default: "completed" })
+  @Column({ name: "status", type: "varchar", nullable: false, default: "completed" })
   status?: string;
 
   @Column({ name: "sale_id", type: "int" })
