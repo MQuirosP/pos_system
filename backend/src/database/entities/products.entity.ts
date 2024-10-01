@@ -19,13 +19,13 @@ export class Product implements IProduct {
   @PrimaryGeneratedColumn({ name: "product_id" })
   product_id!: number;
 
-  @Column({ name: "int_code", type: "varchar", unique: true, nullable: false })
+  @Column({ name: "int_code", type: "varchar", unique: true, nullable: true })
   int_code!: string;
 
-  @Column({ name: "name", type: "varchar", nullable: false })
+  @Column({ name: "name", type: "varchar", nullable: true })
   name!: string;
 
-  @Column({ name: "description", type: "varchar", nullable: false })
+  @Column({ name: "description", type: "varchar", nullable: true })
   description!: string;
 
   @Column({
@@ -33,7 +33,7 @@ export class Product implements IProduct {
     type: "decimal",
     precision: 10,
     scale: 5,
-    nullable: false,
+    nullable: true,
   })
   purchase_price!: number;
 
@@ -51,11 +51,11 @@ export class Product implements IProduct {
     type: "decimal",
     precision: 10,
     scale: 5,
-    nullable: false,
+    nullable: true,
   })
   sale_price!: number;
 
-  @Column({ name: "is_taxed", type: "boolean", nullable: false })
+  @Column({ name: "is_taxed", type: "boolean", nullable: true })
   is_taxed!: boolean;
 
   @Column({
@@ -63,7 +63,7 @@ export class Product implements IProduct {
     type: "decimal",
     precision: 10,
     scale: 5,
-    nullable: false,
+    nullable: true,
   })
   margin!: number;
 
@@ -72,11 +72,11 @@ export class Product implements IProduct {
     type: "decimal",
     precision: 10,
     scale: 5,
-    nullable: false,
+    nullable: true,
   })
   tax_percentage!: number;
 
-  @Column({ name: "category_id", type: "int", nullable: false })
+  @Column({ name: "category_id", type: "int", nullable: true })
   category_id!: number;
 
   @Column({ name: "category_name", type: "varchar", nullable: true })
@@ -100,7 +100,7 @@ export class Product implements IProduct {
   @ManyToMany(() => Purchase, (purchase) => purchase.products)
   @JoinTable({
     name: "purchase_items", // Tabla intermedia para productos y compras
-    joinColumn: { name: "product_id", referencedColumnName: "product_id" },
+    joinColumn: { name: "int_code", referencedColumnName: "int_code" },
     inverseJoinColumn: {
       name: "purchase_id",
       referencedColumnName: "purchase_id",
@@ -115,7 +115,7 @@ export class Product implements IProduct {
   @ManyToMany(() => Sale, (sale) => sale.products)
   @JoinTable({
     name: "sale_items",
-    joinColumn: { name: "product_id", referencedColumnName: "product_id" },
+    joinColumn: { name: "int_code", referencedColumnName: "int_code" },
     inverseJoinColumn: { name: "sale_id", referencedColumnName: "sale_id" },
   })
   sales!: Sale[];

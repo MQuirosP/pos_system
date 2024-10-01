@@ -18,13 +18,13 @@ export class SaleItem implements ISaleItems {
   @PrimaryGeneratedColumn({ name: "sequence" })
   sequence?: number;
 
-  @Column({ name: "status", type: "varchar", nullable: false, default: "completed" })
+  @Column({ name: "status", type: "varchar", nullable: true, default: "completed" })
   status?: string;
 
   @Column({ name: "sale_id", type: "int" })
   sale_id?: number;
 
-  @Column({ name: "int_code", type: "varchar" })
+  @Column({ name: "int_code", type: "varchar", nullable: true })
   int_code?: string;
 
   @Column({
@@ -32,11 +32,11 @@ export class SaleItem implements ISaleItems {
     type: "decimal",
     precision: 10,
     scale: 2,
-    nullable: false,
+    nullable: true,
   })
   sale_price?: number;
 
-  @Column({ name: "quantity", type: "float", nullable: false })
+  @Column({ name: "quantity", type: "float", nullable: true })
   quantity?: number;
 
   @CreateDateColumn({
@@ -53,7 +53,7 @@ export class SaleItem implements ISaleItems {
   })
   updated_at?: Date;
 
-  @Column({ name: "name", type: "varchar", nullable: false })
+  @Column({ name: "name", type: "varchar", nullable: true })
   name?: string;
 
   @Column({
@@ -61,7 +61,7 @@ export class SaleItem implements ISaleItems {
     type: "decimal",
     precision: 10,
     scale: 2,
-    nullable: false,
+    nullable: true,
   })
   sub_total?: number;
 
@@ -70,7 +70,7 @@ export class SaleItem implements ISaleItems {
     type: "decimal",
     precision: 10,
     scale: 2,
-    nullable: false,
+    nullable: true,
   })
   taxes_amount?: number;
 
@@ -79,7 +79,7 @@ export class SaleItem implements ISaleItems {
     type: "decimal",
     precision: 10,
     scale: 2,
-    nullable: false,
+    nullable: true,
   })
   total?: number;
 

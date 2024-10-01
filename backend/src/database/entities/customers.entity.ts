@@ -18,7 +18,7 @@ export class Customer implements ICustomers{
     name: "customer_name",
     type: "varchar",
     length: 255,
-    nullable: false,
+    nullable: true,
   })
   customer_name?: string;
 
@@ -26,7 +26,7 @@ export class Customer implements ICustomers{
     name: "customer_first_lastname",
     type: "varchar",
     length: 255,
-    nullable: false,
+    nullable: true,
   })
   customer_first_lastname?: string;
 
@@ -34,7 +34,7 @@ export class Customer implements ICustomers{
     name: "customer_second_lastname",
     type: "varchar",
     length: 255,
-    nullable: false,
+    nullable: true,
   })
   customer_second_lastname?: string;
 
@@ -42,7 +42,7 @@ export class Customer implements ICustomers{
     name: "customer_address",
     type: "varchar",
     length: 255,
-    nullable: false,
+    nullable: true,
   })
   customer_address!: string;
 
@@ -50,7 +50,7 @@ export class Customer implements ICustomers{
     name: "customer_phone",
     type: "varchar",
     length: 20,
-    nullable: false,
+    nullable: true,
   })
   customer_phone!: string;
 
@@ -58,7 +58,7 @@ export class Customer implements ICustomers{
     name: "customer_email",
     type: "varchar",
     length: 255,
-    nullable: false,
+    nullable: true,
   })
   customer_email!: string;
 
@@ -66,7 +66,7 @@ export class Customer implements ICustomers{
     name: "customer_dni",
     type: "varchar",
     length: 20,
-    nullable: false,
+    nullable: true,
     unique: false,
   })
   customer_dni?: string;
