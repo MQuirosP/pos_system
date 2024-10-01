@@ -67,7 +67,7 @@ export class Customer implements ICustomers{
     type: "varchar",
     length: 20,
     nullable: true,
-    unique: false,
+    unique: true,
   })
   customer_dni?: string;
 
