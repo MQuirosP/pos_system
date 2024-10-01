@@ -10,8 +10,8 @@
     "start": "ts-node dist/index.js",
     "dev": "nodemon ts-node src/index.ts",
     "dev:watch": "nodemon --watch src --exec ts-node src/index.ts",
-    "migrate": "npx typeorm migration:run -d ./dist/config/ormconfig.js",
-    "migrate:revert": "npx typeorm migration:revert -d ./dist/ormconfig.js"
+    "migrate": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d ./src/config/ormconfig.ts",
+    "migrate:revert": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert -d ./src/config/ormconfig.ts"
   },
   "keywords": [],
   "author": "",
