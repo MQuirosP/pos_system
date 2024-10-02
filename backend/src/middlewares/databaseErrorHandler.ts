@@ -9,7 +9,9 @@ export function handleDatabaseError(error: any): void {
     switch (code) {
       case "23505":
         throw new AppError(
-          `Duplicate data: entry already exists in table ${(error as any).table}`,
+          `Duplicate data: entry already exists in table ${
+            (error as any).table
+          }`,
           409
         );
       case "23514":
@@ -19,10 +21,14 @@ export function handleDatabaseError(error: any): void {
         const driverError = (error as any).driverError;
         const driverErrorMessage =
           driverError?.message || driverError || "The data cannot be modified.";
-        throw new AppError(
-          `Modification error: ${driverErrorMessage}`,
-          500
-        );
+        throw new AppError(`Modification error: ${driverErrorMessage}`, 500);
+      case "23502":
+        const nullFieldsError = (error as any).driverError; // Renombrado aquí
+        const nullFieldsMessage =
+          nullFieldsError?.message ||
+          nullFieldsError ||
+          "Fields cannot be empty.";
+        throw new AppError(`Some null fields found: ${nullFieldsMessage}`, 400);
       default:
         throw new AppError("Unhandled database error: " + error.message, 500);
     }

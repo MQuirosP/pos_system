@@ -19,7 +19,7 @@ export class SaleItem implements ISaleItem {
   @Column({ name: "sale_id", type: "int" })
   sale_id!: number;
 
-  @Column({ name: "int_code", type: "varchar", nullable: true })
+  @Column({ name: "int_code", type: "varchar", nullable: false })
   int_code!: string;
 
   @Column({
@@ -27,11 +27,11 @@ export class SaleItem implements ISaleItem {
     type: "decimal",
     precision: 10,
     scale: 2,
-    nullable: true,
+    nullable: false,
   })
   sale_price!: number;
   
-  @Column({ name: "quantity", type: "float", nullable: true })
+  @Column({ name: "quantity", type: "float", nullable: false })
   quantity!: number;
 
   @Column({
@@ -39,7 +39,7 @@ export class SaleItem implements ISaleItem {
     type: "decimal",
     precision: 10,
     scale: 2,
-    nullable: true,
+    nullable: false,
   })
   sub_total?: number;
 
@@ -48,7 +48,7 @@ export class SaleItem implements ISaleItem {
     type: "decimal",
     precision: 10,
     scale: 2,
-    nullable: true,
+    nullable: false,
   })
   taxes_amount?: number;
   
@@ -74,7 +74,7 @@ export class SaleItem implements ISaleItem {
     type: "decimal",
     precision: 10,
     scale: 2,
-    nullable: true,
+    nullable: false,
   })
   total?: number;
 
