@@ -11,7 +11,7 @@ export function handleDatabaseError(error: any): void {
         throw new AppError(
           `Duplicate data: entry already exists in table ${
             (error as any).table
-          }`,
+          }: ${(error as any).detail}`,
           409
         );
       case "23514":
