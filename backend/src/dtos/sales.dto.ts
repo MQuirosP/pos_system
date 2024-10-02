@@ -108,8 +108,16 @@ export class SaleResponseDto {
 export class CreateSaleItemDTO extends DTOBase {
   static expectedKeys: string[] = SALEITEMS_KEYS;
 
+  @IsOptional()
   @IsNumber()
-  sequence!: number;
+  sequence!: number; // Agregar `?` para que sea opcional
+  @IsOptional()
+  @IsNumber()
+  sale!: Sale;
+
+  sale_id!: number;
+  created_at!: Date;
+  updated_at!: Date;
 
   @IsNotEmpty()
   @IsString()
@@ -121,14 +129,14 @@ export class CreateSaleItemDTO extends DTOBase {
 
   @IsNotEmpty()
   @IsNumber()
-  quantity?: number;
+  quantity!: number;
 
   @IsString()
   status!: string;
 
   @IsNotEmpty()
   @IsNumber()
-  sale_price?: number;
+  sale_price!: number;
 
   @IsNotEmpty()
   @IsNumber()

@@ -15,7 +15,7 @@ import { ISales } from "../../interfaces/sales.interface";
 import { Product } from "./products.entity";
 
 @Entity("sales")
-export class Sale implements ISales {
+export class Sale {
   @PrimaryGeneratedColumn({ name: "sale_id" })
   sale_id?: number;
 

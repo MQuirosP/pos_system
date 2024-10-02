@@ -121,9 +121,9 @@ export class Product implements IProduct {
   })
   sales!: Sale[];
 
-  @OneToMany(() => PurchaseItem, (purchaseItem) => purchaseItem.product)
+  @OneToMany(() => PurchaseItem, (purchaseItem) => purchaseItem.purchase_items)
   purchase_items!: PurchaseItem[];
 
-  @OneToMany(() => SaleItem, (saleItem) => saleItem.product)
+  @OneToMany(() => SaleItem, (saleItem) => saleItem.sale_items)
   sale_items!: SaleItem[];
 }

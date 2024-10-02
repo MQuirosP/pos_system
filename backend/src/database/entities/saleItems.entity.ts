@@ -12,18 +12,18 @@ import { Product } from "./products.entity";
 import { ISaleItems } from "../../interfaces/saleItems.interface";
 
 @Entity("sale_items")
-export class SaleItem implements ISaleItems {
+export class SaleItem  {
   @PrimaryGeneratedColumn({ name: "sequence" })
   sequence!: number;
 
   @Column({ name: "status", type: "varchar", nullable: false, default: "completed" })
-  status?: string;
+  status!: string;
 
   @Column({ name: "sale_id", type: "int" })
-  sale_id?: number;
+  sale_id!: number;
 
   @Column({ name: "int_code", type: "varchar", nullable: true })
-  int_code?: string;
+  int_code!: string;
 
   @Column({
     name: "sale_price",
@@ -32,24 +32,24 @@ export class SaleItem implements ISaleItems {
     scale: 2,
     nullable: true,
   })
-  sale_price?: number;
+  sale_price!: number;
 
   @Column({ name: "quantity", type: "float", nullable: true })
-  quantity?: number;
+  quantity!: number;
 
   @CreateDateColumn({
     name: "created_at",
     type: "timestamp",
     default: () => "CURRENT_TIMESTAMP",
   })
-  created_at?: Date;
+  created_at!: Date;
 
   @UpdateDateColumn({
     name: "updated_at",
     type: "timestamp",
     default: () => "CURRENT_TIMESTAMP",
   })
-  updated_at?: Date;
+  updated_at!: Date;
 
   @Column({ name: "name", type: "varchar", nullable: true })
   name?: string;
@@ -84,10 +84,10 @@ export class SaleItem implements ISaleItems {
   @ManyToOne(() => Sale, (sale) => sale.sale_items, { 
     onDelete: "SET NULL" })
   @JoinColumn({ name: "sale_id" })
-  sale?: Sale;
+  sale!: Sale;
 
   @ManyToOne(() => Product, (product) => product.sale_items, {
     onDelete: "SET NULL" })
   @JoinColumn({ name: "int_code" })
-  product?: Product;
+  sale_items?: SaleItem;
 }

@@ -90,5 +90,5 @@ export class PurchaseItem implements IPurchaseItems {
   @ManyToOne(() => Product, (product) => product.purchase_items, {
     onDelete: "SET NULL" })
   @JoinColumn({ name: "int_code" })
-  product!: Product;
+  purchase_items!: Product;
 }

@@ -1,8 +1,10 @@
+import { ISales } from "./sales.interface";
+
 export interface ISaleItems {
-  sequence?: number;
-  status?: string;
+  sequence: number;
+  status: string;
   sale_id?: number;
-  int_code?: string;
+  int_code: string;
   name?: string;
   quantity?: number;
   sale_price?: number;

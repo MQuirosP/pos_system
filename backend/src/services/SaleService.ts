@@ -11,7 +11,7 @@ export class SaleService {
     this.saleRepository = saleRepository;
   }
 
-  async createSale(saleData: ISales): Promise<ISales | null> {
+  async createSale(saleData: Sale): Promise<Sale | null> {
     try {
       const newSale = this.saleRepository.create(saleData);
       return await this.saleRepository.save(newSale);
@@ -21,7 +21,7 @@ export class SaleService {
     }
   }
 
-  async fetchSales(): Promise<ISales[]> {
+  async fetchSales(): Promise<Sale[]> {
     try {
       return await this.saleRepository.find({ relations: ["sale_items"] });
     } catch (error) {
@@ -29,7 +29,7 @@ export class SaleService {
     }
   }
 
-  async fetchSaleByDocNumber(docNumber: string): Promise<ISales | null> {
+  async fetchSaleByDocNumber(docNumber: string): Promise<Sale | null> {
     try {
       const sale = await this.saleRepository.findOne({
         where: { doc_number: docNumber },
@@ -41,7 +41,7 @@ export class SaleService {
     }
   }
 
-  async cancelSale(docNumber: string): Promise<ISales | null> {
+  async cancelSale(docNumber: string): Promise<Sale | null> {
     try {
       const sale = await this.saleRepository.findOne({
         where: { doc_number: docNumber },
