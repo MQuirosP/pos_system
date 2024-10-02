@@ -1,6 +1,7 @@
-import { SaleItem } from "../database/entities/saleItems.entity";
-import { ISaleItems } from "./saleItems.interface";
+import { ICustomers } from "./customers.interface";
+import { ISaleItem } from "./saleItems.interface";
 
+// Archivo: sales.interface.ts
 export interface ISales {
   sale_id?: number;
   customer_id?: number;
@@ -10,9 +11,10 @@ export interface ISales {
   created_at: Date;
   updated_at: Date;
   status: string;
-  observations: string;
+  observations?: string; // Opcional
   sub_total: number;
   taxes_amount: number;
   total: number;
-  sale_items: ISaleItems[];
+  customer?: ICustomers; // Relación opcional
+  sale_items: ISaleItem[]; // Relación obligatoria
 }

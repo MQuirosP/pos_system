@@ -13,6 +13,8 @@ import { SaleItem } from "./saleItems.entity";
 import { Purchase } from "./purchases.entity";
 import { PurchaseItem } from "./purchaseItems.entity";
 import { IProduct } from "../../interfaces/products.interface";
+import { IPurchases } from "../../interfaces/purchases.interface";
+import { IPurchaseItems } from "../../interfaces/purchaseItems.interface";
 
 @Entity("products")
 export class Product implements IProduct {
@@ -106,8 +108,7 @@ export class Product implements IProduct {
       referencedColumnName: "purchase_id",
     },
   })
-  purchases!: Purchase[];
-
+  purchases!: IPurchases[];
   
   // Relación Many-to-Many con Sale
   // Product
@@ -122,7 +123,7 @@ export class Product implements IProduct {
   sales!: Sale[];
 
   @OneToMany(() => PurchaseItem, (purchaseItem) => purchaseItem.purchase_items)
-  purchase_items!: PurchaseItem[];
+  purchase_items!: IPurchaseItems[];
 
   @OneToMany(() => SaleItem, (saleItem) => saleItem.sale_items)
   sale_items!: SaleItem[];

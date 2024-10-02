@@ -9,15 +9,11 @@ import {
 } from "typeorm";
 import { Sale } from "./sales.entity";
 import { Product } from "./products.entity";
-import { ISaleItems } from "../../interfaces/saleItems.interface";
 
 @Entity("sale_items")
 export class SaleItem  {
   @PrimaryGeneratedColumn({ name: "sequence" })
   sequence!: number;
-
-  @Column({ name: "status", type: "varchar", nullable: false, default: "completed" })
-  status!: string;
 
   @Column({ name: "sale_id", type: "int" })
   sale_id!: number;
@@ -33,26 +29,9 @@ export class SaleItem  {
     nullable: true,
   })
   sale_price!: number;
-
+  
   @Column({ name: "quantity", type: "float", nullable: true })
   quantity!: number;
-
-  @CreateDateColumn({
-    name: "created_at",
-    type: "timestamp",
-    default: () => "CURRENT_TIMESTAMP",
-  })
-  created_at!: Date;
-
-  @UpdateDateColumn({
-    name: "updated_at",
-    type: "timestamp",
-    default: () => "CURRENT_TIMESTAMP",
-  })
-  updated_at!: Date;
-
-  @Column({ name: "name", type: "varchar", nullable: true })
-  name?: string;
 
   @Column({
     name: "sub_total",
@@ -71,7 +50,24 @@ export class SaleItem  {
     nullable: true,
   })
   taxes_amount?: number;
-
+  
+  @CreateDateColumn({
+    name: "created_at",
+    type: "timestamp",
+    default: () => "CURRENT_TIMESTAMP",
+  })
+  created_at!: Date;
+  
+  @UpdateDateColumn({
+    name: "updated_at",
+    type: "timestamp",
+    default: () => "CURRENT_TIMESTAMP",
+  })
+  updated_at!: Date;
+  
+  @Column({ name: "name", type: "varchar", nullable: true })
+  name?: string;
+  
   @Column({
     name: "total",
     type: "decimal",
@@ -81,11 +77,14 @@ export class SaleItem  {
   })
   total?: number;
 
+  @Column({ name: "status", type: "varchar", nullable: false, default: "completed" })
+  status!: string;
+  
   @ManyToOne(() => Sale, (sale) => sale.sale_items, { 
     onDelete: "SET NULL" })
-  @JoinColumn({ name: "sale_id" })
-  sale!: Sale;
-
+    @JoinColumn({ name: "sale_id" })
+    sale!: Sale;
+    
   @ManyToOne(() => Product, (product) => product.sale_items, {
     onDelete: "SET NULL" })
   @JoinColumn({ name: "int_code" })

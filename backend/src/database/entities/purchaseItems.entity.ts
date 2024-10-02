@@ -9,11 +9,9 @@ import {
 } from "typeorm";
 import { Purchase } from "./purchases.entity";
 import { Product } from "./products.entity";
-import { IPurchaseItems } from "../../interfaces/purchaseItems.interface";
-import { IPurchases } from "../../interfaces/purchases.interface";
 
 @Entity("purchase_items")
-export class PurchaseItem implements IPurchaseItems {
+export class PurchaseItem  {
   @PrimaryGeneratedColumn({ name: "sequence" })
   sequence!: number;
 
@@ -90,5 +88,5 @@ export class PurchaseItem implements IPurchaseItems {
   @ManyToOne(() => Product, (product) => product.purchase_items, {
     onDelete: "SET NULL" })
   @JoinColumn({ name: "int_code" })
-  purchase_items!: Product;
+  purchase_items?: Product;
 }

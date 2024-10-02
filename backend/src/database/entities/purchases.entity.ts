@@ -89,6 +89,6 @@ export class Purchase implements IPurchases {
     cascade: true,
     eager: true,
   })
-  purchase_items!: PurchaseItem[];
+  purchase_items!: IPurchaseItems[];
 
 }

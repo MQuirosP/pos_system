@@ -8,6 +8,7 @@ import {
 } from "typeorm";
 import { Purchase } from "./purchases.entity";
 import { IProviders } from "../../interfaces/providers.interface";
+import { IPurchases } from "../../interfaces/purchases.interface";
 
 @Entity("providers")
 export class Provider implements IProviders {
@@ -70,5 +71,5 @@ export class Provider implements IProviders {
   updated_at!: Date;
 
   @OneToMany(() => Purchase, purchase => purchase.provider)
-      purchases!: Purchase[];
+      purchases!: IPurchases[];
 }

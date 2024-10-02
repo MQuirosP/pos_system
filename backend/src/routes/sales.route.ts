@@ -1,7 +1,7 @@
 import express from "express";
 import { SaleController } from "../controllers/SaleController";
 import { validateDTO } from "../middlewares/validateDTO";
-import { SaleCreateDTO } from "../dtos/sales.dto";
+import { SaleCreateDTO, SaleUpdateDTO } from "../dtos/sales.dto";
 
 const router = express.Router();
 const saleController = new SaleController();
@@ -18,7 +18,7 @@ router.get(
 );
 router.put(
   "/:doc_number",
-  validateDTO(SaleCreateDTO),
+  validateDTO(SaleUpdateDTO),
   saleController.cancelSale.bind(saleController)
 );
 

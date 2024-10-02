@@ -1,16 +1,21 @@
-import { ISales } from "./sales.interface";
+import { SaleItem } from "../database/entities/saleItems.entity";
+import { Sale } from "../database/entities/sales.entity";
 
-export interface ISaleItems {
+
+export interface ISaleItem {
   sequence: number;
+  sale_id: number;
+  int_code?: string; 
+  sale_price?: number; 
+  quantity?: number; 
+  sub_total?: number; 
+  taxes_amount?: number; 
+  created_at: Date;
+  updated_at: Date;
+  name?: string; 
+  total?: number; 
   status: string;
-  sale_id?: number;
-  int_code: string;
-  name?: string;
-  quantity?: number;
-  sale_price?: number;
-  sub_total?: number;
-  taxes_amount?: number;
-  total?: number;
-  created_at?: Date;
-  updated_at?: Date;
+  sale: Sale; 
+  sale_items?: SaleItem; 
 }
+

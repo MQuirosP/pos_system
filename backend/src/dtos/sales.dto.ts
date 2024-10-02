@@ -1,10 +1,12 @@
 import { Sale } from "../database/entities/sales.entity";
 import {
   IsArray,
+  IsBoolean,
   IsNotEmpty,
   IsNumber,
   IsOptional,
   IsString,
+  ValidateIf,
   ValidateNested,
   validateOrReject,
 } from "class-validator";
@@ -158,4 +160,23 @@ export class CreateSaleItemDTO extends DTOBase {
   async validate(): Promise<void> {
     await validateOrReject(this);
   }
+}
+
+export class SaleUpdateDTO extends DTOBase {
+  static expectedKeys = SALE_KEYS;
+
+  @IsString()
+  @ValidateIf((o) => o.status !== undefined)
+  @IsNotEmpty()
+  status!: boolean;
+
+  constructor(data: Partial<SaleUpdateDTO>) {
+    super();
+    Object.assign(this, data)
+  }
+
+  async validate(): Promise<void> {
+    await validateOrReject(this);
+  }
+  
 }
