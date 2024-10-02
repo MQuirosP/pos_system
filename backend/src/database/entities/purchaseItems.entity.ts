@@ -9,9 +9,10 @@ import {
 } from "typeorm";
 import { Purchase } from "./purchases.entity";
 import { Product } from "./products.entity";
+import { IPurchaseItems } from "../../interfaces/purchaseItems.interface";
 
 @Entity("purchase_items")
-export class PurchaseItem  {
+export class PurchaseItem implements IPurchaseItems {
   @PrimaryGeneratedColumn({ name: "sequence" })
   sequence!: number;
 
@@ -66,7 +67,7 @@ export class PurchaseItem  {
   updated_at!: Date;
 
   @Column({ name: "name", type: "varchar", nullable: false })
-  name?: string;
+  name!: string;
 
   @Column({
     name: "total",
@@ -75,7 +76,7 @@ export class PurchaseItem  {
     scale: 2,
     nullable: false,
   })
-  total?: number;
+  total!: number;
 
   @Column({ name: "status", type: "varchar", nullable: false })
   status!: string;

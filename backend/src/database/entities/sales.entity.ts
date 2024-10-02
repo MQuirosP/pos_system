@@ -7,15 +7,13 @@ import {
   ManyToOne,
   JoinColumn,
   OneToMany,
-  ManyToMany,
 } from "typeorm";
 import { Customer } from "./customers.entity"; // Asegúrate de ajustar la ruta según sea necesario
 import { SaleItem } from "./saleItems.entity";
 import { ISales } from "../../interfaces/sales.interface";
-import { Product } from "./products.entity";
 
 @Entity("sales")
-export class Sale {
+export class Sale implements ISales {
   @PrimaryGeneratedColumn({ name: "sale_id" })
   sale_id?: number;
 

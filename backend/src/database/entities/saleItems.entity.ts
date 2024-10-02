@@ -9,9 +9,10 @@ import {
 } from "typeorm";
 import { Sale } from "./sales.entity";
 import { Product } from "./products.entity";
+import { ISaleItem } from "../../interfaces/saleItems.interface";
 
 @Entity("sale_items")
-export class SaleItem  {
+export class SaleItem implements ISaleItem {
   @PrimaryGeneratedColumn({ name: "sequence" })
   sequence!: number;
 
