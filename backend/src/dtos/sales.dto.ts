@@ -62,7 +62,7 @@ export class SaleCreateDTO extends DTOBase {
   @IsArray()
   @ValidateNested({ each: true })
   @Type(() => CreateSaleItemDTO)
-  products!: CreateSaleItemDTO[];
+  sale_items!: CreateSaleItemDTO[];
 
   constructor(data: Partial<SaleCreateDTO>) {
     super();
@@ -81,7 +81,7 @@ export class SaleResponseDto {
   total!: number;
   status!: string;
   created_at!: string | Date;
-  products: CreateSaleItemDTO[];
+  sale_items: CreateSaleItemDTO[];
 
   constructor(data: Sale) {
     this.customer_name = data.customer_name;
@@ -89,7 +89,7 @@ export class SaleResponseDto {
     this.total = data.total;
     this.status = data.status;
     this.created_at = convertToLocalTime(data.created_at);
-    this.products = data.products.map(
+    this.sale_items = data.sale_items.map(
       (product) =>
         new CreateSaleItemDTO({
           int_code: product.int_code,
@@ -108,9 +108,8 @@ export class SaleResponseDto {
 export class CreateSaleItemDTO extends DTOBase {
   static expectedKeys: string[] = SALEITEMS_KEYS;
 
-  // @IsOptional()
-  // @IsNumber()
-  // sequence!: number;
+  @IsNumber()
+  sequence!: number;
 
   @IsNotEmpty()
   @IsString()

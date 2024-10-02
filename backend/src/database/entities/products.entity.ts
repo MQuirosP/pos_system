@@ -97,7 +97,7 @@ export class Product implements IProduct {
   updated_at!: Date;
 
   // Relación Many-to-Many con Purchase
-  @ManyToMany(() => Purchase, (purchase) => purchase.products)
+  @ManyToMany(() => Purchase, (purchase) => purchase.purchase_items)
   @JoinTable({
     name: "purchase_items", // Tabla intermedia para productos y compras
     joinColumn: { name: "int_code", referencedColumnName: "int_code" },
@@ -107,20 +107,23 @@ export class Product implements IProduct {
     },
   })
   purchases!: Purchase[];
-  @OneToMany(() => PurchaseItem, (purchaseItem) => purchaseItem.product)
-  purchase_items!: PurchaseItem[];
 
+  
   // Relación Many-to-Many con Sale
   // Product
-  @ManyToMany(() => Sale, (sale) => sale.products)
+  @ManyToMany(() => Sale, (sale) => sale.sale_items)
   @JoinTable({
     name: "sale_items",
     joinColumn: { name: "int_code", referencedColumnName: "int_code" },
-    inverseJoinColumn: { name: "sale_id", referencedColumnName: "sale_id" },
+    inverseJoinColumn: { 
+      name: "sale_id",
+      referencedColumnName: "sale_id" },
   })
   sales!: Sale[];
 
+  @OneToMany(() => PurchaseItem, (purchaseItem) => purchaseItem.product)
+  purchase_items!: PurchaseItem[];
+
   @OneToMany(() => SaleItem, (saleItem) => saleItem.product)
-  products!: SaleItem[];
+  sale_items!: SaleItem[];
 }
-// export { Sale };

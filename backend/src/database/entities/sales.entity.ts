@@ -7,10 +7,12 @@ import {
   ManyToOne,
   JoinColumn,
   OneToMany,
+  ManyToMany,
 } from "typeorm";
 import { Customer } from "./customers.entity"; // Asegúrate de ajustar la ruta según sea necesario
 import { SaleItem } from "./saleItems.entity";
 import { ISales } from "../../interfaces/sales.interface";
+import { Product } from "./products.entity";
 
 @Entity("sales")
 export class Sale implements ISales {
@@ -18,7 +20,7 @@ export class Sale implements ISales {
   sale_id?: number;
 
   @Column({ name: "customer_id", type: "int", nullable: false })
-  customer_id!: number;
+  customer_id?: number;
 
   @Column({ name: "customer_name", type: "varchar" })
   customer_name!: string;
@@ -77,7 +79,8 @@ export class Sale implements ISales {
   total!: number;
 
   // Relación Many-to-One con Customer
-  @ManyToOne(() => Customer, (customer) => customer.sales, { nullable: false })
+  @ManyToOne(() => Customer, (customer) => customer.sales, { 
+    onDelete: "SET NULL" })
   @JoinColumn({ name: "customer_id" })
   customer?: Customer;
 
@@ -85,5 +88,6 @@ export class Sale implements ISales {
     cascade: true,
     eager: true,
   })
-  products!: SaleItem[];
+  sale_items!: SaleItem[];
+
 }

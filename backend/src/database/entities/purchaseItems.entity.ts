@@ -82,7 +82,7 @@ export class PurchaseItem implements IPurchaseItems {
   @Column({ name: "status", type: "varchar", nullable: false })
   status!: string;
 
-  @ManyToOne(() => Purchase, (purchase) => purchase.products, {
+  @ManyToOne(() => Purchase, (purchase) => purchase.purchase_items, {
     onDelete: "SET NULL" })
   @JoinColumn({ name: "purchase_id" })
   purchase!: Purchase;

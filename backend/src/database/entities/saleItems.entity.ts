@@ -10,13 +10,11 @@ import {
 import { Sale } from "./sales.entity";
 import { Product } from "./products.entity";
 import { ISaleItems } from "../../interfaces/saleItems.interface";
-import { ISales } from "../../interfaces/sales.interface";
-import { IProduct } from "../../interfaces/products.interface";
 
 @Entity("sale_items")
 export class SaleItem implements ISaleItems {
   @PrimaryGeneratedColumn({ name: "sequence" })
-  sequence?: number;
+  sequence!: number;
 
   @Column({ name: "status", type: "varchar", nullable: false, default: "completed" })
   status?: string;
@@ -83,13 +81,13 @@ export class SaleItem implements ISaleItems {
   })
   total?: number;
 
-  @ManyToOne(() => Sale, (sale) => sale.products, { onDelete: "SET NULL" })
+  @ManyToOne(() => Sale, (sale) => sale.sale_items, { 
+    onDelete: "SET NULL" })
   @JoinColumn({ name: "sale_id" })
-  sale?: ISales;
+  sale?: Sale;
 
-  @ManyToOne(() => Product, (product) => product.products, {
-    onDelete: "SET NULL",
-  })
+  @ManyToOne(() => Product, (product) => product.sale_items, {
+    onDelete: "SET NULL" })
   @JoinColumn({ name: "int_code" })
-  product?: IProduct;
+  product?: Product;
 }

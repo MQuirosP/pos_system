@@ -1,8 +1,8 @@
 import { SaleItem } from "../database/entities/saleItems.entity";
 
 export interface ISales {
-  // sale_id: number;
-  customer_id: number;
+  sale_id?: number;
+  customer_id?: number;
   customer_name: string;
   payment_method: string;
   doc_number: string;
@@ -13,5 +13,5 @@ export interface ISales {
   sub_total: number;
   taxes_amount: number;
   total: number;
-  products: SaleItem[];
+  sale_items: SaleItem[];
 }

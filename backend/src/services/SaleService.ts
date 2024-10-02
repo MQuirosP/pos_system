@@ -23,7 +23,7 @@ export class SaleService {
 
   async fetchSales(): Promise<ISales[]> {
     try {
-      return await this.saleRepository.find({ relations: ["products"] });
+      return await this.saleRepository.find({ relations: ["sale_items"] });
     } catch (error) {
       throw handleDatabaseError(error)
     }
@@ -33,7 +33,7 @@ export class SaleService {
     try {
       const sale = await this.saleRepository.findOne({
         where: { doc_number: docNumber },
-        relations: ["products"],
+        relations: ["sale_items"],
       });
       return sale;
     } catch (error) {
@@ -45,7 +45,7 @@ export class SaleService {
     try {
       const sale = await this.saleRepository.findOne({
         where: { doc_number: docNumber },
-        relations: ['products'],
+        relations: ['sale_items'],
       });
       if(!sale) {
         throw new AppError("Sale not found.", 404)
@@ -54,7 +54,7 @@ export class SaleService {
         throw new AppError("Sale already canceled", 409)
       }
       sale.status = "canceled"
-      for (const product of sale.products) {
+      for (const product of sale.sale_items) {
         product.status = "canceled"
         // await this.saleRepository.save(product);
       }

@@ -85,17 +85,10 @@ export class Purchase implements IPurchases {
   @JoinColumn({ name: "provider_id" })
   provider!: Provider;
 
-  @ManyToMany(() => PurchaseItem, (purchaseItem) => purchaseItem.purchase, { cascade: true})
-  purchase_items!: IPurchaseItems[];
-
-  @ManyToMany(() => Product, (product) => product.purchases)
-  @JoinTable({
-    name: "purchase_items",
-    joinColumn: { name: "purchase_id", referencedColumnName: "purchase_id" },
-    inverseJoinColumn: {
-      name: "product_id",
-      referencedColumnName: "product_id",
-    },
+  @ManyToMany(() => PurchaseItem, (purchaseItem) => purchaseItem.purchase, {
+    cascade: true,
+    eager: true,
   })
-  products!: Product[];
+  purchase_items!: PurchaseItem[];
+
 }

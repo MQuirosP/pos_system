@@ -32,7 +32,7 @@ export const SALE_KEYS = [
   "sub_total",
   "taxes_amount",
   "total",
-  "products"
+  "sale_items"
 ];
 
 export const SALEITEMS_KEYS = [
