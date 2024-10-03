@@ -8,7 +8,7 @@ import {
 import { Customer } from "../database/entities/customers.entity";
 import { CUSTOMERS_KEYS } from "./dtoKeys";
 import { DTOBase } from "./DTOBase";
-import { Sale } from "../database/entities/sales.entity";
+import { Inmutable } from "../decorators/isInmmutable.decorator";
 
 export class CustomerCreateDTO extends DTOBase {
   static expectedKeys: string[] = CUSTOMERS_KEYS;
@@ -99,6 +99,7 @@ export class CustomerUpdateDTO extends DTOBase {
   @IsNotEmpty()
   @IsString()
   @ValidateIf((o) => o.customer_dni !== undefined)
+  @Inmutable({ message: "Customer DNI is inmutable and cannot be changed"})
   customer_dni?: string;
 
   constructor(data: Partial<CustomerUpdateDTO>) {

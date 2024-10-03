@@ -10,6 +10,7 @@ import {
 import { Product } from "../database/entities/products.entity";
 import { PRODUCT_KEYS } from "./dtoKeys";
 import { DTOBase } from "./DTOBase";
+import { Inmutable } from "../decorators/isInmmutable.decorator";
 
 export class ProductCreateDTO extends DTOBase {
   static expectedKeys: string[] = PRODUCT_KEYS;
@@ -97,6 +98,7 @@ export class ProductUpdateDTO extends DTOBase {
   @IsNotEmpty()
   @IsString()
   @ValidateIf((o) => o.int_code !== undefined)
+  @Inmutable({ message: "Product int_code is inmutable and cannot be changed"})
   int_code?: string;
 
   @IsOptional()

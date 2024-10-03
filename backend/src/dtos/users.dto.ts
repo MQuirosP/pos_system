@@ -11,6 +11,7 @@ import { Users } from "../database/entities/users.entity";
 import { USER_KEYS } from "./dtoKeys";
 import { DTOBase } from "./DTOBase";
 import { IsEnumWithMessage } from "../decorators/isEnumWithMessage.decorator";
+import { Inmutable } from "../decorators/isInmmutable.decorator";
 
 
 export class UserCreateDTO extends DTOBase {
@@ -61,6 +62,7 @@ export class UserUpdateDTO extends DTOBase {
   @IsString()
   @IsNotEmpty()
   @ValidateIf((o) => o.username !== undefined)
+  @Inmutable()
   username?: string;
 
   @IsOptional()
