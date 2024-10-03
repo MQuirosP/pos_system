@@ -1,8 +1,9 @@
-import { Repository } from "typeorm";
+import { EntityManager, Repository } from "typeorm";
 import { Sale } from "../database/entities/sales.entity";
 import { ISales } from "../interfaces/sales.interface";
 import { handleDatabaseError } from "../middlewares/databaseErrorHandler";
 import { AppError } from "../middlewares/errorHandler";
+import dataSource from "../config/ormconfig";
 
 export class SaleService {
   private saleRepository: Repository<Sale>;
@@ -12,13 +13,12 @@ export class SaleService {
   }
 
   async createSale(saleData: Sale): Promise<Sale | null> {
-    try {
-      const newSale = this.saleRepository.create(saleData);
-      return await this.saleRepository.save(newSale);
-      
-    } catch (error) {
-      throw handleDatabaseError(error)
-    }
+    return await dataSource.manager.transaction(
+      async (transactionalEntityManager: EntityManager) => {
+        const newSale = transactionalEntityManager.create(Sale, saleData)
+        return await transactionalEntityManager.save(newSale);
+      }
+    )
   }
 
   async fetchSales(): Promise<Sale[]> {
