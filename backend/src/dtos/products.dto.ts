@@ -171,23 +171,22 @@ export class ProductUpdateDTO extends DTOBase {
 
 export class ProductResponseDTO {
   int_code: string;
-    name: string;
-    description: string;
-    purchase_price: number;
-    quantity?: number;
-    sale_price: number;
-    tax_percentage: number;
-    category_name: string
+  name: string;
+  description: string;
+  purchase_price: number;
+  quantity?: number;
+  sale_price: number;
+  tax_percentage: number;
+  category_name: string;
 
-    constructor(product: Product) {
-      this.int_code = product.int_code;
-      this.name = product.name;
-      this.description = product.description;
-      this.purchase_price = product.purchase_price;
-      this.sale_price = product.sale_price;
-      this.quantity = product.quantity;
-      this.tax_percentage = product.tax_percentage;
-      this.category_name = product.category_name;
-
-    }
+  constructor(product: Product) {
+    this.int_code = product.int_code;
+    this.name = product.name;
+    this.description = product.description;
+    this.purchase_price = product.purchase_price;
+    this.sale_price = product.sale_price;
+    this.quantity = product.quantity;
+    this.tax_percentage = product.tax_percentage;
+    this.category_name = product.category_name;
+  }
 }

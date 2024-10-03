@@ -22,7 +22,7 @@ export class ProductController {
       await productData.validate();
       const newProduct = await this.productService.createProduct(productData);
 
-      const productResponseDTO = new ProductResponseDTO(newProduct!);
+      const productResponseDTO = new ProductResponseDTO(newProduct);
 
       return res.success(
         productResponseDTO,
@@ -33,27 +33,6 @@ export class ProductController {
       next(error);
     }
   }
-
-  // async getProducts(req: Request, res: Response, next: NextFunction) {
-  //   try {
-  //     const products = await this.productService.getAllProducts();
-  //     if (products.length === 0) {
-  //       return res.success(products, "No products found.", 200);
-  //     }
-
-  //     const productResponseDTOs = products.map(
-  //       (products) => new ProductResponseDTO(products)
-  //     );
-
-  //     const responseMessage =
-  //       productResponseDTOs.length === 0
-  //         ? "No products found."
-  //         : "Products fetched successfully.";
-  //     return res.success(productResponseDTOs, responseMessage, 200);
-  //   } catch (error) {
-  //     next(error);
-  //   }
-  // }
 
   async getProductById(req: Request, res: Response, next: NextFunction) {
     try {
@@ -76,14 +55,13 @@ export class ProductController {
 
   async getProducts(req: Request, res: Response, next: NextFunction) {
     try {
-      
       const { name } = req.query;
       let products: Product[] | null = [];
 
       if (name && typeof name === "string" && name.trim() !== "") {
         products = await this.productService.getProductByName(name as string);
       } else {
-        products = await this.productService.getAllProducts();
+        products = await this.productService.fetchAllProducts();
       }
       const productResponseDTOs = products?.map(
         (product) => new ProductResponseDTO(product)
@@ -110,12 +88,9 @@ export class ProductController {
       );
 
       if (!updatedProduct) {
-        return res.error(
-          { message: "Failed to update product." },
-          400
-        )
+        return res.error({ message: "Failed to update product." }, 400);
       }
-      const productResponseDTO = new ProductResponseDTO(updatedProduct!)
+      const productResponseDTO = new ProductResponseDTO(updatedProduct!);
       return res.success(productResponseDTO, "Product updated successfully.");
     } catch (error) {
       next(error);
@@ -138,8 +113,12 @@ export class ProductController {
       if (!deleteResult || deleteResult.affected === 0) {
         return res.error({ message: "Failed to delete product." }, 500);
       }
-      const productResponseDTO = new ProductResponseDTO(productToDelete)
-      return res.success(productResponseDTO, "Product deleted successfully.", 200);
+      const productResponseDTO = new ProductResponseDTO(productToDelete);
+      return res.success(
+        productResponseDTO,
+        "Product deleted successfully.",
+        200
+      );
     } catch (error) {
       next(error);
     }

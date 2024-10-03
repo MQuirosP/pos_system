@@ -1,11 +1,6 @@
 import { Product } from "../database/entities/products.entity";
 import dataSource from "../config/ormconfig";
-import {
-  Repository,
-  EntityManager,
-  Like,
-  DeleteResult,
-} from "typeorm";
+import { Repository, EntityManager, Like, DeleteResult, ILike } from "typeorm";
 import { handleDatabaseError } from "../middlewares/databaseErrorHandler";
 import { AppError } from "../middlewares/errorHandler";
 import { ProductCreateDTO } from "../dtos/products.dto";
@@ -33,7 +28,7 @@ export class ProductService {
     }
   }
 
-  async getAllProducts(): Promise<Product[]> {
+  async fetchAllProducts(): Promise<Product[]> {
     try {
       return await this.productRepository.find();
     } catch (error) {
@@ -54,43 +49,50 @@ export class ProductService {
 
   async getProductByName(productName: string): Promise<Product[] | null> {
     try {
-        const product = await this.productRepository.find({
-            where: {
-              name: Like(`%${productName}%`),
-            },
-          });
+      const product = await this.productRepository.find({
+        where: {
+          name: ILike(`%${productName}%`),
+        },
+      });
       return product.length > 0 ? product : null;
     } catch (error) {
       throw handleDatabaseError(error);
     }
   }
 
-  async updateProduct(productId: number, updates: Partial<Product>): Promise<(Product | null)> {
+  async updateProduct(
+    productId: number,
+    updates: Partial<Product>
+  ): Promise<Product | null> {
     try {
-        const product = await this.productRepository.findOne({
-            where: { product_id: productId,},
-        });
+      const product = await this.productRepository.findOne({
+        where: { product_id: productId },
+      });
 
-        if (!product) {
-            throw handleDatabaseError(product);
-        }
+      if (!product) {
+        throw handleDatabaseError(product);
+      }
 
-        Object.assign(product, updates);
+      Object.assign(product, updates);
 
-        return await this.productRepository.save(product);
+      return await this.productRepository.save(product);
     } catch (error) {
-        throw handleDatabaseError(error);
+      throw handleDatabaseError(error);
     }
   }
 
   async deleteProduct(productId: number): Promise<DeleteResult | null> {
-    const product = await this.productRepository.findOne({
+    try {
+      const product = await this.productRepository.findOne({
         where: { product_id: productId },
-    });
+      });
 
-    if( !product ) {
+      if (!product) {
         throw new AppError("Product not found.", 400);
+      }
+      return await this.productRepository.delete(productId);
+    } catch (error) {
+      throw handleDatabaseError(error);
     }
-    return await this.productRepository.delete(productId)
   }
 }

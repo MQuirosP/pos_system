@@ -20,7 +20,7 @@ export class Customer implements ICustomers{
     length: 255,
     nullable: true,
   })
-  customer_name?: string;
+  customer_name!: string;
 
   @Column({
     name: "customer_first_lastname",
@@ -28,7 +28,7 @@ export class Customer implements ICustomers{
     length: 255,
     nullable: true,
   })
-  customer_first_lastname?: string;
+  customer_first_lastname!: string;
 
   @Column({
     name: "customer_second_lastname",
@@ -36,7 +36,7 @@ export class Customer implements ICustomers{
     length: 255,
     nullable: true,
   })
-  customer_second_lastname?: string;
+  customer_second_lastname!: string;
 
   @Column({
     name: "customer_address",
@@ -69,7 +69,7 @@ export class Customer implements ICustomers{
     nullable: true,
     unique: true,
   })
-  customer_dni?: string;
+  customer_dni!: string;
 
   @CreateDateColumn({
     name: "created_at",

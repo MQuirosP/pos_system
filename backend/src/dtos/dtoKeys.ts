@@ -43,4 +43,14 @@ export const SALEITEMS_KEYS = [
   "sub_total",
   "taxes_amount",
   "total"
+];
+
+export const CUSTOMERS_KEYS = [
+  "customer_name",
+  "customer_first_lastname",
+  "customer_second_lastname",
+  "customer_address",
+  "customer_phone",
+  "customer_email",
+  "customer_dni",
 ]
