@@ -66,7 +66,7 @@ export class SaleItem implements ISaleItem {
   })
   updated_at!: Date;
   
-  @Column({ name: "name", type: "varchar", nullable: true })
+  @Column({ name: "name", type: "varchar", nullable: false })
   name?: string;
   
   @Column({

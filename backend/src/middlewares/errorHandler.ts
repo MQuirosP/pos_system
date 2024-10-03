@@ -17,6 +17,19 @@ export class AppError extends Error {
   }
 }
 
+// Función auxiliar para extraer mensajes de error
+const extractValidationErrors = (errors: ValidationError[]): string => {
+  return errors
+    .map((error) => {
+      const constraints = error.constraints || {};
+      const messages = Object.values(constraints).join(", ");
+      // Recursivamente procesar los errores en children
+      const childrenMessages = extractValidationErrors((error as any).children);
+      return [messages, childrenMessages].filter(Boolean).join(", ");
+    })
+    .join(", ");
+};
+
 // Middleware para manejar errores globales
 export const globalErrorHandler = (
   err: any,
@@ -25,15 +38,12 @@ export const globalErrorHandler = (
   next: NextFunction
 ) => {
   console.log(err);
+  
   // Manejo de errores de validación
   if (Array.isArray(err)) {
     const validationErrors = err as ValidationError[];
-    const errorMessages = validationErrors
-      .map((e) => {
-        const constraints = e.constraints || {};
-        return Object.values(constraints).join(", ");
-      })
-      .join(", ");
+    const errorMessages = extractValidationErrors(validationErrors);
+    
     return res.status(400).json({
       status: "fail",
       message: `Validation error: ${errorMessages}.`,
@@ -41,7 +51,6 @@ export const globalErrorHandler = (
   }
 
   if (err.message.includes('Database error')) {
-    // console.error("Database error:", err.message);
     return res.status(500).json({
       status: "error",
       message: "A database error occurred.",
@@ -80,7 +89,6 @@ export const globalErrorHandler = (
   }
 
   // Manejo de errores inesperados
-  // console.error("Unexpected error:", err);
   return res.status(500).json({
     status: "error",
     message: "Something went wrong. Please try again later.",

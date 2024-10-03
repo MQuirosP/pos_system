@@ -6,6 +6,7 @@ import {
   IsNumber,
   IsOptional,
   IsString,
+  validate,
   ValidateIf,
   ValidateNested,
   validateOrReject,
@@ -69,10 +70,15 @@ export class SaleCreateDTO extends DTOBase {
   constructor(data: Partial<SaleCreateDTO>) {
     super();
     Object.assign(this, data);
+    if (data.sale_items)
+    {this.sale_items = data.sale_items?.map(item => new CreateSaleItemDTO(item))}
   }
 
   async validate(): Promise<void> {
     await validateOrReject(this);
+    if (this.sale_items) {
+    await Promise.all(this.sale_items.map(item => item.validate())); // Asegúrate de que cada item se valide
+  }
   }
 }
 
@@ -117,8 +123,13 @@ export class CreateSaleItemDTO extends DTOBase {
   @IsNumber()
   sale!: Sale;
 
+  @IsOptional()
   sale_id!: number;
+
+  @IsOptional()
   created_at!: Date;
+
+  @IsOptional()
   updated_at!: Date;
 
   @IsNotEmpty()
@@ -127,12 +138,14 @@ export class CreateSaleItemDTO extends DTOBase {
 
   @IsNotEmpty()
   @IsString()
-  name?: string;
+  @ValidateIf((obj) => obj.name !== null && obj.name !== undefined)
+  name!: string;
 
   @IsNotEmpty()
   @IsNumber()
   quantity!: number;
 
+  @IsOptional()
   @IsString()
   status!: string;
 
