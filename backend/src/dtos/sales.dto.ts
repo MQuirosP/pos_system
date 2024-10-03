@@ -2,12 +2,10 @@ import { Sale } from "../database/entities/sales.entity";
 import {
   ArrayNotEmpty,
   IsArray,
-  IsBoolean,
   IsNotEmpty,
   IsNumber,
   IsOptional,
   IsString,
-  validate,
   ValidateIf,
   ValidateNested,
   validateOrReject,
@@ -15,7 +13,6 @@ import {
 import { DTOBase } from "./DTOBase";
 import { SALE_KEYS, SALEITEMS_KEYS } from "./dtoKeys";
 import { Type } from "class-transformer";
-import { SaleItem } from "../database/entities/saleItems.entity";
 import { convertToLocalTime } from "../utils/dateUtils";
 
 export class SaleCreateDTO extends DTOBase {

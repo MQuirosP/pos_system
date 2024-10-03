@@ -13,12 +13,17 @@ export class SaleService {
   }
 
   async createSale(saleData: Sale): Promise<Sale | null> {
-    return await dataSource.manager.transaction(
-      async (transactionalEntityManager: EntityManager) => {
-        const newSale = transactionalEntityManager.create(Sale, saleData)
-        return await transactionalEntityManager.save(newSale);
-      }
-    )
+    try {
+      
+      return await dataSource.manager.transaction(
+        async (transactionalEntityManager: EntityManager) => {
+          const newSale = transactionalEntityManager.create(Sale, saleData)
+          return await transactionalEntityManager.save(newSale);
+        }
+      )
+    } catch (error) {
+      throw handleDatabaseError(error);
+    }
   }
 
   async fetchSales(): Promise<Sale[]> {
