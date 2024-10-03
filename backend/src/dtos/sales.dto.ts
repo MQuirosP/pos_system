@@ -1,5 +1,6 @@
 import { Sale } from "../database/entities/sales.entity";
 import {
+  ArrayNotEmpty,
   IsArray,
   IsBoolean,
   IsNotEmpty,
@@ -63,6 +64,7 @@ export class SaleCreateDTO extends DTOBase {
   updated_at!: Date;
 
   @IsArray()
+  @ArrayNotEmpty()
   @ValidateNested({ each: true })
   @Type(() => CreateSaleItemDTO)
   sale_items!: CreateSaleItemDTO[];
