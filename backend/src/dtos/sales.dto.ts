@@ -70,15 +70,18 @@ export class SaleCreateDTO extends DTOBase {
   constructor(data: Partial<SaleCreateDTO>) {
     super();
     Object.assign(this, data);
-    if (data.sale_items)
-    {this.sale_items = data.sale_items?.map(item => new CreateSaleItemDTO(item))}
+    if (data.sale_items) {
+      this.sale_items = data.sale_items?.map(
+        (item) => new CreateSaleItemDTO(item)
+      );
+    }
   }
 
   async validate(): Promise<void> {
     await validateOrReject(this);
     if (this.sale_items) {
-    await Promise.all(this.sale_items.map(item => item.validate())); // Asegúrate de que cada item se valide
-  }
+      await Promise.all(this.sale_items.map((item) => item.validate()));
+    }
   }
 }
 
@@ -118,7 +121,7 @@ export class CreateSaleItemDTO extends DTOBase {
 
   @IsOptional()
   @IsNumber()
-  sequence!: number; // Agregar `?` para que sea opcional
+  sequence!: number;
   @IsOptional()
   @IsNumber()
   sale!: Sale;
@@ -185,11 +188,10 @@ export class SaleUpdateDTO extends DTOBase {
 
   constructor(data: Partial<SaleUpdateDTO>) {
     super();
-    Object.assign(this, data)
+    Object.assign(this, data);
   }
 
   async validate(): Promise<void> {
     await validateOrReject(this);
   }
-  
 }

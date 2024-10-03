@@ -23,9 +23,15 @@ export function handleDatabaseError(error: any): void {
           driverError?.message || driverError || "The data cannot be modified.";
         throw new AppError(`Modification error: ${driverErrorMessage}`, 500);
       case "23502":
-        throw new AppError(`Some fields were not found: ${(error as any).column}`, 400);
+        throw new AppError(
+          `Some fields were not found: ${(error as any).column}`,
+          400
+        );
       case "23503":
-        throw new AppError(`Some values were not found: ${(error as any).detail}`, 400)
+        throw new AppError(
+          `Some values were not found: ${(error as any).detail}`,
+          400
+        );
       default:
         throw new AppError("Unhandled database error: " + error.message, 500);
     }

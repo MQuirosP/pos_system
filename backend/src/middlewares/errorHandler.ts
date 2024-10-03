@@ -1,4 +1,3 @@
-// src/middlewares/errorHandler.ts
 import { ValidationError } from "class-validator";
 import { Request, Response, NextFunction } from "express";
 

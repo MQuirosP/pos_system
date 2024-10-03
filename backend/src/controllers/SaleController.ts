@@ -25,7 +25,6 @@ export class SaleController {
       const saleResponseDTO = new SaleResponseDto(newSale);
       return res.success(saleResponseDTO, "Sale created successfully.", 201);
     } catch (error) {
-      // console.log(error);
       next(error);
     }
   }
@@ -63,13 +62,13 @@ export class SaleController {
     try {
       const docNumber = req.params.doc_number.toString();
       const sale = await this.saleService.cancelSale(docNumber);
-      if(!sale) {
-        return res.error({ message: "Sale not found."}, 404);
+      if (!sale) {
+        return res.error({ message: "Sale not found." }, 404);
       }
       const saleResponseDto = new SaleResponseDto(sale);
       return res.success(saleResponseDto, "Sale canceled successfully.", 200);
     } catch (error) {
-        next(error);
+      next(error);
     }
   }
 }
