@@ -120,7 +120,7 @@ export class CreateSaleItemDTO extends DTOBase {
 
   @IsOptional()
   @IsNumber()
-  sequence!: number;
+  id!: number;
   @IsOptional()
   @IsNumber()
   sale!: Sale;

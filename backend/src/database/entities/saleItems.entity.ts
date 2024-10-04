@@ -13,8 +13,8 @@ import { ISaleItem } from "../../interfaces/saleItems.interface";
 
 @Entity("sale_items")
 export class SaleItem implements ISaleItem {
-  @PrimaryGeneratedColumn({ name: "sequence" })
-  sequence!: number;
+  @PrimaryGeneratedColumn({ name: "id" })
+  id!: number;
 
   @Column({ name: "sale_id", type: "int" })
   sale_id!: number;

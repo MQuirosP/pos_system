@@ -3,7 +3,7 @@ import { Sale } from "../database/entities/sales.entity";
 
 
 export interface ISaleItem {
-  sequence: number;
+  id: number;
   sale_id: number;
   int_code?: string; 
   sale_price?: number; 
