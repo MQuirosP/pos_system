@@ -4,17 +4,11 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  JoinTable,
-  ManyToMany,
   OneToMany,
 } from "typeorm";
-import { Sale } from "./sales.entity";
 import { SaleItem } from "./saleItems.entity";
 import { Purchase } from "./purchases.entity";
-import { PurchaseItem } from "./purchaseItems.entity";
-import { IProduct } from "../../interfaces/products.interface";
 import { IPurchases } from "../../interfaces/purchases.interface";
-import { IPurchaseItems } from "../../interfaces/purchaseItems.interface";
 
 @Entity("products")
 export class Product {
@@ -98,33 +92,7 @@ export class Product {
   })
   updated_at!: Date;
 
-  // Relación Many-to-Many con Purchase
-  @ManyToMany(() => Purchase, (purchase) => purchase.purchase_items)
-  @JoinTable({
-    name: "purchase_items", // Tabla intermedia para productos y compras
-    joinColumn: { name: "int_code", referencedColumnName: "int_code" },
-    inverseJoinColumn: {
-      name: "purchase_id",
-      referencedColumnName: "purchase_id",
-    },
-  })
-  purchases!: IPurchases[];
-  
-  // Relación Many-to-Many con Sale
-  // Product
-  @ManyToMany(() => Sale, (sale) => sale.sale_items)
-  @JoinTable({
-    name: "sale_items",
-    joinColumn: { name: "int_code", referencedColumnName: "int_code" },
-    inverseJoinColumn: { 
-      name: "sale_id",
-      referencedColumnName: "sale_id" },
-  })
-  sales!: Sale[];
-
-  @OneToMany(() => PurchaseItem, (purchaseItem) => purchaseItem.purchase_items)
-  purchase_items!: PurchaseItem[];
-
-  @OneToMany(() => SaleItem, (saleItem) => saleItem.product)
+  // Relación One-to-Many con SaleItem
+  @OneToMany(() => SaleItem, (saleItem) => saleItem.product, { cascade: true })
   sale_items!: SaleItem[];
 }

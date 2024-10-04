@@ -8,7 +8,7 @@ import {
   JoinColumn,
   OneToMany,
 } from "typeorm";
-import { Customer } from "./customers.entity"; // Asegúrate de ajustar la ruta según sea necesario
+import { Customer } from "./customers.entity"; // Ajustar ruta según sea necesario
 import { SaleItem } from "./saleItems.entity";
 import { ISales } from "../../interfaces/sales.interface";
 
@@ -83,9 +83,7 @@ export class Sale implements ISales {
   @JoinColumn({ name: "customer_id" })
   customer?: Customer;
 
-  @OneToMany(() => SaleItem, (saleItem) => saleItem.sale, {
-    cascade: true,
-    eager: true,
-  })
+  // Relación One-to-Many con SaleItem
+  @OneToMany(() => SaleItem, (saleItem) => saleItem.sale, { cascade: true })
   sale_items!: SaleItem[];
 }

@@ -14,6 +14,7 @@ import { DTOBase } from "./DTOBase";
 import { SALE_KEYS, SALEITEMS_KEYS } from "./dtoKeys";
 import { Type } from "class-transformer";
 import { convertToLocalTime } from "../utils/dateUtils";
+import { Product } from "../database/entities/products.entity";
 
 export class SaleCreateDTO extends DTOBase {
   static expectedKeys: string[] = SALE_KEYS;
@@ -102,7 +103,7 @@ export class SaleResponseDto {
     this.sale_items = data.sale_items.map(
       (product) =>
         new CreateSaleItemDTO({
-          int_code: product.int_code,
+          // int_code: product.int_code,
           name: product.name,
           // status: this.status,
           quantity: product.quantity,
@@ -117,6 +118,10 @@ export class SaleResponseDto {
 
 export class CreateSaleItemDTO extends DTOBase {
   static expectedKeys: string[] = SALEITEMS_KEYS;
+
+  @IsOptional()
+  @IsNumber()
+  product_id!: number;
 
   @IsOptional()
   @IsNumber()
@@ -151,6 +156,10 @@ export class CreateSaleItemDTO extends DTOBase {
   @IsOptional()
   @IsString()
   status!: string;
+
+  @IsOptional()
+  @IsString()
+  product!: Product;
 
   @IsNotEmpty()
   @IsNumber()

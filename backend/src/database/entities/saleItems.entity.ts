@@ -6,7 +6,6 @@ import {
   JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
-  PrimaryColumn,
 } from "typeorm";
 import { Sale } from "./sales.entity";
 import { Product } from "./products.entity";
@@ -17,11 +16,11 @@ export class SaleItem implements ISaleItem {
   @PrimaryGeneratedColumn({ name: "id" })
   id!: number;
 
-  @PrimaryColumn({ name: "sale_id", type: "int" })
+  @Column({ name: "sale_id", type: "int" })
   sale_id!: number;
 
-  @PrimaryColumn({ name: "int_code", type: "varchar", nullable: false })
-  int_code!: string;
+  @Column({ name: "product_id", type: "int", nullable: false })
+  product_id!: number;
 
   @Column({
     name: "sale_price",
@@ -29,10 +28,10 @@ export class SaleItem implements ISaleItem {
     precision: 10,
     scale: 2,
     nullable: false,
-    default: 0.0
+    default: 0.0,
   })
   sale_price!: number;
-  
+
   @Column({ name: "quantity", type: "float", nullable: false, default: 0.0 })
   quantity!: number;
 
@@ -42,7 +41,7 @@ export class SaleItem implements ISaleItem {
     precision: 10,
     scale: 2,
     nullable: false,
-    default: 0.0
+    default: 0.0,
   })
   sub_total?: number;
 
@@ -52,47 +51,52 @@ export class SaleItem implements ISaleItem {
     precision: 10,
     scale: 2,
     nullable: false,
-    default: 0.0
+    default: 0.0,
   })
   taxes_amount?: number;
-  
+
   @CreateDateColumn({
     name: "created_at",
     type: "timestamp",
     default: () => "CURRENT_TIMESTAMP",
   })
   created_at!: Date;
-  
+
   @UpdateDateColumn({
     name: "updated_at",
     type: "timestamp",
     default: () => "CURRENT_TIMESTAMP",
   })
   updated_at!: Date;
-  
+
   @Column({ name: "name", type: "varchar", nullable: false, default: "" })
   name?: string;
-  
+
   @Column({
     name: "total",
     type: "decimal",
     precision: 10,
     scale: 2,
     nullable: false,
-    default: 0.0
+    default: 0.0,
   })
   total?: number;
 
-  @Column({ name: "status", type: "varchar", nullable: false, default: "completed" })
+  @Column({
+    name: "status",
+    type: "varchar",
+    nullable: false,
+    default: "completed",
+  })
   status!: string;
-  
-  @ManyToOne(() => Sale, (sale) => sale.sale_items, { 
-    onDelete: "CASCADE" })
-    @JoinColumn({ name: "sale_id" })
-    sale!: Sale;
-    
-  @ManyToOne(() => Product, (product) => product.sale_items, {
-    onDelete: "CASCADE" })
+
+  // Relación Many-to-One con Sale
+  @ManyToOne(() => Sale, (sale) => sale.sale_items, { onDelete: "CASCADE" })
+  @JoinColumn({ name: "sale_id" })
+  sale!: Sale;
+
+  // Relación Many-to-One con Product
+  @ManyToOne(() => Product, (product) => product.sale_items, { onDelete: "SET NULL" })
   @JoinColumn({ name: "product_id" })
-  product?: Product;
+  product!: Product;
 }
