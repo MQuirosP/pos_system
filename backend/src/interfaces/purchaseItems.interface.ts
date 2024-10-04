@@ -3,7 +3,7 @@ import { IPurchases } from "./purchases.interface";
 import { IProduct } from "./products.interface";
 
 export interface IPurchaseItems {
-  sequence: number;
+  product_id: number;
   purchase_id: number;
   int_code: string;
   purchase_price?: number;

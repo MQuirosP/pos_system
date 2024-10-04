@@ -6,6 +6,7 @@ import {
   JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  PrimaryColumn,
 } from "typeorm";
 import { Sale } from "./sales.entity";
 import { Product } from "./products.entity";
@@ -16,10 +17,10 @@ export class SaleItem implements ISaleItem {
   @PrimaryGeneratedColumn({ name: "id" })
   id!: number;
 
-  @Column({ name: "sale_id", type: "int" })
+  @PrimaryColumn({ name: "sale_id", type: "int" })
   sale_id!: number;
 
-  @Column({ name: "int_code", type: "varchar", nullable: false })
+  @PrimaryColumn({ name: "int_code", type: "varchar", nullable: false })
   int_code!: string;
 
   @Column({
@@ -28,10 +29,11 @@ export class SaleItem implements ISaleItem {
     precision: 10,
     scale: 2,
     nullable: false,
+    default: 0.0
   })
   sale_price!: number;
   
-  @Column({ name: "quantity", type: "float", nullable: false })
+  @Column({ name: "quantity", type: "float", nullable: false, default: 0.0 })
   quantity!: number;
 
   @Column({
@@ -40,6 +42,7 @@ export class SaleItem implements ISaleItem {
     precision: 10,
     scale: 2,
     nullable: false,
+    default: 0.0
   })
   sub_total?: number;
 
@@ -49,6 +52,7 @@ export class SaleItem implements ISaleItem {
     precision: 10,
     scale: 2,
     nullable: false,
+    default: 0.0
   })
   taxes_amount?: number;
   
@@ -66,7 +70,7 @@ export class SaleItem implements ISaleItem {
   })
   updated_at!: Date;
   
-  @Column({ name: "name", type: "varchar", nullable: false })
+  @Column({ name: "name", type: "varchar", nullable: false, default: "" })
   name?: string;
   
   @Column({
@@ -75,6 +79,7 @@ export class SaleItem implements ISaleItem {
     precision: 10,
     scale: 2,
     nullable: false,
+    default: 0.0
   })
   total?: number;
 
@@ -82,12 +87,12 @@ export class SaleItem implements ISaleItem {
   status!: string;
   
   @ManyToOne(() => Sale, (sale) => sale.sale_items, { 
-    onDelete: "SET NULL" })
+    onDelete: "CASCADE" })
     @JoinColumn({ name: "sale_id" })
     sale!: Sale;
     
   @ManyToOne(() => Product, (product) => product.sale_items, {
-    onDelete: "SET NULL" })
-  @JoinColumn({ name: "int_code" })
-  sale_items?: SaleItem;
+    onDelete: "CASCADE" })
+  @JoinColumn({ name: "product_id" })
+  product?: Product;
 }

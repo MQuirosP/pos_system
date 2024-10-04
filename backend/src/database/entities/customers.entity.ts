@@ -10,7 +10,7 @@ import {
 import { Sale } from "./sales.entity";
 
 @Entity("customers")
-export class Customer implements ICustomers{
+export class Customer {
   @PrimaryGeneratedColumn({ name: "customer_id" })
   customer_id!: number;
 

@@ -26,7 +26,7 @@ export class Sale implements ISales {
   @Column({ name: "payment_method", type: "varchar", nullable: false })
   payment_method!: string;
 
-  @Column({ name: "doc_number", type: "varchar", unique: false })
+  @Column({ name: "doc_number", type: "varchar", unique: true })
   doc_number!: string;
 
   @CreateDateColumn({
@@ -77,8 +77,9 @@ export class Sale implements ISales {
   total!: number;
 
   // Relación Many-to-One con Customer
-  @ManyToOne(() => Customer, (customer) => customer.sales, { 
-    onDelete: "SET NULL" })
+  @ManyToOne(() => Customer, (customer) => customer.sales, {
+    onDelete: "SET NULL",
+  })
   @JoinColumn({ name: "customer_id" })
   customer?: Customer;
 
@@ -87,5 +88,4 @@ export class Sale implements ISales {
     eager: true,
   })
   sale_items!: SaleItem[];
-
 }

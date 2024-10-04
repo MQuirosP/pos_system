@@ -121,6 +121,7 @@ export class CreateSaleItemDTO extends DTOBase {
   @IsOptional()
   @IsNumber()
   id!: number;
+  
   @IsOptional()
   @IsNumber()
   sale!: Sale;

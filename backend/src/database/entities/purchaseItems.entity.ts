@@ -6,6 +6,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   JoinColumn,
+  PrimaryColumn,
 } from "typeorm";
 import { Purchase } from "./purchases.entity";
 import { Product } from "./products.entity";
@@ -13,13 +14,13 @@ import { IPurchaseItems } from "../../interfaces/purchaseItems.interface";
 
 @Entity("purchase_items")
 export class PurchaseItem implements IPurchaseItems {
-  @PrimaryGeneratedColumn({ name: "sequence" })
-  sequence!: number;
+  // @PrimaryGeneratedColumn({ name: "id" })
+  product_id!: number;
 
-  @Column({ name: "purchase_id", type: "int" })
+  @PrimaryColumn({ name: "purchase_id", type: "int" })
   purchase_id!: number;
 
-  @Column({ name: "int_code", type: "varchar" })
+  @PrimaryColumn({ name: "int_code", type: "varchar" })
   int_code!: string;
 
   @Column({
@@ -87,7 +88,8 @@ export class PurchaseItem implements IPurchaseItems {
   purchase!: Purchase;
 
   @ManyToOne(() => Product, (product) => product.purchase_items, {
-    onDelete: "SET NULL" })
-  @JoinColumn({ name: "int_code" })
-  purchase_items?: Product;
+    onDelete: "SET NULL"
+  })
+  @JoinColumn({ name: "product_id" })
+  purchase_items!: Product;
 }

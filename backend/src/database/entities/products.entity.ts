@@ -17,17 +17,17 @@ import { IPurchases } from "../../interfaces/purchases.interface";
 import { IPurchaseItems } from "../../interfaces/purchaseItems.interface";
 
 @Entity("products")
-export class Product implements IProduct {
+export class Product {
   @PrimaryGeneratedColumn({ name: "product_id" })
   product_id!: number;
 
-  @Column({ name: "int_code", type: "varchar", unique: true, nullable: true })
+  @Column({ name: "int_code", type: "varchar", unique: true, nullable: false })
   int_code!: string;
 
-  @Column({ name: "name", type: "varchar", nullable: true })
+  @Column({ name: "name", type: "varchar", nullable: false })
   name!: string;
 
-  @Column({ name: "description", type: "varchar", nullable: true })
+  @Column({ name: "description", type: "varchar", nullable: false })
   description!: string;
 
   @Column({
@@ -35,7 +35,7 @@ export class Product implements IProduct {
     type: "decimal",
     precision: 10,
     scale: 5,
-    nullable: true,
+    nullable: false,
   })
   purchase_price!: number;
 
@@ -44,7 +44,7 @@ export class Product implements IProduct {
     type: "decimal",
     precision: 10,
     scale: 5,
-    nullable: true,
+    nullable: false,
   })
   quantity?: number;
 
@@ -53,11 +53,11 @@ export class Product implements IProduct {
     type: "decimal",
     precision: 10,
     scale: 5,
-    nullable: true,
+    nullable: false,
   })
   sale_price!: number;
 
-  @Column({ name: "is_taxed", type: "boolean", nullable: true })
+  @Column({ name: "is_taxed", type: "boolean", nullable: false })
   is_taxed!: boolean;
 
   @Column({
@@ -65,7 +65,7 @@ export class Product implements IProduct {
     type: "decimal",
     precision: 10,
     scale: 5,
-    nullable: true,
+    nullable: false,
   })
   margin!: number;
 
@@ -74,14 +74,14 @@ export class Product implements IProduct {
     type: "decimal",
     precision: 10,
     scale: 5,
-    nullable: true,
+    nullable: false,
   })
   tax_percentage!: number;
 
-  @Column({ name: "category_id", type: "int", nullable: true })
+  @Column({ name: "category_id", type: "int", nullable: false })
   category_id!: number;
 
-  @Column({ name: "category_name", type: "varchar", nullable: true })
+  @Column({ name: "category_name", type: "varchar", nullable: false })
   category_name!: string;
 
   @CreateDateColumn({
@@ -125,6 +125,6 @@ export class Product implements IProduct {
   @OneToMany(() => PurchaseItem, (purchaseItem) => purchaseItem.purchase_items)
   purchase_items!: PurchaseItem[];
 
-  @OneToMany(() => SaleItem, (saleItem) => saleItem.sale_items)
+  @OneToMany(() => SaleItem, (saleItem) => saleItem.product)
   sale_items!: SaleItem[];
 }
