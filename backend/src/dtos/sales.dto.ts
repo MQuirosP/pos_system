@@ -103,9 +103,8 @@ export class SaleResponseDto {
     this.sale_items = data.sale_items.map(
       (product) =>
         new CreateSaleItemDTO({
-          // int_code: product.int_code,
+          int_code: product.int_code,
           name: product.name,
-          // status: this.status,
           quantity: product.quantity,
           sale_price: product.sale_price,
           sub_total: product.sub_total,
@@ -167,15 +166,15 @@ export class CreateSaleItemDTO extends DTOBase {
 
   @IsNotEmpty()
   @IsNumber()
-  sub_total?: number;
+  sub_total!: number;
 
   @IsNotEmpty()
   @IsNumber()
-  taxes_amount?: number;
+  taxes_amount!: number;
 
   @IsNotEmpty()
   @IsNumber()
-  total?: number;
+  total!: number;
 
   constructor(data: Partial<CreateSaleItemDTO>) {
     super();

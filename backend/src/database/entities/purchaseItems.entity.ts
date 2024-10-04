@@ -1,12 +1,11 @@
 import {
   Entity,
   Column,
-  PrimaryGeneratedColumn,
   ManyToOne,
   CreateDateColumn,
   UpdateDateColumn,
   JoinColumn,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
 } from "typeorm";
 import { Purchase } from "./purchases.entity";
 import { Product } from "./products.entity";
@@ -14,13 +13,16 @@ import { IPurchaseItems } from "../../interfaces/purchaseItems.interface";
 
 @Entity("purchase_items")
 export class PurchaseItem implements IPurchaseItems {
-  // @PrimaryGeneratedColumn({ name: "id" })
-  product_id!: number;
+  @PrimaryGeneratedColumn({ name: "id" })
+  id!: number;
 
-  @PrimaryColumn({ name: "purchase_id", type: "int" })
+  @Column({ name: "purchase_id", type: "int" })
   purchase_id!: number;
 
-  @PrimaryColumn({ name: "int_code", type: "varchar" })
+  @Column({ name: "product_id", type: "int", nullable: false })
+  product_id!: number;
+
+  @Column({ name: "int_code", type: "varchar", nullable: false })
   int_code!: string;
 
   @Column({
@@ -29,10 +31,11 @@ export class PurchaseItem implements IPurchaseItems {
     precision: 10,
     scale: 2,
     nullable: false,
+    default: 0.0,
   })
-  purchase_price?: number;
+  purchase_price!: number;
 
-  @Column({ name: "quantity", type: "float" })
+  @Column({ name: "quantity", type: "float", nullable: false })
   quantity!: number;
 
   @Column({
@@ -41,8 +44,9 @@ export class PurchaseItem implements IPurchaseItems {
     precision: 10,
     scale: 2,
     nullable: false,
+    default: 0.0,
   })
-  sub_total?: number;
+  sub_total!: number;
 
   @Column({
     name: "taxes_amount",
@@ -50,8 +54,9 @@ export class PurchaseItem implements IPurchaseItems {
     precision: 10,
     scale: 2,
     nullable: false,
+    default: 0.0,
   })
-  taxes_amount?: number;
+  taxes_amount!: number;
 
   @CreateDateColumn({
     name: "created_at",
@@ -67,7 +72,7 @@ export class PurchaseItem implements IPurchaseItems {
   })
   updated_at!: Date;
 
-  @Column({ name: "name", type: "varchar", nullable: false })
+  @Column({ name: "name", type: "varchar", nullable: false, default: "" })
   name!: string;
 
   @Column({
@@ -76,10 +81,16 @@ export class PurchaseItem implements IPurchaseItems {
     precision: 10,
     scale: 2,
     nullable: false,
+    default: 0.0,
   })
   total!: number;
 
-  @Column({ name: "status", type: "varchar", nullable: false })
+  @Column({
+    name: "status",
+    type: "varchar",
+    nullable: false,
+    default: "completed",
+  })
   status!: string;
 
   @ManyToOne(() => Purchase, (purchase) => purchase.purchase_items, {
@@ -87,7 +98,8 @@ export class PurchaseItem implements IPurchaseItems {
   @JoinColumn({ name: "purchase_id" })
   purchase!: Purchase;
 
-  @ManyToOne(() => Product, (product) => product.purchase_items, { onDelete: "SET NULL" })
+  @ManyToOne(() => Product, (product) => product.purchase_items, {
+    onDelete: "SET NULL" })
   @JoinColumn({ name: "product_id" })
   product!: Product;
 }

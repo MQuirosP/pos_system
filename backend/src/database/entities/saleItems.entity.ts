@@ -1,11 +1,11 @@
 import {
   Entity,
   Column,
-  PrimaryGeneratedColumn,
   ManyToOne,
-  JoinColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  PrimaryGeneratedColumn,
+  JoinColumn,
 } from "typeorm";
 import { Sale } from "./sales.entity";
 import { Product } from "./products.entity";
@@ -21,6 +21,9 @@ export class SaleItem implements ISaleItem {
 
   @Column({ name: "product_id", type: "int", nullable: false })
   product_id!: number;
+
+  @Column({ name: "int_code", type: "varchar", nullable: false })
+  int_code!: string;
 
   @Column({
     name: "sale_price",
@@ -43,7 +46,7 @@ export class SaleItem implements ISaleItem {
     nullable: false,
     default: 0.0,
   })
-  sub_total?: number;
+  sub_total!: number;
 
   @Column({
     name: "taxes_amount",
@@ -53,7 +56,7 @@ export class SaleItem implements ISaleItem {
     nullable: false,
     default: 0.0,
   })
-  taxes_amount?: number;
+  taxes_amount!: number;
 
   @CreateDateColumn({
     name: "created_at",
@@ -70,7 +73,7 @@ export class SaleItem implements ISaleItem {
   updated_at!: Date;
 
   @Column({ name: "name", type: "varchar", nullable: false, default: "" })
-  name?: string;
+  name!: string;
 
   @Column({
     name: "total",
@@ -80,7 +83,7 @@ export class SaleItem implements ISaleItem {
     nullable: false,
     default: 0.0,
   })
-  total?: number;
+  total!: number;
 
   @Column({
     name: "status",
@@ -91,12 +94,13 @@ export class SaleItem implements ISaleItem {
   status!: string;
 
   // Relación Many-to-One con Sale
-  @ManyToOne(() => Sale, (sale) => sale.sale_items, { onDelete: "CASCADE" })
+  @ManyToOne(() => Sale, (sale) => sale.sale_items, { 
+    onDelete: "CASCADE" })
   @JoinColumn({ name: "sale_id" })
   sale!: Sale;
 
-  // Relación Many-to-One con Product
-  @ManyToOne(() => Product, (product) => product.sale_items, { onDelete: "SET NULL" })
+  @ManyToOne(() => Product, (product) => product.sale_items, { 
+    onDelete: "SET NULL" })
   @JoinColumn({ name: "product_id" })
   product!: Product;
 }
