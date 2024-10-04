@@ -87,8 +87,7 @@ export class Purchase implements IPurchases {
 
   @ManyToMany(() => PurchaseItem, (purchaseItem) => purchaseItem.purchase, {
     cascade: true,
-    eager: true,
   })
-  purchase_items!: IPurchaseItems[];
+  purchase_items!: PurchaseItem[];
 
 }

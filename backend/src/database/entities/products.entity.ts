@@ -9,6 +9,7 @@ import {
 import { SaleItem } from "./saleItems.entity";
 import { Purchase } from "./purchases.entity";
 import { IPurchases } from "../../interfaces/purchases.interface";
+import { PurchaseItem } from "./purchaseItems.entity";
 
 @Entity("products")
 export class Product {
@@ -95,4 +96,7 @@ export class Product {
   // Relación One-to-Many con SaleItem
   @OneToMany(() => SaleItem, (saleItem) => saleItem.product, { cascade: true })
   sale_items!: SaleItem[];
+
+  @OneToMany(() => PurchaseItem, (purchaseItem) => purchaseItem.product_id, { cascade: true })
+  purchase_items!: PurchaseItem[];
 }
