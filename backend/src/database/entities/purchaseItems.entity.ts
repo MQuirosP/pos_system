@@ -19,8 +19,8 @@ export class PurchaseItem implements IPurchaseItems {
   @Column({ name: "purchase_id", type: "int" })
   purchase_id!: number;
 
-  @Column({ name: "product_id", type: "int", nullable: false })
-  product_id!: number;
+  // @Column({ name: "product_id", type: "int", nullable: false })
+  // product_id!: number;
 
   @Column({ name: "int_code", type: "varchar", nullable: false })
   int_code!: string;
