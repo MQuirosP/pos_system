@@ -6,10 +6,10 @@ import { AppError } from "../middlewares/errorHandler";
 import { ProductCreateDTO } from "../dtos/products.dto";
 
 export class ProductService {
-  private productRepository: Repository<Product>;
+  // private productRepository: Repository<Product>;
 
-  constructor(productRepository: Repository<Product>) {
-    this.productRepository = productRepository;
+  constructor(private productRepository: Repository<Product>) {
+    // this.productRepository = productRepository;
   }
 
   async createProduct(productData: ProductCreateDTO): Promise<Product> {
