@@ -98,8 +98,7 @@ export class PurchaseItem implements IPurchaseItems {
   @JoinColumn({ name: "purchase_id" })
   purchase!: Purchase;
 
-  @ManyToOne(() => Product, (product) => product.purchase_items, {
-    onDelete: "SET NULL" })
-  @JoinColumn({ name: "product_id" })
+  @ManyToOne(() => Product, (product) => product.int_code)
+  @JoinColumn({ name: 'int_code', referencedColumnName: 'int_code' })
   product!: Product;
 }

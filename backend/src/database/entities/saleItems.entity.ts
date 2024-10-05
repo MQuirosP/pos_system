@@ -19,8 +19,8 @@ export class SaleItem implements ISaleItem {
   @Column({ name: "sale_id", type: "int" })
   sale_id!: number;
 
-  @Column({ name: "product_id", type: "int", nullable: false })
-  product_id!: number;
+  // @Column({ name: "product_id", type: "int", nullable: false })
+  // product_id!: number;
 
   @Column({ name: "int_code", type: "varchar", nullable: false })
   int_code!: string;
@@ -98,8 +98,7 @@ export class SaleItem implements ISaleItem {
   @JoinColumn({ name: "sale_id" })
   sale!: Sale;
 
-  @ManyToOne(() => Product, (product) => product.sale_items, { 
-    onDelete: "SET NULL" })
-  @JoinColumn({ name: "product_id" })
+  @ManyToOne(() => Product, (product) => product.int_code)
+  @JoinColumn({ name: 'int_code', referencedColumnName: 'int_code' })
   product!: Product;
 }
