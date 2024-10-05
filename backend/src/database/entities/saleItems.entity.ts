@@ -93,12 +93,13 @@ export class SaleItem implements ISaleItem {
   })
   status!: string;
 
-  @ManyToOne(() => Sale, (sale) => sale.sale_items, { 
-    onDelete: "CASCADE" })
+  @ManyToOne(() => Sale, (sale) => sale.sale_items, {
+    onDelete: "CASCADE",
+  })
   @JoinColumn({ name: "sale_id" })
   sale!: Sale;
 
   @ManyToOne(() => Product, (product) => product.int_code)
-  @JoinColumn({ name: 'int_code', referencedColumnName: 'int_code' })
+  @JoinColumn({ name: "int_code", referencedColumnName: "int_code" })
   product!: Product;
 }
