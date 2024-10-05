@@ -5,10 +5,10 @@ import { AppError } from "../middlewares/errorHandler";
 import dataSource from "../config/ormconfig";
 
 export class SaleService {
-  // private saleRepository: Repository<Sale>;
+  private saleRepository: Repository<Sale>;
 
-  constructor(private saleRepository: Repository<Sale>) {
-    // this.saleRepository = saleRepository;
+  constructor(saleRepository: Repository<Sale>) {
+    this.saleRepository = saleRepository;
   }
 
   async createSale(saleData: Sale): Promise<Sale | null> {
