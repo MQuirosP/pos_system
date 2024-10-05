@@ -1,6 +1,6 @@
 import { Product } from "../database/entities/products.entity";
 import dataSource from "../config/ormconfig";
-import { Repository, EntityManager, Like, DeleteResult, ILike } from "typeorm";
+import { Repository, EntityManager, DeleteResult, ILike } from "typeorm";
 import { handleDatabaseError } from "../middlewares/databaseErrorHandler";
 import { AppError } from "../middlewares/errorHandler";
 import { ProductCreateDTO } from "../dtos/products.dto";
