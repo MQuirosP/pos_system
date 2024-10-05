@@ -93,7 +93,6 @@ export class SaleItem implements ISaleItem {
   })
   status!: string;
 
-  // Relación Many-to-One con Sale
   @ManyToOne(() => Sale, (sale) => sale.sale_items, { 
     onDelete: "CASCADE" })
   @JoinColumn({ name: "sale_id" })
