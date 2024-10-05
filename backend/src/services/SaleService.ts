@@ -1,6 +1,5 @@
 import { EntityManager, Repository } from "typeorm";
 import { Sale } from "../database/entities/sales.entity";
-import { ISales } from "../interfaces/sales.interface";
 import { handleDatabaseError } from "../middlewares/databaseErrorHandler";
 import { AppError } from "../middlewares/errorHandler";
 import dataSource from "../config/ormconfig";
@@ -55,14 +54,12 @@ export class SaleService {
       if(!sale) {
         throw new AppError("Sale not found.", 404)
       }
-      if(sale.status === "canceled") {
-        throw new AppError("Sale already canceled", 409)
+      if(sale.status === "cancelled") {
+        throw new AppError("Sale already cancelled.", 409)
       }
-      sale.status = "canceled"
-      for (const product of sale.sale_items) {
-        product.status = "canceled"
-        // await this.saleRepository.save(product);
-      }
+      sale.status = "cancelled"
+      sale.sale_items.forEach((item) => (item.status = sale.status));
+
       await this.saleRepository.save(sale);
       return sale;
     } catch (error) {
