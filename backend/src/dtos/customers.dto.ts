@@ -9,14 +9,22 @@ import { Customer } from "../database/entities/customers.entity";
 import { CUSTOMERS_KEYS } from "./dtoKeys";
 import { DTOBase } from "./DTOBase";
 import { Inmutable } from "../decorators/isInmmutable.decorator";
+import { Sale } from "../database/entities/sales.entity";
 
 export class CustomerCreateDTO extends DTOBase {
   static expectedKeys: string[] = CUSTOMERS_KEYS;
 
+  @IsOptional()
   customer_id!: number;
+
+  @IsOptional()
   created_at!: Date;
+
+  @IsOptional()
   updated_at!: Date;
-  sales: any;
+
+  @IsOptional()
+  sales!: Sale[];
 
   @IsNotEmpty()
   @IsString()

@@ -54,3 +54,11 @@ export const CUSTOMERS_KEYS = [
   "customer_email",
   "customer_dni",
 ]
+
+export const PROVIDERS_KEYS = [
+  "provider_name",
+  "provider_address",
+  "provider_phone",
+  "provider_email",
+  "provider_dni",
+]

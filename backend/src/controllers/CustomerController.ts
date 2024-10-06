@@ -117,13 +117,17 @@ export class CustomerController {
         customerId
       );
 
-      if( !deleteResult || deleteResult.affected === 0 ) {
+      if (!deleteResult || deleteResult.affected === 0) {
         return res.error({ message: "Failed to delete customer." }, 500);
-    }
-    const customerResponseDTO = new CustomerResponseDTO(customerToDelete);
-    return res.success(customerResponseDTO, "Customer deleted successfully.", 200);
+      }
+      const customerResponseDTO = new CustomerResponseDTO(customerToDelete);
+      return res.success(
+        customerResponseDTO,
+        "Customer deleted successfully.",
+        200
+      );
     } catch (error) {
-        next(error);
+      next(error);
     }
   }
 }

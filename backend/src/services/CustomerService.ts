@@ -46,14 +46,14 @@ export class CustomerService {
     }
   }
 
-  async getCustomerByName(customerName: string): Promise<Customer[] | null> {
+  async getCustomerByName(customerName: string): Promise<Customer[] | []> {
     try {
       const customer = await this.customerRepository.find({
         where: {
           customer_name: ILike(`%${customerName}%`),
         },
       });
-      return customer.length > 0 ? customer : null;
+      return customer.length > 0 ? customer : [];
     } catch (error) {
       throw handleDatabaseError(error);
     }
@@ -68,8 +68,8 @@ export class CustomerService {
         where: { customer_id: customerId },
       });
 
-      if (!customer) {
-        throw handleDatabaseError(customer);
+      if ( !customer ) {
+        throw new AppError("Customer not found.", 400);
       }
 
       Object.assign(customer, updates);
@@ -86,7 +86,7 @@ export class CustomerService {
         where: { customer_id: customerId },
       });
 
-      if (!customer) {
+      if ( !customer ) {
         throw new AppError("Customer not found.", 400);
       }
       return await this.customerRepository.delete(customerId);

@@ -17,5 +17,5 @@ dataSource.initialize().then(() => {
     });
 })
 .catch((error) => {
-    console.error("Error connecting to the databaser", error)
+    console.error("Error connecting to the database.", error)
 });
