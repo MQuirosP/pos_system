@@ -1,4 +1,3 @@
-import { ICustomers } from '../../interfaces/customers.interface';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -8,9 +7,10 @@ import {
   OneToMany,
 } from "typeorm";
 import { Sale } from "./sales.entity";
+import { ICustomers } from '../../interfaces/customers.interface';
 
 @Entity("customers")
-export class Customer {
+export class Customer implements ICustomers {
   @PrimaryGeneratedColumn({ name: "customer_id" })
   customer_id!: number;
 
@@ -18,7 +18,7 @@ export class Customer {
     name: "customer_name",
     type: "varchar",
     length: 255,
-    nullable: true,
+    nullable: false,
   })
   customer_name!: string;
 
@@ -26,7 +26,7 @@ export class Customer {
     name: "customer_first_lastname",
     type: "varchar",
     length: 255,
-    nullable: true,
+    nullable: false,
   })
   customer_first_lastname!: string;
 
@@ -34,7 +34,7 @@ export class Customer {
     name: "customer_second_lastname",
     type: "varchar",
     length: 255,
-    nullable: true,
+    nullable: false,
   })
   customer_second_lastname!: string;
 
@@ -42,7 +42,7 @@ export class Customer {
     name: "customer_address",
     type: "varchar",
     length: 255,
-    nullable: true,
+    nullable: false,
   })
   customer_address!: string;
 
@@ -50,7 +50,7 @@ export class Customer {
     name: "customer_phone",
     type: "varchar",
     length: 20,
-    nullable: true,
+    nullable: false,
   })
   customer_phone!: string;
 
@@ -58,7 +58,7 @@ export class Customer {
     name: "customer_email",
     type: "varchar",
     length: 255,
-    nullable: true,
+    nullable: false,
   })
   customer_email!: string;
 
@@ -66,7 +66,7 @@ export class Customer {
     name: "customer_dni",
     type: "varchar",
     length: 20,
-    nullable: true,
+    nullable: false,
     unique: true,
   })
   customer_dni!: string;
