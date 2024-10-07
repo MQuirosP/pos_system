@@ -2,7 +2,11 @@ import { Request, Response, NextFunction } from "express";
 import dataSource from "../config/ormconfig";
 import { Provider } from "../database/entities/providers.entity";
 import { ProvidersService } from "../services/ProvidersService";
-import { ProviderCreateDTO, ProviderResponseDTO, ProviderUpdateDTO } from "../dtos/providers.dto";
+import {
+  ProviderCreateDTO,
+  ProviderResponseDTO,
+  ProviderUpdateDTO,
+} from "../dtos/providers.dto";
 
 export class ProviderController {
   private readonly providerService: ProvidersService;
@@ -34,20 +38,18 @@ export class ProviderController {
   async getProviders(req: Request, res: Response, next: NextFunction) {
     try {
       const { name } = req.query;
-      let providers: Provider[] | null = null;
+      let providers: Provider[] = [];
       if (name && typeof name === "string" && name.trim() !== "") {
-        providers = await this.providerService.getProviderByName(
-          name as string
-        );
+        providers = await this.providerService.getProviderByName(name);
       } else {
         providers = await this.providerService.fetchAllProviders();
       }
 
-      const providerResponseDTOs = providers?.map(
+      const providerResponseDTOs = providers.map(
         (provider) => new ProviderResponseDTO(provider)
       );
       const responseMessage =
-        providerResponseDTOs?.length === 0
+        providerResponseDTOs.length === 0
           ? "No providers found."
           : "All providers fetched successfully.";
       return res.success(providerResponseDTOs, responseMessage, 200);
@@ -78,19 +80,19 @@ export class ProviderController {
   async updateProvider(req: Request, res: Response, next: NextFunction) {
     try {
       const providerId = parseInt(req.params.id);
-      const providerUpdate = new ProviderUpdateDTO(req.body);
-      
-      await providerUpdate.validate();
-      const updateProvider = await this.providerService.updateProvider(
+      const providerData = new ProviderUpdateDTO(req.body);
+
+      await providerData.validate();
+      const updatedProvider = await this.providerService.updateProvider(
         providerId,
-        providerUpdate
+        providerData
       );
 
-      if ( !updateProvider ) {
-        return res.error({ message: "Failed to update provider." }, 400);
-      }
-        const providerResponseDTO = new ProviderResponseDTO(updateProvider);
-      return res.success(providerResponseDTO, "Provider updated successfully.", 200);
+      return res.success(
+        new ProviderResponseDTO(updatedProvider),
+        "Provider updated successfully.",
+        200
+      );
     } catch (error) {
       next(error);
     }
@@ -103,17 +105,6 @@ export class ProviderController {
         providerId
       );
 
-      if ( !providerToDelete ) {
-        return res.error({ message: "Provider not found." }, 400);
-      }
-
-      const deleteResult = await this.providerService.deleteProvider(
-        providerId
-      );
-
-      if (!deleteResult || deleteResult.affected === 0) {
-        return res.error({ message: "Failed to delete provider." }, 500);
-      }
       const providerResponseDTO = new ProviderResponseDTO(providerToDelete);
       return res.success(
         providerResponseDTO,
