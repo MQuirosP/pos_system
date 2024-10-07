@@ -13,15 +13,20 @@ export class CustomerService {
 
   async createCustomer(customerData: Customer): Promise<Customer> {
     try {
-      return await dataSource.manager.transaction(
-        async (transactionalEntityManager: EntityManager) => {
-          const newCustomer = transactionalEntityManager.create(
-            Customer,
-            customerData
-          );
-          return await transactionalEntityManager.save(newCustomer);
-        }
-      );
+      const newCustomer = this.customerRepository.create(customerData);
+      return await this.customerRepository.save(newCustomer);
+    } catch (error) {
+      throw handleDatabaseError(error);
+    }
+  }
+
+  async getCustomerByPK(customerId: number): Promise<Customer> {
+    try {
+      const customer = await this.customerRepository.findOne({
+        where: { customer_id: customerId },
+      });
+      if (!customer) throw new AppError("Customer not found.", 404);
+      return customer;
     } catch (error) {
       throw handleDatabaseError(error);
     }
@@ -35,18 +40,7 @@ export class CustomerService {
     }
   }
 
-  async getCustomerByPK(customerId: number): Promise<Customer | null> {
-    try {
-      const customer = await this.customerRepository.findOne({
-        where: { customer_id: customerId },
-      });
-      return customer;
-    } catch (error) {
-      throw handleDatabaseError(error);
-    }
-  }
-
-  async getCustomerByName(customerName: string): Promise<Customer[] | []> {
+  async getCustomerByName(customerName: string): Promise<Customer[]> {
     try {
       const customer = await this.customerRepository.find({
         where: {
@@ -62,33 +56,29 @@ export class CustomerService {
   async updateCustomer(
     customerId: number,
     updates: Partial<Customer>
-  ): Promise<Customer | null> {
+  ): Promise<Customer> {
+    const customer = await this.customerRepository.findOne({
+      where: { customer_id: customerId },
+    });
+    
+    if (!customer) throw new AppError("Customer not found.", 400);
+    
+    Object.assign(customer, updates);
+    
     try {
-      const customer = await this.customerRepository.findOne({
-        where: { customer_id: customerId },
-      });
-
-      if ( !customer ) {
-        throw new AppError("Customer not found.", 400);
-      }
-
-      Object.assign(customer, updates);
-
       return await this.customerRepository.save(customer);
     } catch (error) {
       throw handleDatabaseError(error);
     }
   }
 
-  async deleteCustomer(customerId: number): Promise<DeleteResult | null> {
-    try {
-      const customer = await this.customerRepository.findOne({
-        where: { customer_id: customerId },
-      });
+  async deleteCustomer(customerId: number): Promise<DeleteResult> {
+    const customer = await this.customerRepository.findOne({
+      where: { customer_id: customerId },
+    });
 
-      if ( !customer ) {
-        throw new AppError("Customer not found.", 400);
-      }
+    if (!customer) throw new AppError("Customer not found.", 400);
+    try {
       return await this.customerRepository.delete(customerId);
     } catch (error) {
       throw handleDatabaseError(error);

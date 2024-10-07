@@ -22,10 +22,8 @@ export class ProductController {
       await productData.validate();
       const newProduct = await this.productService.createProduct(productData);
 
-      const productResponseDTO = new ProductResponseDTO(newProduct);
-
       return res.success(
-        productResponseDTO,
+        new ProductResponseDTO(newProduct),
         "Product created successfully.",
         201
       );
@@ -35,16 +33,12 @@ export class ProductController {
   }
 
   async getProductById(req: Request, res: Response, next: NextFunction) {
+    const productId = parseInt(req.params.id);
     try {
-      const productId = parseInt(req.params.id);
       const product = await this.productService.getProductByPK(productId);
 
-      if (!product) {
-        return res.error({ message: "Product not found." }, 400);
-      }
-      const productResponseDTO = new ProductResponseDTO(product);
       return res.success(
-        productResponseDTO,
+        new ProductResponseDTO(product),
         "Product fetched successfully.",
         200
       );
@@ -54,20 +48,21 @@ export class ProductController {
   }
 
   async getProducts(req: Request, res: Response, next: NextFunction) {
-    try {
-      const { name } = req.query;
-      let products: Product[] | null = [];
+    const { name } = req.query;
+    let products: Product[] = [];
 
+    try {
       if (name && typeof name === "string" && name.trim() !== "") {
-        products = await this.productService.getProductByName(name as string);
+        products = await this.productService.getProductByName(name);
       } else {
         products = await this.productService.fetchAllProducts();
       }
+
       const productResponseDTOs = products?.map(
         (product) => new ProductResponseDTO(product)
       );
       const responseMessage =
-        productResponseDTOs?.length === 0
+        productResponseDTOs.length === 0
           ? "No products found."
           : "All products fetched successfully.";
       return res.success(productResponseDTOs, responseMessage, 200);
@@ -77,8 +72,8 @@ export class ProductController {
   }
 
   async updateProduct(req: Request, res: Response, next: NextFunction) {
+    const productId = parseInt(req.params.id);
     try {
-      const productId = parseInt(req.params.id);
       const productUpdateDTO = new ProductUpdateDTO(req.body);
 
       await productUpdateDTO.validate();
@@ -87,35 +82,32 @@ export class ProductController {
         productUpdateDTO
       );
 
-      if (!updatedProduct) {
-        return res.error({ message: "Failed to update product." }, 400);
-      }
-      const productResponseDTO = new ProductResponseDTO(updatedProduct!);
-      return res.success(productResponseDTO, "Product updated successfully.");
+      return res.success(
+        new ProductResponseDTO(updatedProduct),
+        "Product updated successfully."
+      );
     } catch (error) {
       next(error);
     }
   }
 
   async deleteProduct(req: Request, res: Response, next: NextFunction) {
+    const productId = parseInt(req.params.id);
     try {
-      const productId = parseInt(req.params.id);
       const productToDelete = await this.productService.getProductByPK(
         productId
       );
 
-      if (!productToDelete) {
+      if (!productToDelete)
         return res.error({ message: "Product not found." }, 404);
-      }
 
-      const deleteResult = await this.productService.deleteProduct(productId);
+      const { affected } = await this.productService.deleteProduct(productId);
 
-      if (!deleteResult || deleteResult.affected === 0) {
+      if (!affected)
         return res.error({ message: "Failed to delete product." }, 500);
-      }
-      const productResponseDTO = new ProductResponseDTO(productToDelete);
+
       return res.success(
-        productResponseDTO,
+        new ProductResponseDTO(productToDelete),
         "Product deleted successfully.",
         200
       );
