@@ -1,6 +1,6 @@
 import { Users } from './../database/entities/users.entity';
 import dataSource from "../config/ormconfig";
-import { Repository, EntityManager, DeleteResult } from "typeorm";
+import { Repository, EntityManager } from "typeorm";
 import { AppError } from "../middlewares/errorHandler";
 import { UserCreateDTO, UserUpdateDTO } from "../dtos/users.dto";
 import { HashingService } from "../utils/HashService";
@@ -46,11 +46,12 @@ export class UserService {
     }
   }
 
-  async fetchUserByPk(userId: number): Promise<Users | null> {
+  async fetchUserByPk(userId: number): Promise<Users> {
     try {
       const user = await this.userRepository.findOne({
         where: { user_id: userId },
       });
+      if (!user) throw new AppError("User not found.", 404)
       return user;
     } catch (error) {
       throw handleDatabaseError(error);
@@ -60,16 +61,13 @@ export class UserService {
   async updateUser(
     userId: number,
     updates: Partial<UserUpdateDTO>
-  ): Promise<Users | null> {
+  ): Promise<Users> {
     try {
-      // Obtener el usuario directamente en el método updateUser
       const user = await this.userRepository.findOne({
         where: { user_id: userId },
       });
 
-      if (!user) {
-        throw new AppError("User not found.", 404);
-      }
+      if (!user) throw new AppError("User not found.", 404);
 
       if (updates.password) {
         try {
@@ -80,25 +78,24 @@ export class UserService {
         }
       }
 
-      // Aplicar los cambios al usuario
       Object.assign(user, updates);
 
-      // Guardar el usuario actualizado
       return await this.userRepository.save(user);
     } catch (error) {
       throw handleDatabaseError(error);
     }
   }
 
-  async deleteUser(userId: number): Promise<DeleteResult | null> {
+  async deleteUser(userId: number): Promise<void> {
     const user = await this.userRepository.findOne({
       where: { user_id: userId },
     });
 
-    if (!user) {
-      throw new AppError("User not found.", 404);
+    if (!user) throw new AppError("User not found.", 404);
+    try {
+      await this.userRepository.delete(userId);
+    } catch (error) {
+      throw handleDatabaseError(error)
     }
-
-    return await this.userRepository.delete(userId);
   }
 }

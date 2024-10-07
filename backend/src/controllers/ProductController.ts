@@ -98,14 +98,7 @@ export class ProductController {
         productId
       );
 
-      if (!productToDelete)
-        return res.error({ message: "Product not found." }, 404);
-
-      const { affected } = await this.productService.deleteProduct(productId);
-
-      if (!affected)
-        return res.error({ message: "Failed to delete product." }, 500);
-
+      await this.productService.deleteProduct(productId);
       return res.success(
         new ProductResponseDTO(productToDelete),
         "Product deleted successfully.",

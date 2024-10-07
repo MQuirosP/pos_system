@@ -79,9 +79,8 @@ export class ProductService {
         where: { product_id: productId },
       });
 
-      if (!product) {
-        throw new AppError("Product not found.", 400);
-      }
+      if (!product) throw new AppError("Product not found.", 400);
+      
       return await this.productRepository.delete(productId);
     } catch (error) {
       throw handleDatabaseError(error);
