@@ -1,5 +1,4 @@
-import dataSource from "../config/ormconfig";
-import { Repository, EntityManager, ILike } from "typeorm";
+import { Repository, ILike } from "typeorm";
 import { handleDatabaseError } from "../middlewares/databaseErrorHandler";
 import { AppError } from "../middlewares/errorHandler";
 import { Provider } from "../database/entities/providers.entity";
@@ -13,15 +12,8 @@ export class ProvidersService {
 
   async createProvider(providerData: Provider): Promise<Provider> {
     try {
-      return await dataSource.manager.transaction(
-        async (transactionalEntityManager: EntityManager) => {
-          const newProvider = transactionalEntityManager.create(
-            Provider,
-            providerData
-          );
-          return await transactionalEntityManager.save(newProvider);
-        }
-      );
+      const newProvider = this.providerRepository.create(providerData);
+      return await this.providerRepository.save(newProvider);
     } catch (error) {
       throw handleDatabaseError(error);
     }
@@ -65,13 +57,13 @@ export class ProvidersService {
     providerId: number,
     updates: Partial<Provider>
   ): Promise<Provider> {
+    const provider = await this.providerRepository.findOne({
+      where: { provider_id: providerId },
+    });
+
+    if (!provider) throw handleDatabaseError(provider);
+
     try {
-      const provider = await this.providerRepository.findOne({
-        where: { provider_id: providerId },
-      });
-
-      if (!provider) throw handleDatabaseError(provider);
-
       Object.assign(provider, updates);
 
       return await this.providerRepository.save(provider);

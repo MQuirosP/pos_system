@@ -17,9 +17,9 @@ export class UserController {
   }
 
   async createUser(req: Request, res: Response, next: NextFunction) {
+    const userData = new UserCreateDTO(req.body);
+    await userData.validate();
     try {
-      const userData = new UserCreateDTO(req.body);
-      await userData.validate();
       const newUser = await this.userService.createUser(userData);
 
       return res.success(new UserResponseDTO(newUser), "User created successfully.", 201);
@@ -49,8 +49,7 @@ export class UserController {
       const userId = parseInt(req.params.id);
       const user = await this.userService.fetchUserByPk(userId);
 
-      const userResponseDTO = new UserResponseDTO(user);
-      return res.success(userResponseDTO, "User fetched successfully.", 200);
+      return res.success(new UserResponseDTO(user), "User fetched successfully.", 200);
     } catch (error) {
       next(error);
     }
@@ -74,8 +73,8 @@ export class UserController {
   }
 
   async deleteUser(req: Request, res: Response, next: NextFunction) {
+    const userId = parseInt(req.params.id);
     try {
-      const userId = parseInt(req.params.id);
 
       await this.userService.deleteUser(userId);
 

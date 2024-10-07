@@ -1,5 +1,4 @@
-import dataSource from "../config/ormconfig";
-import { Repository, EntityManager, DeleteResult, ILike } from "typeorm";
+import { Repository, ILike } from "typeorm";
 import { handleDatabaseError } from "../middlewares/databaseErrorHandler";
 import { AppError } from "../middlewares/errorHandler";
 import { Customer } from "../database/entities/customers.entity";
@@ -20,6 +19,14 @@ export class CustomerService {
     }
   }
 
+  async fetchAllCustomers(): Promise<Customer[]> {
+    try {
+      return await this.customerRepository.find();
+    } catch (error) {
+      throw handleDatabaseError(error);
+    }
+  }
+
   async getCustomerByPK(customerId: number): Promise<Customer> {
     try {
       const customer = await this.customerRepository.findOne({
@@ -27,14 +34,6 @@ export class CustomerService {
       });
       if (!customer) throw new AppError("Customer not found.", 404);
       return customer;
-    } catch (error) {
-      throw handleDatabaseError(error);
-    }
-  }
-
-  async fetchAllCustomers(): Promise<Customer[]> {
-    try {
-      return await this.customerRepository.find();
     } catch (error) {
       throw handleDatabaseError(error);
     }
@@ -60,12 +59,12 @@ export class CustomerService {
     const customer = await this.customerRepository.findOne({
       where: { customer_id: customerId },
     });
-    
+
     if (!customer) throw new AppError("Customer not found.", 400);
-    
-    Object.assign(customer, updates);
-    
+
     try {
+      Object.assign(customer, updates);
+
       return await this.customerRepository.save(customer);
     } catch (error) {
       throw handleDatabaseError(error);

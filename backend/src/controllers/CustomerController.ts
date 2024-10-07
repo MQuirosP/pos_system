@@ -17,13 +17,13 @@ export class CustomerController {
   }
 
   async createCustomer(req: Request, res: Response, next: NextFunction) {
+    const customerData = new CustomerCreateDTO(req.body);
+    await customerData.validate();
+    const newCustomer = await this.customerService.createCustomer(
+      customerData
+    );
+    
     try {
-      const customerData = new CustomerCreateDTO(req.body);
-      await customerData.validate();
-      const newCustomer = await this.customerService.createCustomer(
-        customerData
-      );
-
       return res.success(
         new CustomerResponseDTO(newCustomer),
         "Customer created successfully.",
@@ -34,10 +34,33 @@ export class CustomerController {
     }
   }
 
+  async getCustomers(req: Request, res: Response, next: NextFunction) {
+    const { name } = req.query;
+    let customers: Customer[] = [];
+    if (name && typeof name === "string" && name.trim() !== "") {
+      customers = await this.customerService.getCustomerByName(name);
+    } else {
+      customers = await this.customerService.fetchAllCustomers();
+    }
+    
+    try {
+      const customerResponseDTOs = customers.map(
+        (customer) => new CustomerResponseDTO(customer)
+      );
+      const responseMessage =
+        customerResponseDTOs.length === 0
+          ? "No customers found."
+          : "All customers fetched succesfully.";
+      return res.success(customerResponseDTOs, responseMessage, 200);
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async getCustomerById(req: Request, res: Response, next: NextFunction) {
     const customerId = parseInt(req.params.id);
+    const customer = await this.customerService.getCustomerByPK(customerId);
     try {
-      const customer = await this.customerService.getCustomerByPK(customerId);
 
       return res.success(
         new CustomerResponseDTO(customer),
@@ -49,37 +72,12 @@ export class CustomerController {
     }
   }
 
-  async getCustomers(req: Request, res: Response, next: NextFunction) {
-    const { name } = req.query;
-    let customers: Customer[] = [];
-    
-    if (name && typeof name === "string" && name.trim() !== "") {
-      customers = await this.customerService.getCustomerByName(name);
-    } else {
-      customers = await this.customerService.fetchAllCustomers();
-    }
-    
-    try {
-      const customerResponseDTOs = customers.map(
-        (customer) => new CustomerResponseDTO(customer)
-      );
-
-      const responseMessage =
-        customerResponseDTOs.length === 0
-          ? "No customers found."
-          : "All customers fetched succesfully.";
-      return res.success(customerResponseDTOs, responseMessage, 200);
-    } catch (error) {
-      next(error);
-    }
-  }
-
   async updateCustomer(req: Request, res: Response, next: NextFunction) {
     const customerId = parseInt(req.params.id);
+    const customerUpdateDTO = new CustomerUpdateDTO(req.body);
+    
+    await customerUpdateDTO.validate();
     try {
-      const customerUpdateDTO = new CustomerUpdateDTO(req.body);
-
-      await customerUpdateDTO.validate();
       const updatedCustomer = await this.customerService.updateCustomer(
         customerId,
         customerUpdateDTO
@@ -100,9 +98,7 @@ export class CustomerController {
       const customerToDelete = await this.customerService.getCustomerByPK(
         customerId
       );
-
       await this.customerService.deleteCustomer(customerId);
-
       return res.success(
         new CustomerResponseDTO(customerToDelete),
         "Customer deleted successfully.",
