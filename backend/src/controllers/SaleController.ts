@@ -13,17 +13,16 @@ export class SaleController {
   }
 
   async createSale(req: Request, res: Response, next: NextFunction) {
+    const saleData = new SaleCreateDTO(req.body);
+    await saleData.validate();
     try {
-      const saleData = new SaleCreateDTO(req.body);
-      await saleData.validate();
       const newSale = await this.saleService.createSale(saleData);
 
-      if (!newSale) {
-        return res.error("No sale created.", 400);
-      }
-
-      const saleResponseDTO = new SaleResponseDto(newSale);
-      return res.success(saleResponseDTO, "Sale created successfully.", 201);
+      return res.success(
+        new SaleResponseDto(newSale),
+        "Sale created successfully.",
+        201
+      );
     } catch (error) {
       next(error);
     }
@@ -33,10 +32,6 @@ export class SaleController {
     try {
       const sales = await this.saleService.fetchSales();
 
-      if (!sales || sales.length === 0) {
-        return res.success(sales, "No sales found.", 200);
-      }
-
       const saleResponseDTO = sales.map((sale) => new SaleResponseDto(sale));
       return res.success(saleResponseDTO, "Sales fetched successfully.", 200);
     } catch (error) {
@@ -45,28 +40,28 @@ export class SaleController {
   }
 
   async fetchSaleByDocNumber(req: Request, res: Response, next: NextFunction) {
+    const docNumber = req.params.doc_number.toString();
     try {
-      const docNumber = req.params.doc_number.toString();
       const sale = await this.saleService.fetchSaleByDocNumber(docNumber);
-      if (!sale) {
-        return res.error({ message: "Sale not found." }, 404);
-      }
-      const saleResponseDto = new SaleResponseDto(sale);
-      return res.success(saleResponseDto, "Sale fetched successfully.", 200);
+      return res.success(
+        new SaleResponseDto(sale),
+        "Sale fetched successfully.",
+        200
+      );
     } catch (error) {
       next(error);
     }
   }
 
   async cancelSale(req: Request, res: Response, next: NextFunction) {
+    const docNumber = req.params.doc_number.toString();
     try {
-      const docNumber = req.params.doc_number.toString();
       const sale = await this.saleService.cancelSale(docNumber);
-      if (!sale) {
-        return res.error({ message: "Sale not found." }, 404);
-      }
-      const saleResponseDto = new SaleResponseDto(sale);
-      return res.success(saleResponseDto, "Sale canceled successfully.", 200);
+      return res.success(
+        new SaleResponseDto(sale),
+        "Sale canceled successfully.",
+        200
+      );
     } catch (error) {
       next(error);
     }
