@@ -72,14 +72,14 @@ export class CustomerService {
     }
   }
 
-  async deleteCustomer(customerId: number): Promise<DeleteResult> {
+  async deleteCustomer(customerId: number): Promise<void> {
     const customer = await this.customerRepository.findOne({
       where: { customer_id: customerId },
     });
 
     if (!customer) throw new AppError("Customer not found.", 400);
     try {
-      return await this.customerRepository.delete(customerId);
+      await this.customerRepository.delete(customerId);
     } catch (error) {
       throw handleDatabaseError(error);
     }

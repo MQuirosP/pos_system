@@ -73,7 +73,7 @@ export class ProductService {
     }
   }
 
-  async deleteProduct(productId: number): Promise<DeleteResult> {
+  async deleteProduct(productId: number): Promise<void> {
     try {
       const product = await this.productRepository.findOne({
         where: { product_id: productId },
@@ -81,7 +81,7 @@ export class ProductService {
 
       if (!product) throw new AppError("Product not found.", 400);
       
-      return await this.productRepository.delete(productId);
+      await this.productRepository.delete(productId);
     } catch (error) {
       throw handleDatabaseError(error);
     }
