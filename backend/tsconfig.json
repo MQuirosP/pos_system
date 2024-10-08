@@ -12,10 +12,10 @@
     "esModuleInterop": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "baseUrl": "src",
+    "baseUrl": "/",
     "paths": {
       "*": ["node_modules"],
-      "@entities/*": ["database/entities/*"]
+      // "@entities/*": ["./database/entities/*"]
     }
   },
   "include": [
