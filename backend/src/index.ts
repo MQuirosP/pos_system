@@ -1,4 +1,5 @@
 import "./server/server"
+import "module-alias/register"
 
 // // src/index.ts
 // import express from "express";
