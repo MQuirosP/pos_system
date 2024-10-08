@@ -1,10 +1,10 @@
-import { Users } from '#entities/users.entity';
-import dataSource from "../config/ormconfig";
+import { Users } from '@entities/users.entity';
+import dataSource from "@config/ormconfig";
 import { Repository, EntityManager } from "typeorm";
-import { AppError } from "../middlewares/errorHandler";
-import { UserCreateDTO, UserUpdateDTO } from "../dtos/users.dto";
-import { HashingService } from "../utils/HashService";
-import { handleDatabaseError } from "../middlewares/databaseErrorHandler";
+import { AppError } from "@middlewares/errorHandler";
+import { UserCreateDTO, UserUpdateDTO } from "@dtos/users.dto";
+import { HashingService } from "@utils/HashService";
+import { handleDatabaseError } from "@middlewares/databaseErrorHandler";
 
 export class UserService {
   private userRepository: Repository<Users>;

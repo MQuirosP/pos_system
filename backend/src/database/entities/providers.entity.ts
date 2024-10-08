@@ -7,7 +7,7 @@ import {
   OneToMany,
 } from "typeorm";
 import { Purchase } from "./purchases.entity";
-import { IProviders } from "../../interfaces/providers.interface";
+import { IProviders } from "@interfaces/providers.interface";
 
 @Entity("providers")
 export class Provider implements IProviders {

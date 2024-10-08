@@ -1,8 +1,8 @@
 import { EntityManager, Repository } from "typeorm";
-import { Sale } from "../database/entities/sales.entity";
-import { handleDatabaseError } from "../middlewares/databaseErrorHandler";
-import { AppError } from "../middlewares/errorHandler";
-import dataSource from "../config/ormconfig";
+import { Sale } from "@entities/sales.entity";
+import { handleDatabaseError } from "@middlewares/databaseErrorHandler";
+import { AppError } from "@middlewares/errorHandler";
+import dataSource from "@config/ormconfig";
 
 export class SaleService {
   private saleRepository: Repository<Sale>;

@@ -7,11 +7,11 @@ import {
   ValidateIf,
   IsBoolean,
 } from "class-validator";
-import { Users } from "../database/entities/users.entity";
+import { Users } from "@entities/users.entity";
 import { USER_KEYS } from "./dtoKeys";
 import { DTOBase } from "./DTOBase";
-import { IsEnumWithMessage } from "../decorators/isEnumWithMessage.decorator";
-import { Inmutable } from "../decorators/isInmmutable.decorator";
+import { IsEnumWithMessage } from "@decorators/isEnumWithMessage.decorator";
+import { Inmutable } from "@decorators/isInmmutable.decorator";
 
 
 export class UserCreateDTO extends DTOBase {

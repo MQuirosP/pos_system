@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "start": "ts-node -r tsconfig-paths/register dist/index.js",
-    "dev": "nodemon -r tsconfig-paths/register ts-node src/index.ts",
+    "dev": "nodemon --exec ts-node -r tsconfig-paths/register src/index.ts",
     "dev:watch": "nodemon --watch src --exec ts-node src/index.ts",
     "migrate": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d ./src/config/ormconfig.ts",
     "migrate:revert": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert -d ./src/config/ormconfig.ts"
@@ -45,6 +45,15 @@
     "typescript": "^5.5.4"
   },
   "_moduleAliasses": {
-    "#entities": "dist/database/entities"
+    "@entities": "dist/database/entities",
+    "@config": "dist/config",
+    "@middlewares": "dist/middlewares",
+    "@dtos": "dist/dtos",
+    "@utils": "dist/utils",
+    "@routes": "dist/routes",
+    "@controllers/*": "dist/controllers",
+    "@services/*": "dist/services",
+    "@decorators/*": "dist/decorators",
+    "@interfaces/*": "dist/interfaces"
   }
 }

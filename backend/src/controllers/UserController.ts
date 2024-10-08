@@ -2,11 +2,11 @@ import {
   UserCreateDTO,
   UserResponseDTO,
   UserUpdateDTO,
-} from "../dtos/users.dto";
+} from "@dtos/users.dto";
 import { Request, Response, NextFunction } from "express";
-import { UserService } from "../services/UserService";
-import dataSource from "../config/ormconfig";
-import { Users } from "../database/entities/users.entity";
+import { UserService } from "@services/UserService";
+import dataSource from "@config/ormconfig";
+import { Users } from "@entities/users.entity";
 
 export class UserController {
   private readonly userService: UserService;

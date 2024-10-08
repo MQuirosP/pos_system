@@ -1,7 +1,7 @@
 import { Repository, ILike } from "typeorm";
-import { handleDatabaseError } from "../middlewares/databaseErrorHandler";
-import { AppError } from "../middlewares/errorHandler";
-import { Provider } from "../database/entities/providers.entity";
+import { handleDatabaseError } from "@middlewares/databaseErrorHandler";
+import { AppError } from "@middlewares/errorHandler";
+import { Provider } from "@entities/providers.entity";
 
 export class ProvidersService {
   private providerRepository: Repository<Provider>;

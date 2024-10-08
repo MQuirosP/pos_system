@@ -6,11 +6,11 @@ import {
   ValidateIf,
   validateOrReject,
 } from "class-validator";
-import { Provider } from "../database/entities/providers.entity";
+import { Provider } from "@entities/providers.entity";
 import { PROVIDERS_KEYS } from "./dtoKeys";
 import { DTOBase } from "./DTOBase";
-import { Inmutable } from "../decorators/isInmmutable.decorator";
-import { Purchase } from "../database/entities/purchases.entity";
+import { Inmutable } from "@decorators/isInmmutable.decorator";
+import { Purchase } from "@entities/purchases.entity";
 
 export class ProviderCreateDTO extends DTOBase {
     static expectedKeys: string[] = PROVIDERS_KEYS;

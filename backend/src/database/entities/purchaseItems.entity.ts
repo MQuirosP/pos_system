@@ -9,7 +9,7 @@ import {
 } from "typeorm";
 import { Purchase } from "./purchases.entity";
 import { Product } from "./products.entity";
-import { IPurchaseItems } from "../../interfaces/purchaseItems.interface";
+import { IPurchaseItems } from "@interfaces/purchaseItems.interface";
 
 @Entity("purchase_items")
 export class PurchaseItem implements IPurchaseItems {

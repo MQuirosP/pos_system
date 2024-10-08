@@ -1,7 +1,7 @@
-import { ProductController } from "../controllers/ProductController";
+import { ProductController } from "@controllers/ProductController";
 import express from "express";
-import { validateDTO } from "../middlewares/validateDTO";
-import { ProductCreateDTO, ProductUpdateDTO } from "../dtos/products.dto";
+import { validateDTO } from "@middlewares/validateDTO";
+import { ProductCreateDTO, ProductUpdateDTO } from "@dtos/products.dto";
 
 const router = express.Router();
 const productController = new ProductController();

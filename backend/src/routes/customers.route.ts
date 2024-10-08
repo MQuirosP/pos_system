@@ -1,7 +1,7 @@
-import { CustomerController } from "../controllers/CustomerController";
+import { CustomerController } from "@controllers/CustomerController";
 import express from "express";
-import { validateDTO } from "../middlewares/validateDTO";
-import { CustomerCreateDTO, CustomerUpdateDTO } from "../dtos/customers.dto";
+import { validateDTO } from "@middlewares/validateDTO";
+import { CustomerCreateDTO, CustomerUpdateDTO } from "@dtos/customers.dto";
 
 const router = express.Router();
 const customerController = new CustomerController();

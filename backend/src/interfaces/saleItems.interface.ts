@@ -1,5 +1,5 @@
-import { SaleItem } from "../database/entities/saleItems.entity";
-import { Sale } from "../database/entities/sales.entity";
+import { SaleItem } from "@entities/saleItems.entity";
+import { Sale } from "@entities/sales.entity";
 
 
 export interface ISaleItem {

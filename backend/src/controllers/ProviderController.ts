@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
-import dataSource from "../config/ormconfig";
-import { Provider } from "../database/entities/providers.entity";
-import { ProvidersService } from "../services/ProvidersService";
+import dataSource from "@config/ormconfig";
+import { Provider } from "@entities/providers.entity";
+import { ProvidersService } from "@services/ProvidersService";
 import {
   ProviderCreateDTO,
   ProviderResponseDTO,

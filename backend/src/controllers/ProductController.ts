@@ -2,11 +2,11 @@ import {
   ProductCreateDTO,
   ProductUpdateDTO,
   ProductResponseDTO,
-} from "../dtos/products.dto";
+} from "@dtos/products.dto";
 import { Request, Response, NextFunction, json } from "express";
-import dataSource from "../config/ormconfig";
-import { Product } from "../database/entities/products.entity";
-import { ProductService } from "../services/ProductService";
+import dataSource from "@config/ormconfig";
+import { Product } from "@entities/products.entity";
+import { ProductService } from "@services/ProductService";
 
 export class ProductController {
   private readonly productService: ProductService;

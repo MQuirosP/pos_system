@@ -1,6 +1,6 @@
 // Archivo: purchaseItems.interface.ts
-import { Purchase } from "../database/entities/purchases.entity";
-import { PurchaseItem } from "../database/entities/purchaseItems.entity";
+import { Purchase } from "@entities/purchases.entity";
+import { PurchaseItem } from "@entities/purchaseItems.entity";
 
 export interface IPurchaseItems {
   id: number;

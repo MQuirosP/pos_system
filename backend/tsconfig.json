@@ -15,7 +15,17 @@
     "baseUrl": "./src",
     "paths": {
       "*": ["node_modules"],
-      "#entities/*": ["database/entities/*"]
+      "@entities/*": ["database/entities/*"],
+      "@config/*": ["config/*"],
+      "@middlewares/*": ["middlewares/*"],
+      "@dtos/*": ["dtos/*"],
+      "@utils/*": ["utils/*"],
+      "@routes/*": ["routes/*"],
+      "@controllers/*": ["controllers/*"],
+      "@services/*": ["services/*"],
+      "@decorators/*": ["decorators/*"],
+      "@interfaces/*": ["interfaces/*"]
+
     }
   },
   "include": [

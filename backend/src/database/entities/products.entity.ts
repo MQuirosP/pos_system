@@ -7,8 +7,6 @@ import {
   OneToMany,
 } from "typeorm";
 import { SaleItem } from "./saleItems.entity";
-import { Purchase } from "./purchases.entity";
-import { IPurchases } from "../../interfaces/purchases.interface";
 import { PurchaseItem } from "./purchaseItems.entity";
 
 @Entity("products")

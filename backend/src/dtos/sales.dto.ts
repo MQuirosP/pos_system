@@ -1,4 +1,4 @@
-import { Sale } from "../database/entities/sales.entity";
+import { Sale } from "@entities/sales.entity";
 import {
   ArrayNotEmpty,
   IsArray,
@@ -13,8 +13,8 @@ import {
 import { DTOBase } from "./DTOBase";
 import { SALE_KEYS, SALEITEMS_KEYS } from "./dtoKeys";
 import { Type } from "class-transformer";
-import { convertToLocalTime } from "../utils/dateUtils";
-import { Product } from "../database/entities/products.entity";
+import { convertToLocalTime } from "@utils/dateUtils";
+import { Product } from "@entities/products.entity";
 
 export class SaleCreateDTO extends DTOBase {
   static expectedKeys: string[] = SALE_KEYS;

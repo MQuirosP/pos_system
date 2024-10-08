@@ -1,8 +1,8 @@
-import { Product } from "../database/entities/products.entity";
-import { Repository, DeleteResult, ILike } from "typeorm";
-import { handleDatabaseError } from "../middlewares/databaseErrorHandler";
-import { AppError } from "../middlewares/errorHandler";
-import { ProductCreateDTO } from "../dtos/products.dto";
+import { Product } from "@entities/products.entity";
+import { Repository, ILike } from "typeorm";
+import { handleDatabaseError } from "@middlewares/databaseErrorHandler";
+import { AppError } from "@middlewares/errorHandler";
+import { ProductCreateDTO } from "@dtos/products.dto";
 
 export class ProductService {
   private productRepository: Repository<Product>;

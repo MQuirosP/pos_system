@@ -7,13 +7,10 @@ import {
   ManyToOne,
   JoinColumn,
   ManyToMany,
-  JoinTable,
 } from "typeorm";
-import { Product } from "./products.entity";
 import { Provider } from "./providers.entity";
-import { IPurchases } from "../../interfaces/purchases.interface";
+import { IPurchases } from "@interfaces/purchases.interface";
 import { PurchaseItem } from "./purchaseItems.entity";
-import { IPurchaseItems } from "../../interfaces/purchaseItems.interface";
 
 @Entity("purchases")
 export class Purchase implements IPurchases {

@@ -1,8 +1,8 @@
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
-import { responseMiddleware } from "../middlewares/responseMiddleware";
-import routes from "../routes";
+import { responseMiddleware } from "@middlewares/responseMiddleware";
+import routes from "@routes/index";
 
 const app = express();
 

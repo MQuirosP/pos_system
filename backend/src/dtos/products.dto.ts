@@ -7,10 +7,10 @@ import {
   IsBoolean,
   IsNumber,
 } from "class-validator";
-import { Product } from "../database/entities/products.entity";
+import { Product } from "@entities/products.entity";
 import { PRODUCT_KEYS } from "./dtoKeys";
 import { DTOBase } from "./DTOBase";
-import { Inmutable } from "../decorators/isInmmutable.decorator";
+import { Inmutable } from "@decorators/isInmmutable.decorator";
 
 export class ProductCreateDTO extends DTOBase {
   static expectedKeys: string[] = PRODUCT_KEYS;

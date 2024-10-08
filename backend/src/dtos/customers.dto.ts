@@ -5,11 +5,11 @@ import {
   ValidateIf,
   validateOrReject,
 } from "class-validator";
-import { Customer } from "../database/entities/customers.entity";
+import { Customer } from "@entities/customers.entity";
 import { CUSTOMERS_KEYS } from "./dtoKeys";
 import { DTOBase } from "./DTOBase";
-import { Inmutable } from "../decorators/isInmmutable.decorator";
-import { Sale } from "../database/entities/sales.entity";
+import { Inmutable } from "@decorators/isInmmutable.decorator";
+import { Sale } from "@entities/sales.entity";
 
 export class CustomerCreateDTO extends DTOBase {
   static expectedKeys: string[] = CUSTOMERS_KEYS;

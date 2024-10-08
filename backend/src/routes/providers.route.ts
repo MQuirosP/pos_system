@@ -1,7 +1,7 @@
 import express from "express";
-import { ProviderController } from "../controllers/ProviderController";
-import { validateDTO } from "../middlewares/validateDTO";
-import { ProviderCreateDTO, ProviderUpdateDTO } from "../dtos/providers.dto";
+import { ProviderController } from "@controllers/ProviderController";
+import { validateDTO } from "@middlewares/validateDTO";
+import { ProviderCreateDTO, ProviderUpdateDTO } from "@dtos/providers.dto";
 
 const router = express.Router();
 const providerConstroller = new ProviderController();
