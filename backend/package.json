@@ -42,12 +42,5 @@
     "ts-node-dev": "^2.0.0",
     "tsconfig-paths": "^4.2.0",
     "typescript": "^5.5.4"
-  },
-  "_moduleAliases": {
-    "#entities": "./dist/entities",
-    "#controllers": "./dist/controllers",
-    "#routes": "./dist/routes",
-    "#services": "./dist/services",
-    "#config": "./dist/config"
   }
 }
