@@ -1,4 +1,4 @@
-import { Users } from './../database/entities/users.entity';
+import { Users } from '@entities/users.entity';
 import dataSource from "../config/ormconfig";
 import { Repository, EntityManager } from "typeorm";
 import { AppError } from "../middlewares/errorHandler";
