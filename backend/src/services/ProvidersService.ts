@@ -1,7 +1,9 @@
-import { Repository, ILike } from "typeorm";
+import { Repository, ILike, DeleteResult } from "typeorm";
 import { handleDatabaseError } from "@middlewares/databaseErrorHandler";
 import { AppError } from "@middlewares/errorHandler";
 import { Provider } from "@entities/providers.entity";
+import { raw } from "body-parser";
+import { where } from "sequelize";
 
 export class ProvidersService {
   private providerRepository: Repository<Provider>;
@@ -57,13 +59,13 @@ export class ProvidersService {
     providerId: number,
     updates: Partial<Provider>
   ): Promise<Provider> {
-    const provider = await this.providerRepository.findOne({
-      where: { provider_id: providerId },
-    });
-
-    if (!provider) throw handleDatabaseError(provider);
-
     try {
+      const provider = await this.providerRepository.findOne({
+        where: { provider_id: providerId },
+      });
+
+      if (!provider) throw new AppError("Provider not found.", 404);
+
       Object.assign(provider, updates);
 
       return await this.providerRepository.save(provider);
@@ -72,16 +74,20 @@ export class ProvidersService {
     }
   }
 
-  async deleteProvider(providerId: number): Promise<void> {
-    try {
-      const provider = await this.providerRepository.findOne({
-        where: { provider_id: providerId },
-      });
+ async deleteProvider(providerId: number): Promise<DeleteResult> {
+  try {
+    const provider = await this.providerRepository.findOne({
+      where: { provider_id: providerId },
+    });
 
-      if (!provider) throw new AppError("Provider not found.", 400);
-      await this.providerRepository.delete(providerId);
-    } catch (error) {
-      throw handleDatabaseError(error);
-    }
+    if (!provider) throw new AppError("Provider not found.", 400);
+
+    const deleteResult: DeleteResult = await this.providerRepository.delete(providerId);
+    deleteResult.raw = provider; 
+
+    return deleteResult; 
+  } catch (error) {
+    throw handleDatabaseError(error);
   }
+}
 }

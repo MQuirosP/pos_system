@@ -96,12 +96,9 @@ export class ProviderController {
   async deleteProvider(req: Request, res: Response, next: NextFunction) {
     try {
       const providerId = parseInt(req.params.id);
-      const providerToDelete = await this.providerService.getProviderByPk(
-        providerId
-      );
-      await this.providerService.deleteProvider(providerId)
+      const deletedProvider = await this.providerService.deleteProvider(providerId)
       return res.success(
-        new ProviderResponseDTO(providerToDelete),
+        new ProviderResponseDTO(deletedProvider.raw),
         "Provider deleted successfully.",
         200
       );
