@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import dataSource from "@config/ormconfig";
 import { Customer } from "@entities/customers.entity";
-import { CustomerService } from "@services/CustomerService";
+import { CustomerService } from "@services/customers.services";
 import {
   CustomerCreateDTO,
   CustomerResponseDTO,

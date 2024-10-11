@@ -1,4 +1,4 @@
-import { ProductController } from "@controllers/ProductController";
+import { ProductController } from "@controllers/products.controller";
 import express from "express";
 import { validateDTO } from "@middlewares/validateDTO";
 import { ProductCreateDTO, ProductUpdateDTO } from "@dtos/products.dto";

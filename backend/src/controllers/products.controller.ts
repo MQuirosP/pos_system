@@ -6,7 +6,7 @@ import {
 import { Request, Response, NextFunction, json } from "express";
 import dataSource from "@config/ormconfig";
 import { Product } from "@entities/products.entity";
-import { ProductService } from "@services/ProductService";
+import { ProductService } from "@services/products.services";
 
 export class ProductController {
   private readonly productService: ProductService;

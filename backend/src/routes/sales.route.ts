@@ -1,5 +1,5 @@
 import express from "express";
-import { SaleController } from "@controllers/SaleController";
+import { SaleController } from "@controllers/sales.controller";
 import { validateDTO } from "@middlewares/validateDTO";
 import { SaleCreateDTO, SaleUpdateDTO } from "@dtos/sales.dto";
 

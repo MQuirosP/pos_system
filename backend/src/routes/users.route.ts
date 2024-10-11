@@ -1,5 +1,5 @@
 import express from "express";
-import { UserController } from "@controllers/UserController";
+import { UserController } from "@controllers/users.controller";
 import { validateDTO } from "@middlewares/validateDTO";
 import { UserCreateDTO, UserUpdateDTO } from "@dtos/users.dto";
 

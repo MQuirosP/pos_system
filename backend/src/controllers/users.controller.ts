@@ -4,7 +4,7 @@ import {
   UserUpdateDTO,
 } from "@dtos/users.dto";
 import { Request, Response, NextFunction } from "express";
-import { UserService } from "@services/UserService";
+import { UserService } from "@services/users.services";
 import dataSource from "@config/ormconfig";
 import { Users } from "@entities/users.entity";
 
