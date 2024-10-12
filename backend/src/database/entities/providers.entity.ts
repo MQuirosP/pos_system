@@ -8,6 +8,8 @@ import {
 } from "typeorm";
 import { Purchase } from "./purchases.entity";
 import { IProviders } from "@interfaces/providers.interface";
+import { Capitalize } from "@decorators/toCapitalize.decorator";
+import { ToLowerCase } from "@decorators/toLowerCase.decorator";
 
 @Entity("providers")
 export class Provider implements IProviders {
@@ -20,6 +22,7 @@ export class Provider implements IProviders {
     length: 50,
     nullable: false,
   })
+  @Capitalize()
   provider_name!: string;
 
   @Column({
@@ -44,6 +47,7 @@ export class Provider implements IProviders {
     length: 50,
     nullable: false,
   })
+  @ToLowerCase()
   provider_email!: string;
 
   @Column({

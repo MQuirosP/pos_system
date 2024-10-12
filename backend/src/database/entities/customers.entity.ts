@@ -8,6 +8,8 @@ import {
 } from "typeorm";
 import { Sale } from "./sales.entity";
 import { ICustomers } from '@interfaces/customers.interface';
+import { Capitalize } from "@decorators/toCapitalize.decorator";
+import { ToLowerCase } from "@decorators/toLowerCase.decorator";
 
 @Entity("customers")
 export class Customer implements ICustomers {
@@ -20,6 +22,7 @@ export class Customer implements ICustomers {
     length: 255,
     nullable: false,
   })
+  @Capitalize()
   customer_name!: string;
 
   @Column({
@@ -28,6 +31,7 @@ export class Customer implements ICustomers {
     length: 255,
     nullable: false,
   })
+  @Capitalize()
   customer_first_lastname!: string;
 
   @Column({
@@ -36,6 +40,7 @@ export class Customer implements ICustomers {
     length: 255,
     nullable: false,
   })
+  @Capitalize()
   customer_second_lastname!: string;
 
   @Column({
@@ -44,6 +49,7 @@ export class Customer implements ICustomers {
     length: 255,
     nullable: false,
   })
+  @ToLowerCase()
   customer_address!: string;
 
   @Column({
@@ -60,6 +66,7 @@ export class Customer implements ICustomers {
     length: 255,
     nullable: false,
   })
+  @ToLowerCase()
   customer_email!: string;
 
   @Column({

@@ -11,6 +11,7 @@ import {
 import { Customer } from "./customers.entity"; // Ajustar ruta según sea necesario
 import { SaleItem } from "./saleItems.entity";
 import { ISales } from "@interfaces/sales.interface";
+import { Capitalize } from "@decorators/toCapitalize.decorator";
 
 @Entity("sales")
 export class Sale implements ISales {
@@ -21,6 +22,7 @@ export class Sale implements ISales {
   customer_id?: number;
 
   @Column({ name: "customer_name", type: "varchar" })
+  @Capitalize()
   customer_name!: string;
 
   @Column({ name: "payment_method", type: "varchar", nullable: false })
