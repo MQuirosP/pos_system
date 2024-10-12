@@ -31,6 +31,7 @@ export class Provider implements IProviders {
     length: 100,
     nullable: false,
   })
+  @ToLowerCase()
   provider_address!: string;
 
   @Column({
