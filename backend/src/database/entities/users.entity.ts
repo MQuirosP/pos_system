@@ -10,6 +10,11 @@ import { Capitalize } from "@decorators/toCapitalize.decorator";
 import { ToLowerCase } from "@decorators/toLowerCase.decorator";
 import { IUser } from "@interfaces/users.interface";
 
+export enum UserRole {
+  Administrator = "administrator",
+  User = "user",
+}
+
 @Entity("users")
 export class Users extends BaseEntity implements IUser {
   @PrimaryGeneratedColumn("increment", { name: "user_id" })
@@ -26,8 +31,8 @@ export class Users extends BaseEntity implements IUser {
   @Column({ type: "varchar", nullable: false })
   password!: string;
 
-  @Column({ type: "enum", enum: ["administrator", "user"], default: "user" })
-  role!: "administrator" | "user";
+  @Column({ type: "enum", enum: UserRole, default: UserRole.User })
+  role!: UserRole;
 
   @Column({
     type: "boolean",

@@ -1,4 +1,4 @@
-import { Users } from '@entities/users.entity';
+import { Users } from "@entities/users.entity";
 import dataSource from "@config/ormconfig";
 import { Repository, EntityManager } from "typeorm";
 import { AppError } from "@middlewares/errorHandler";
@@ -51,7 +51,7 @@ export class UserService {
       const user = await this.userRepository.findOne({
         where: { user_id: userId },
       });
-      if (!user) throw new AppError("User not found.", 404)
+      if (!user) throw new AppError("User not found.", 404);
       return user;
     } catch (error) {
       throw handleDatabaseError(error);
@@ -95,7 +95,7 @@ export class UserService {
     try {
       await this.userRepository.delete(userId);
     } catch (error) {
-      throw handleDatabaseError(error)
+      throw handleDatabaseError(error);
     }
   }
 }

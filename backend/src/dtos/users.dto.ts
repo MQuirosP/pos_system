@@ -1,10 +1,11 @@
+import { UserRole } from '@entities/users.entity';
+import { convertToLocalTime } from '@utils/dateUtils';
 import {
   IsNotEmpty,
   IsOptional,
   validateOrReject,
   IsString,
   IsEmail,
-  ValidateIf,
   IsBoolean,
 } from "class-validator";
 import { Users } from "@entities/users.entity";
@@ -29,9 +30,9 @@ export class UserCreateDTO extends DTOBase {
   @IsString()
   password!: string;
 
-  @IsNotEmpty()
-  @IsEnumWithMessage(["administrator", "user"])
-  role!: "administrator" | "user";
+  @IsOptional()
+  @IsEnumWithMessage(UserRole)
+  role?: UserRole;
 
   @IsOptional()
   @IsBoolean()
@@ -60,45 +61,31 @@ export class UserUpdateDTO extends DTOBase {
 
   @IsOptional()
   @IsString()
-  @IsNotEmpty()
-  @ValidateIf((o) => o.username !== undefined)
   @Inmutable()
   username?: string;
 
   @IsOptional()
   @IsString()
-  @IsNotEmpty()
-  @ValidateIf((o) => o.email !== undefined)
   email?: string;
 
   @IsOptional()
   @IsString()
-  @IsNotEmpty()
-  @ValidateIf((o) => o.password !== undefined)
   password?: string;
 
   @IsOptional()
-  @IsEnumWithMessage(["administrator", "user"])
-  @IsNotEmpty()
-  @ValidateIf((o) => o.role !== undefined)
-  role?: "administrator" | "user";
+  @IsEnumWithMessage(UserRole)
+  role?: UserRole;
 
   @IsOptional()
-  @ValidateIf((o) => o.is_active !== undefined)
-  @IsNotEmpty()
   @IsBoolean()
   is_active?: boolean;
 
   @IsOptional()
   @IsString()
-  @IsNotEmpty()
-  @ValidateIf((o) => o.name !== undefined)
   name?: string;
 
   @IsOptional()
   @IsString()
-  @IsNotEmpty()
-  @ValidateIf((o) => o.lastname !== undefined)
   lastname?: string;
 
   constructor(data: Partial<UserUpdateDTO>) {
@@ -112,19 +99,20 @@ export class UserUpdateDTO extends DTOBase {
 }
 
 export class UserResponseDTO {
-  username: string;
-  name: string;
-  lastname: string;
+  username?: string;
+  fullname: string;
   email: string;
+  role: "administrator" | "user";
   is_active: boolean;
-  created_at: Date;
+  created_at: Date | string;
 
   constructor(user: Users) {
-    this.username = user.username;
-    this.name = user.name;
-    this.lastname = user.lastname;
+    // this.username = user.username;
+    this.fullname = `${user.lastname}, ${user.name}`;
+    // this.lastname = user.lastname;
     this.email = user.email;
+    this.role = user.role;
     this.is_active = user.is_active;
-    this.created_at = user.created_at;
+    this.created_at = convertToLocalTime(user.created_at);
   }
 }
