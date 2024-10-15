@@ -100,16 +100,19 @@ export class UserUpdateDTO extends DTOBase {
 
 export class UserResponseDTO {
   username?: string;
-  fullname: string;
+  // fullname: string;
+  lastname: string;
+  name: string;
   email: string;
   role: "administrator" | "user";
   is_active: boolean;
   created_at: Date | string;
 
   constructor(user: Users) {
-    // this.username = user.username;
-    this.fullname = `${user.lastname}, ${user.name}`;
-    // this.lastname = user.lastname;
+    this.username = user.username;
+    // this.fullname = `${user.lastname}, ${user.name}`;
+    this.lastname = user.lastname;
+    this.name = user.name;
     this.email = user.email;
     this.role = user.role;
     this.is_active = user.is_active;
