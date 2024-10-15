@@ -24,7 +24,8 @@
       "@controllers/*": ["controllers/*"],
       "@services/*": ["services/*"],
       "@decorators/*": ["decorators/*"],
-      "@interfaces/*": ["interfaces/*"]
+      "@interfaces/*": ["interfaces/*"],
+      "@enums/*": ["enums/*"]
 
     }
   },

@@ -15,6 +15,8 @@ import { SALE_KEYS, SALEITEMS_KEYS } from "./dtoKeys";
 import { Type } from "class-transformer";
 import { convertToLocalTime } from "@utils/dateUtils";
 import { Product } from "@entities/products.entity";
+import { PaymentMethod, SaleStatus } from "../enums/custom.enums";
+import { IsEnumWithMessage } from "../decorators/isEnumWithMessage.decorator";
 
 export class SaleCreateDTO extends DTOBase {
   static expectedKeys: string[] = SALE_KEYS;
@@ -28,16 +30,16 @@ export class SaleCreateDTO extends DTOBase {
   customer_name!: string;
 
   @IsNotEmpty()
-  @IsString()
-  payment_method!: string;
+  @IsEnumWithMessage(PaymentMethod)
+  payment_method!: PaymentMethod;
 
   @IsNotEmpty()
   @IsString()
   doc_number!: string;
 
   @IsNotEmpty()
-  @IsString()
-  status!: string;
+  @IsEnumWithMessage(SaleStatus)
+  status!: SaleStatus;
 
   @IsString()
   @IsOptional()
@@ -187,16 +189,15 @@ export class CreateSaleItemDTO extends DTOBase {
 }
 
 export class SaleUpdateDTO extends DTOBase {
-  static expectedKeys = SALE_KEYS;
+  static expectedKeys = ["status"];
 
-  @IsString()
-  @ValidateIf((o) => o.status !== undefined)
-  @IsNotEmpty()
-  status!: boolean;
+  @IsEnumWithMessage(SaleStatus)
+  status!: SaleStatus;
 
-  constructor(data: Partial<SaleUpdateDTO>) {
+  constructor(data: {status: SaleStatus}) {
     super();
-    Object.assign(this, data);
+    // Object.assign(this, data);
+    this.status = data.status;
   }
 
   async validate(): Promise<void> {

@@ -1,4 +1,3 @@
-import { UserRole } from '@entities/users.entity';
 import { convertToLocalTime } from '@utils/dateUtils';
 import {
   IsNotEmpty,
@@ -13,6 +12,7 @@ import { USER_KEYS } from "./dtoKeys";
 import { DTOBase } from "./DTOBase";
 import { IsEnumWithMessage } from "@decorators/isEnumWithMessage.decorator";
 import { Inmutable } from "@decorators/isInmmutable.decorator";
+import { UserRole } from '@enums/custom.enums';
 
 
 export class UserCreateDTO extends DTOBase {

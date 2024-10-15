@@ -12,6 +12,7 @@ import { Customer } from "./customers.entity"; // Ajustar ruta según sea necesa
 import { SaleItem } from "./saleItems.entity";
 import { ISales } from "@interfaces/sales.interface";
 import { Capitalize } from "@decorators/toCapitalize.decorator";
+import { PaymentMethod, SaleStatus } from "@enums/custom.enums";
 
 @Entity("sales")
 export class Sale implements ISales {
@@ -25,8 +26,13 @@ export class Sale implements ISales {
   @Capitalize()
   customer_name!: string;
 
-  @Column({ name: "payment_method", type: "varchar", nullable: false })
-  payment_method!: string;
+  @Column({
+    name: "payment_method",
+    type: "enum",
+    enum: PaymentMethod,
+    nullable: false,
+  })
+  payment_method!: PaymentMethod;
 
   @Column({ name: "doc_number", type: "varchar", unique: true })
   doc_number!: string;
@@ -45,8 +51,8 @@ export class Sale implements ISales {
   })
   updated_at!: Date;
 
-  @Column({ name: "status", type: "varchar", nullable: false })
-  status!: string;
+  @Column({ name: "status", type: "enum", enum: SaleStatus, nullable: false })
+  status!: SaleStatus;
 
   @Column({ name: "observations", type: "text", nullable: true })
   observations!: string;

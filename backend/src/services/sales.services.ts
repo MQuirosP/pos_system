@@ -3,6 +3,7 @@ import { Sale } from "@entities/sales.entity";
 import { handleDatabaseError } from "@middlewares/databaseErrorHandler";
 import { AppError } from "@middlewares/errorHandler";
 import dataSource from "@config/ormconfig";
+import { SaleStatus } from "../enums/custom.enums";
 
 export class SaleService {
   private saleRepository: Repository<Sale>;
@@ -52,10 +53,10 @@ export class SaleService {
         relations: ["sale_items"],
       });
       if (!sale) throw new AppError("Sale not found.", 404);
-      if (sale.status === "cancelled") {
+      if (sale.status === SaleStatus.Canceled) {
         throw new AppError("Sale already cancelled.", 409);
       }
-      sale.status = "cancelled";
+      sale.status = SaleStatus.Canceled;
       sale.sale_items.forEach((item) => (item.status = sale.status));
 
       await this.saleRepository.save(sale);

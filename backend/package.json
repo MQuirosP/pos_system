@@ -54,6 +54,7 @@
     "@controllers/*": "dist/controllers",
     "@services/*": "dist/services",
     "@decorators/*": "dist/decorators",
-    "@interfaces/*": "dist/interfaces"
+    "@interfaces/*": "dist/interfaces",
+    "@enums/*": "dist/enums"
   }
 }

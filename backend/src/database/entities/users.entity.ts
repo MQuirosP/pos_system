@@ -9,11 +9,7 @@ import {
 import { Capitalize } from "@decorators/toCapitalize.decorator";
 import { ToLowerCase } from "@decorators/toLowerCase.decorator";
 import { IUser } from "@interfaces/users.interface";
-
-export enum UserRole {
-  Administrator = "administrator",
-  User = "user",
-}
+import { UserRole } from "../../enums/custom.enums";
 
 @Entity("users")
 export class Users extends BaseEntity implements IUser {
