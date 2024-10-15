@@ -104,7 +104,7 @@ export class UserResponseDTO {
   lastname: string;
   name: string;
   email: string;
-  role: "administrator" | "user";
+  role: UserRole;
   is_active: boolean;
   created_at: Date | string;
 
