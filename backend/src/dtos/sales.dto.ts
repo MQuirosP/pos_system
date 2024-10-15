@@ -158,7 +158,7 @@ export class CreateSaleItemDTO extends DTOBase {
   @IsString()
   status!: string;
 
-  @IsOptional()
+  @IsNotEmpty()
   @IsString()
   product!: Product;
 
