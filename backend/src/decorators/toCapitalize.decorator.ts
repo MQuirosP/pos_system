@@ -1,27 +1,29 @@
 import "reflect-metadata";
 
 export function Capitalize() {
-    return function (target: any, propertyName: string) {
+  return function (target: any, propertyName: string) {
+    let value: string;
 
-        let value: string;
-
-        const getter = function () {
-            return value;
-        };
-
-        const setter = function (newValue: string) {
-            if ( typeof newValue === "string" ) {
-                value = newValue.toLowerCase().replace(/(?:^|\s)\S/g, (c) => c.toUpperCase()).trim();;
-            } else {
-                value = newValue;
-            }
-        };
-
-        Object.defineProperty(target, propertyName, {
-            get: getter,
-            set: setter,
-            enumerable: true,
-            configurable: true,
-        });
+    const getter = function () {
+      return value;
     };
+
+    const setter = function (newValue: string) {
+      if (typeof newValue === "string") {
+        value = newValue
+          .toLowerCase()
+          .replace(/(?:^|\s)\S/g, (c) => c.toUpperCase())
+          .trim();
+      } else {
+        value = newValue;
+      }
+    };
+
+    Object.defineProperty(target, propertyName, {
+      get: getter,
+      set: setter,
+      enumerable: true,
+      configurable: true,
+    });
+  };
 }
