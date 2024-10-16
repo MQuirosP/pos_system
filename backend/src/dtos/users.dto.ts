@@ -1,4 +1,4 @@
-import { convertToLocalTime } from '@utils/dateUtils';
+import { convertToLocalTime } from "@utils/dateUtils";
 import {
   IsNotEmpty,
   IsOptional,
@@ -12,8 +12,7 @@ import { USER_KEYS } from "./dtoKeys";
 import { DTOBase } from "./DTOBase";
 import { IsEnumWithMessage } from "@decorators/isEnumWithMessage.decorator";
 import { Inmutable } from "@decorators/isInmmutable.decorator";
-import { UserRole } from '@enums/custom.enums';
-
+import { UserRole } from "@enums/custom.enums";
 
 export class UserCreateDTO extends DTOBase {
   static expectedKeys: string[] = USER_KEYS;
@@ -48,7 +47,7 @@ export class UserCreateDTO extends DTOBase {
 
   constructor(data: UserCreateDTO) {
     super();
-    Object.assign(this, data)
+    Object.assign(this, data);
   }
 
   async validate(): Promise<void> {
