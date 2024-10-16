@@ -7,12 +7,13 @@ import {
   OneToMany,
 } from "typeorm";
 import { Sale } from "./sales.entity";
-import { ICustomers } from '@interfaces/customers.interface';
+import { ICustomers } from "@interfaces/customers.interface";
 import { Capitalize } from "@decorators/toCapitalize.decorator";
 import { ToLowerCase } from "@decorators/toLowerCase.decorator";
+import { BaseFormattedEntity } from "./BaseFormatedEntity";
 
 @Entity("customers")
-export class Customer implements ICustomers {
+export class Customer extends BaseFormattedEntity implements ICustomers {
   @PrimaryGeneratedColumn({ name: "customer_id" })
   customer_id!: number;
 
@@ -92,6 +93,24 @@ export class Customer implements ICustomers {
   })
   updated_at!: Date;
 
-  @OneToMany(() => Sale, sale => sale.customer)
-    sales!: Sale[];
+  @OneToMany(() => Sale, (sale) => sale.customer)
+  sales!: Sale[];
+
+  protected fieldsToLowerCase(): string[] {
+    return [
+      "customer_name",
+      "customer_first_lastname",
+      "customer_second_lastname",
+      "customer_email",
+      "customer_address",
+    ];
+  }
+
+  protected fieldsToCapitalize(): string[] {
+    return [
+      "customer_name",
+      "customer_first_lastname",
+      "customer_second_lastname",
+    ];
+  }
 }

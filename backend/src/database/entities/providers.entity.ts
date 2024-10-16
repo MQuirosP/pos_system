@@ -10,9 +10,10 @@ import { Purchase } from "./purchases.entity";
 import { IProviders } from "@interfaces/providers.interface";
 import { Capitalize } from "@decorators/toCapitalize.decorator";
 import { ToLowerCase } from "@decorators/toLowerCase.decorator";
+import { BaseFormattedEntity } from "./BaseFormatedEntity";
 
 @Entity("providers")
-export class Provider implements IProviders {
+export class Provider extends BaseFormattedEntity implements IProviders {
   @PrimaryGeneratedColumn({ name: "provider_id" })
   provider_id!: number;
 
@@ -76,4 +77,12 @@ export class Provider implements IProviders {
 
   @OneToMany(() => Purchase, purchase => purchase.provider)
       purchases!: Purchase[];
+
+  protected fieldsToLowerCase(): string[] {
+      return ["provider_name", "provider_address", "provider_email"]
+  }
+
+  protected fieldsToCapitalize(): string[] {
+      return ["provider_name"]
+  }
 }
