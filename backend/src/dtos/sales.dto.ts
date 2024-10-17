@@ -10,13 +10,13 @@ import {
   ValidateNested,
   validateOrReject,
 } from "class-validator";
-import { DTOBase } from "./DTOBase";
+import { DTOBase } from "@dtos/DTOBase";
 import { SALE_KEYS, SALEITEMS_KEYS } from "./dtoKeys";
 import { Type } from "class-transformer";
 import { convertToLocalTime } from "@utils/dateUtils";
 import { Product } from "@entities/products.entity";
-import { PaymentMethod, SaleStatus } from "../enums/custom.enums";
-import { IsEnumWithMessage } from "../decorators/isEnumWithMessage.decorator";
+import { PaymentMethod, SaleStatus } from "@enums/custom.enums";
+import { IsEnumWithMessage } from "@decorators/isEnumWithMessage.decorator";
 
 export class SaleCreateDTO extends DTOBase {
   static expectedKeys: string[] = SALE_KEYS;

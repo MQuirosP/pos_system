@@ -71,43 +71,36 @@ export class CustomerUpdateDTO extends DTOBase {
   @IsOptional()
   @IsNotEmpty()
   @IsString()
-  @ValidateIf((o) => o.customer_name !== undefined)
   customer_name?: string;
 
   @IsOptional()
   @IsNotEmpty()
   @IsString()
-  @ValidateIf((o) => o.customers_first_lastname !== undefined)
   customer_first_lastname?: string;
 
   @IsOptional()
   @IsNotEmpty()
   @IsString()
-  @ValidateIf((o) => o.customer_second_lastname !== undefined)
   customer_second_lastname?: string;
 
   @IsOptional()
   @IsNotEmpty()
   @IsString()
-  @ValidateIf((o) => o.customer_address !== undefined)
   customer_address?: string;
 
   @IsOptional()
   @IsNotEmpty()
   @IsString()
-  @ValidateIf((o) => o.customer_phone !== undefined)
   customer_phone?: string;
 
   @IsOptional()
   @IsNotEmpty()
   @IsString()
-  @ValidateIf((o) => o.customer_email !== undefined)
   customer_email?: string;
 
   @IsOptional()
   @IsNotEmpty()
   @IsString()
-  @ValidateIf((o) => o.customer_dni !== undefined)
   @Inmutable({ message: "Customer DNI is inmutable and cannot be changed"})
   customer_dni?: string;
 

@@ -8,8 +8,8 @@ import {
   IsBoolean,
 } from "class-validator";
 import { Users } from "@entities/users.entity";
-import { USER_KEYS } from "./dtoKeys";
-import { DTOBase } from "./DTOBase";
+import { USER_KEYS } from "@dtos/dtoKeys";
+import { DTOBase } from "@dtos/DTOBase";
 import { IsEnumWithMessage } from "@decorators/isEnumWithMessage.decorator";
 import { Inmutable } from "@decorators/isInmmutable.decorator";
 import { UserRole } from "@enums/custom.enums";
@@ -35,7 +35,7 @@ export class UserCreateDTO extends DTOBase {
 
   @IsOptional()
   @IsBoolean()
-  is_active!: boolean;
+  is_active?: boolean;
 
   @IsNotEmpty()
   @IsString()

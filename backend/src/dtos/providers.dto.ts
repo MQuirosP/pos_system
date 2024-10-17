@@ -7,8 +7,8 @@ import {
   validateOrReject,
 } from "class-validator";
 import { Provider } from "@entities/providers.entity";
-import { PROVIDERS_KEYS } from "./dtoKeys";
-import { DTOBase } from "./DTOBase";
+import { PROVIDERS_KEYS } from "@dtos/dtoKeys";
+import { DTOBase } from "@dtos/DTOBase";
 import { Inmutable } from "@decorators/isInmmutable.decorator";
 import { Purchase } from "@entities/purchases.entity";
 
@@ -16,13 +16,13 @@ export class ProviderCreateDTO extends DTOBase {
     static expectedKeys: string[] = PROVIDERS_KEYS;
 
     @IsOptional()
-    provider_id!: number;
+    provider_id?: number;
 
     @IsOptional()
-    created_at!: Date;
+    created_at?: Date;
 
     @IsOptional()
-    updated_at!: Date;
+    updated_at?: Date;
 
     @IsOptional()
     purchases!: Purchase[];
@@ -63,31 +63,26 @@ export class ProviderUpdateDTO extends DTOBase {
     @IsOptional()
     @IsNotEmpty()
     @IsString()
-    @ValidateIf((o) => o.provider_name !== undefined)
     provider_name?: string;
 
     @IsOptional()
     @IsNotEmpty()
     @IsString()
-    @ValidateIf((o) => o.provider_address !== undefined)
     provider_address?: string;
 
     @IsOptional()
     @IsNotEmpty()
     @IsString()
-    @ValidateIf((o) => o.provider_phone !== undefined)
     provider_phone?: string;
 
     @IsOptional()
     @IsNotEmpty()
     @IsEmail()
-    @ValidateIf((o) => o.provider_dni !== undefined)
     provider_email?: string;
 
     @IsOptional()
     @IsNotEmpty()
     @IsString()
-    @ValidateIf((o) => o.provider_dni !== undefined)
     @Inmutable({ message: "Provider DNI is inmutable and cannot be changed."})
     provider_dni?: string;
 

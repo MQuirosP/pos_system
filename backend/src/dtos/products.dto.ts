@@ -97,68 +97,57 @@ export class ProductUpdateDTO extends DTOBase {
   @IsOptional()
   @IsNotEmpty()
   @IsString()
-  @ValidateIf((o) => o.int_code !== undefined)
   @Inmutable({ message: "Product int_code is inmutable and cannot be changed"})
   int_code?: string;
 
   @IsOptional()
   @IsNotEmpty()
   @IsString()
-  @ValidateIf((o) => o.name !== undefined)
   name?: string;
 
   @IsOptional()
   @IsNotEmpty()
   @IsString()
-  @ValidateIf((o) => o.description !== undefined)
   description?: string;
 
   @IsOptional()
   @IsNotEmpty()
   @IsNumber()
-  @ValidateIf((o) => o.purchase_price !== undefined)
   purchase_price?: number;
 
   @IsOptional()
   @IsNotEmpty()
   @IsNumber()
-  @ValidateIf((o) => o.quantity !== undefined)
   quantity?: number;
 
   @IsOptional()
   @IsNotEmpty()
   @IsNumber()
-  @ValidateIf((o) => o.sale_price !== undefined)
   sale_price?: number;
 
   @IsOptional()
   @IsNotEmpty()
   @IsBoolean()
-  @ValidateIf((o) => o.is_taxed !== undefined)
   is_taxed?: boolean;
 
   @IsOptional()
   @IsNotEmpty()
   @IsNumber()
-  @ValidateIf((o) => o.margin !== undefined)
   margin?: number;
 
   @IsOptional()
   @IsNotEmpty()
   @IsNumber()
-  @ValidateIf((o) => o.tax_percentage !== undefined)
   tax_percentage?: number;
 
   @IsOptional()
   @IsNotEmpty()
   @IsNumber()
-  @ValidateIf((o) => o.category_id !== undefined)
   category_id?: number;
 
   @IsOptional()
   @IsNotEmpty()
   @IsString()
-  @ValidateIf((o) => o.category_name !== undefined)
   category_name?: string;
 
   constructor(data: Partial<ProductUpdateDTO>) {

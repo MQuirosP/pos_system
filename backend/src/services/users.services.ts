@@ -41,7 +41,6 @@ export class UserService {
   async fetchAllUsers(): Promise<Users[]> {
     try {
       const users = await this.userRepository.find();
-      console.log(users);
       return users;
     } catch (error) {
       throw handleDatabaseError(error);
