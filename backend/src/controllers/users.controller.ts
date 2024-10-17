@@ -94,12 +94,9 @@ export class UserController {
     const userId = parseInt(req.params.id);
     const password = req.body.password;
     try {
-      await this.userService.comparePassword(
-        userId,
-        password
-      );
-      
-      return res.success({ userId }, "Password is correct.", 200);
+      await this.userService.comparePassword(userId, password);
+
+      return res.success({ user_id: userId }, "Password is correct.", 200);
     } catch (error) {
       next(error);
     }
