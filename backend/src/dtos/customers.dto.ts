@@ -7,7 +7,7 @@ import {
 } from "class-validator";
 import { Customer } from "@entities/customers.entity";
 import { CUSTOMERS_KEYS } from "./dtoKeys";
-import { DTOBase } from "./DTOBase";
+import { DTOBase } from "@dtos/DTOBase";
 import { Inmutable } from "@decorators/isInmmutable.decorator";
 import { Sale } from "@entities/sales.entity";
 

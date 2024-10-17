@@ -1,4 +1,10 @@
-import { registerDecorator, ValidationOptions, ValidatorConstraint, ValidatorConstraintInterface, ValidationArguments } from "class-validator";
+import {
+  registerDecorator,
+  ValidationOptions,
+  ValidatorConstraint,
+  ValidatorConstraintInterface,
+  ValidationArguments,
+} from "class-validator";
 
 /**
  * Restricción personalizada que implementa la lógica de validación para campos inmutables.
@@ -6,13 +12,13 @@ import { registerDecorator, ValidationOptions, ValidatorConstraint, ValidatorCon
 
 @ValidatorConstraint({ async: false })
 class ImmutableConstraint implements ValidatorConstraintInterface {
-    validate(value: any, args?: ValidationArguments): boolean {
-        return value === undefined || value === null;
-    }
+  validate(value: any, args?: ValidationArguments): boolean {
+    return value === undefined || value === null;
+  }
 
-    defaultMessage(args?: ValidationArguments): string {
-        return `${args?.property} is inmutable and cannot be updated`;
-    }
+  defaultMessage(args?: ValidationArguments): string {
+    return `${args?.property} is inmutable and cannot be updated`;
+  }
 }
 
 /**
@@ -20,13 +26,13 @@ class ImmutableConstraint implements ValidatorConstraintInterface {
  * @param validationOptions Opciones de validación opcionales.
  */
 export function Inmutable(validationOptions?: ValidationOptions) {
-    return function (object: Object, propertyName: string) {
-        registerDecorator({
-            target: object.constructor,
-            propertyName: propertyName,
-            options: validationOptions,
-            constraints: [],
-            validator: ImmutableConstraint,
-        })
-    }
+  return function (object: Object, propertyName: string) {
+    registerDecorator({
+      target: object.constructor,
+      propertyName: propertyName,
+      options: validationOptions,
+      constraints: [],
+      validator: ImmutableConstraint,
+    });
+  };
 }

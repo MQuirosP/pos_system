@@ -1,7 +1,7 @@
-import { IPurchaseItems } from './purchaseItems.interface';
-import { IPurchases } from './purchases.interface';
-import { ISaleItem } from './saleItems.interface';
-import { ISales } from './sales.interface';
+import { IPurchaseItems } from '@interfaces/purchaseItems.interface';
+import { IPurchases } from '@interfaces/purchases.interface';
+import { ISaleItem } from '@interfaces/saleItems.interface';
+import { ISales } from '@interfaces/sales.interface';
 
 export interface IProduct {
   product_id: number;

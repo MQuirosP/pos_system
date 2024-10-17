@@ -8,8 +8,8 @@ import {
   IsNumber,
 } from "class-validator";
 import { Product } from "@entities/products.entity";
-import { PRODUCT_KEYS } from "./dtoKeys";
-import { DTOBase } from "./DTOBase";
+import { PRODUCT_KEYS } from "@dtos/dtoKeys";
+import { DTOBase } from "@dtos/DTOBase";
 import { Inmutable } from "@decorators/isInmmutable.decorator";
 
 export class ProductCreateDTO extends DTOBase {

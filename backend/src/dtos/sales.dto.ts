@@ -11,7 +11,7 @@ import {
   validateOrReject,
 } from "class-validator";
 import { DTOBase } from "@dtos/DTOBase";
-import { SALE_KEYS, SALEITEMS_KEYS } from "./dtoKeys";
+import { SALE_KEYS, SALEITEMS_KEYS } from "@dtos/dtoKeys";
 import { Type } from "class-transformer";
 import { convertToLocalTime } from "@utils/dateUtils";
 import { Product } from "@entities/products.entity";

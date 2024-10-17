@@ -7,8 +7,8 @@ import {
   JoinColumn,
   PrimaryGeneratedColumn,
 } from "typeorm";
-import { Purchase } from "./purchases.entity";
-import { Product } from "./products.entity";
+import { Purchase } from "@entities/purchases.entity";
+import { Product } from "@entities/products.entity";
 import { IPurchaseItems } from "@interfaces/purchaseItems.interface";
 
 @Entity("purchase_items")

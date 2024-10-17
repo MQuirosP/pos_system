@@ -8,9 +8,9 @@ import {
   JoinColumn,
   ManyToMany,
 } from "typeorm";
-import { Provider } from "./providers.entity";
+import { Provider } from "@entities/providers.entity";
 import { IPurchases } from "@interfaces/purchases.interface";
-import { PurchaseItem } from "./purchaseItems.entity";
+import { PurchaseItem } from "@entities/purchaseItems.entity";
 
 @Entity("purchases")
 export class Purchase implements IPurchases {

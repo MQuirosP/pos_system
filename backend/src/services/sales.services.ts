@@ -3,7 +3,7 @@ import { Sale } from "@entities/sales.entity";
 import { handleDatabaseError } from "@middlewares/databaseErrorHandler";
 import { AppError } from "@middlewares/errorHandler";
 import dataSource from "@config/ormconfig";
-import { SaleStatus } from "../enums/custom.enums";
+import { SaleStatus } from "@enums/custom.enums";
 
 export class SaleService {
   private saleRepository: Repository<Sale>;

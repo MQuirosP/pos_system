@@ -1,5 +1,5 @@
 import { Entity } from "typeorm";
-import { Users } from "../entities/users.entity";
+import { Users } from "@entities/users.entity";
 
 @Entity('users')
 export class UserModel extends Users {

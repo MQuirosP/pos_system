@@ -1,5 +1,5 @@
-import { ICustomers } from "./customers.interface";
-import { ISaleItem } from "./saleItems.interface";
+import { ICustomers } from "@interfaces/customers.interface";
+import { ISaleItem } from "@interfaces/saleItems.interface";
 
 // Archivo: sales.interface.ts
 export interface ISales {

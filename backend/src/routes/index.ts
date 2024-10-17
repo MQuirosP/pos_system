@@ -1,9 +1,9 @@
 import express from 'express';
-import users from './users.route';
-import product from './products.route'
-import sale from './sales.route'
-import customer from "./customers.route"
-import provider from "./providers.route"
+import users from '@routes/users.route';
+import product from '@routes/products.route'
+import sale from '@routes/sales.route'
+import customer from "@routes/customers.route"
+import provider from "@routes/providers.route"
 
 const router = express.Router();
 

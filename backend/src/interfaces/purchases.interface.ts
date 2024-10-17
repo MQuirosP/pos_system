@@ -1,6 +1,6 @@
 // Archivo: purchases.interface.ts
-import { IProviders } from "./providers.interface";
-import { IPurchaseItems } from "./purchaseItems.interface";
+import { IProviders } from "@interfaces/providers.interface";
+import { IPurchaseItems } from "@interfaces/purchaseItems.interface";
 
 export interface IPurchases {
   purchase_id: number;

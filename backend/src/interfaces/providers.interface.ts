@@ -1,5 +1,5 @@
 // Archivo: providers.interface.ts
-import { IPurchases } from "./purchases.interface";
+import { IPurchases } from "@interfaces/purchases.interface";
 
 export interface IProviders {
   provider_id: number;

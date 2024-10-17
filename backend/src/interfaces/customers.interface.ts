@@ -1,5 +1,5 @@
 // Archivo: customers.interface.ts
-import { ISales } from "./sales.interface";
+import { ISales } from "@interfaces/sales.interface";
 
 export interface ICustomers {
   customer_id: number;

@@ -105,11 +105,16 @@ export class UserService {
       where: { user_id: userId },
     });
     if (!user) throw new AppError("User not found.", 404);
-    const isMatch = await this.hashingService.comparePassword(
-      password,
-      user.password
-    );
-    if (!isMatch) throw new AppError("Password doesn't match.", 400);
-    return isMatch;
+    try {
+      const isMatch = await this.hashingService.comparePassword(
+        password,
+        user.password
+      );
+      if ( !isMatch ) throw new AppError("Password doesn't match.", 400);
+      return isMatch;
+      
+    } catch (error) {
+      throw handleDatabaseError(error);
+    }
   }
 }
