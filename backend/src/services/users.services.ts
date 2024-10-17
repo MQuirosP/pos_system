@@ -99,4 +99,16 @@ export class UserService {
       throw handleDatabaseError(error);
     }
   }
+
+  async comparePassword(userId: number, password: string): Promise<boolean> {
+    const user = await this.userRepository.findOne({
+      where: { user_id: userId}
+    });
+    if ( !user ) throw new AppError("User not found.", 404)
+    const hashedPassword = user.password;
+    if ( !hashedPassword ) throw new AppError("Error retrieving hashed password.", 404)
+    const isMatch = await this.hashingService.comparePassword(password, hashedPassword)
+    if ( !isMatch ) throw new AppError("Password doesn't match.", 400);
+    return isMatch;
+  }
 }

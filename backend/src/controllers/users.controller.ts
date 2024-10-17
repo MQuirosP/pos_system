@@ -1,8 +1,4 @@
-import {
-  UserCreateDTO,
-  UserResponseDTO,
-  UserUpdateDTO,
-} from "@dtos/users.dto";
+import { UserCreateDTO, UserResponseDTO, UserUpdateDTO } from "@dtos/users.dto";
 import { Request, Response, NextFunction } from "express";
 import { UserService } from "@services/users.services";
 import dataSource from "@config/ormconfig";
@@ -22,7 +18,11 @@ export class UserController {
     try {
       const newUser = await this.userService.createUser(userData);
 
-      return res.success(new UserResponseDTO(newUser), "User created successfully.", 201);
+      return res.success(
+        new UserResponseDTO(newUser),
+        "User created successfully.",
+        201
+      );
     } catch (error) {
       next(error);
     }
@@ -49,7 +49,11 @@ export class UserController {
       const userId = parseInt(req.params.id);
       const user = await this.userService.fetchUserByPk(userId);
 
-      return res.success(new UserResponseDTO(user), "User fetched successfully.", 200);
+      return res.success(
+        new UserResponseDTO(user),
+        "User fetched successfully.",
+        200
+      );
     } catch (error) {
       next(error);
     }
@@ -58,7 +62,7 @@ export class UserController {
   async updateUser(req: Request, res: Response, next: NextFunction) {
     const userId = parseInt(req.params.id);
     const userUpdateDTO = new UserUpdateDTO(req.body);
-    
+
     await userUpdateDTO.validate();
     try {
       const updatedUser = await this.userService.updateUser(
@@ -66,7 +70,10 @@ export class UserController {
         userUpdateDTO
       );
 
-      return res.success(new UserResponseDTO(updatedUser), "User updated sucessfully.");
+      return res.success(
+        new UserResponseDTO(updatedUser),
+        "User updated sucessfully."
+      );
     } catch (error) {
       next(error);
     }
@@ -75,10 +82,24 @@ export class UserController {
   async deleteUser(req: Request, res: Response, next: NextFunction) {
     const userId = parseInt(req.params.id);
     try {
-
       await this.userService.deleteUser(userId);
 
       return res.success({}, "User deleted successfully.", 200);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async comparePassword(req: Request, res: Response, next: NextFunction) {
+    const userId = parseInt(req.params.id);
+    const password = req.body.password;
+    try {
+      await this.userService.comparePassword(
+        userId,
+        password
+      );
+      
+      return res.success({ userId }, "Password is correct.", 200);
     } catch (error) {
       next(error);
     }

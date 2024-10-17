@@ -13,6 +13,7 @@ router.post(
 );
 router.get("/", userController.getUsers.bind(userController));
 router.get("/id/:id", userController.getUserById.bind(userController));
+router.get("/password/:id", userController.comparePassword.bind(userController))
 router.put(
   "/:id",
   validateDTO(UserUpdateDTO),
