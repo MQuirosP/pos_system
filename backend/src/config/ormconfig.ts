@@ -1,14 +1,14 @@
 import { DataSource } from "typeorm";
 import * as dotenv from "dotenv";
-import { Users } from "../database/entities/users.entity";
+import { Users } from "@entities/users.entity";
 import { UserModel } from "../database/models/User";
-import { Product } from "../database/entities/products.entity";
-import { Purchase } from "../database/entities/purchases.entity";
-import { PurchaseItem } from "../database/entities/purchaseItems.entity";
-import { Sale } from "../database/entities/sales.entity";
-import { SaleItem } from "../database/entities/saleItems.entity";
-import { Customer } from "../database/entities/customers.entity";
-import { Provider } from "../database/entities/providers.entity";
+import { Product } from "@entities/products.entity";
+import { Purchase } from "@entities/purchases.entity";
+import { PurchaseItem } from "@entities/purchaseItems.entity";
+import { Sale } from "@entities/sales.entity";
+import { SaleItem } from "@entities/saleItems.entity";
+import { Customer } from "@entities/customers.entity";
+import { Provider } from "@entities/providers.entity";
 
 dotenv.config(); // Cargar variables de entorno
 
