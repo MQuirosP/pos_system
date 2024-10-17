@@ -11,7 +11,6 @@ import {
 import { Provider } from "./providers.entity";
 import { IPurchases } from "@interfaces/purchases.interface";
 import { PurchaseItem } from "./purchaseItems.entity";
-import { Capitalize } from "@decorators/toCapitalize.decorator";
 
 @Entity("purchases")
 export class Purchase implements IPurchases {
@@ -22,7 +21,6 @@ export class Purchase implements IPurchases {
   provider_id!: number;
 
   @Column({ name: "provider_name", type: "varchar", nullable: false })
-  @Capitalize()
   provider_name!: string;
 
   @Column({ name: "payment_method", type: "varchar", nullable: false })

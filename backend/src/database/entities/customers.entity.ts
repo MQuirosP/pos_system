@@ -6,11 +6,9 @@ import {
   UpdateDateColumn,
   OneToMany,
 } from "typeorm";
-import { Sale } from "./sales.entity";
+import { Sale } from "@entities/sales.entity";
 import { ICustomers } from "@interfaces/customers.interface";
-import { Capitalize } from "@decorators/toCapitalize.decorator";
-import { ToLowerCase } from "@decorators/toLowerCase.decorator";
-import { BaseFormattedEntity } from "./BaseFormatedEntity";
+import { BaseFormattedEntity } from "@entities/BaseFormatedEntity";
 
 @Entity("customers")
 export class Customer extends BaseFormattedEntity implements ICustomers {
@@ -39,7 +37,6 @@ export class Customer extends BaseFormattedEntity implements ICustomers {
     length: 255,
     nullable: false,
   })
-  @Capitalize()
   customer_second_lastname!: string;
 
   @Column({

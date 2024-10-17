@@ -6,11 +6,9 @@ import {
   UpdateDateColumn,
   OneToMany,
 } from "typeorm";
-import { Purchase } from "./purchases.entity";
+import { Purchase } from "@entities/purchases.entity";
 import { IProviders } from "@interfaces/providers.interface";
-import { Capitalize } from "@decorators/toCapitalize.decorator";
-import { ToLowerCase } from "@decorators/toLowerCase.decorator";
-import { BaseFormattedEntity } from "./BaseFormatedEntity";
+import { BaseFormattedEntity } from "@entities/BaseFormatedEntity";
 
 @Entity("providers")
 export class Provider extends BaseFormattedEntity implements IProviders {
@@ -23,7 +21,6 @@ export class Provider extends BaseFormattedEntity implements IProviders {
     length: 50,
     nullable: false,
   })
-  @Capitalize()
   provider_name!: string;
 
   @Column({
@@ -32,7 +29,6 @@ export class Provider extends BaseFormattedEntity implements IProviders {
     length: 100,
     nullable: false,
   })
-  @ToLowerCase()
   provider_address!: string;
 
   @Column({
@@ -49,7 +45,6 @@ export class Provider extends BaseFormattedEntity implements IProviders {
     length: 50,
     nullable: false,
   })
-  @ToLowerCase()
   provider_email!: string;
 
   @Column({

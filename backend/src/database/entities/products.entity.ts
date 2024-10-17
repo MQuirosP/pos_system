@@ -6,9 +6,8 @@ import {
   UpdateDateColumn,
   OneToMany,
 } from "typeorm";
-import { SaleItem } from "./saleItems.entity";
-import { PurchaseItem } from "./purchaseItems.entity";
-import { Capitalize } from "@decorators/toCapitalize.decorator";
+import { SaleItem } from "@entities/saleItems.entity";
+import { PurchaseItem } from "@entities/purchaseItems.entity";
 
 @Entity("products")
 export class Product {
@@ -19,11 +18,9 @@ export class Product {
   int_code!: string;
 
   @Column({ name: "name", type: "varchar", nullable: false })
-  @Capitalize()
   name!: string;
 
   @Column({ name: "description", type: "varchar", nullable: false })
-  @Capitalize()
   description!: string;
 
   @Column({
