@@ -62,6 +62,7 @@ export class CustomerCreateDTO extends DTOBase {
   async validate(): Promise<void> {
     await validateOrReject(this);
   }
+
 }
 
 export class CustomerUpdateDTO extends DTOBase {

@@ -2,8 +2,6 @@ import { Repository, ILike, DeleteResult } from "typeorm";
 import { handleDatabaseError } from "@middlewares/databaseErrorHandler";
 import { AppError } from "@middlewares/errorHandler";
 import { Provider } from "@entities/providers.entity";
-import { raw } from "body-parser";
-import { where } from "sequelize";
 
 export class ProvidersService {
   private providerRepository: Repository<Provider>;
@@ -12,7 +10,7 @@ export class ProvidersService {
     this.providerRepository = providerRepository;
   }
 
-  async createProvider(providerData: Provider): Promise<Provider> {
+  async createProvider(providerData: Partial<Provider>): Promise<Provider> {
     try {
       const newProvider = this.providerRepository.create(providerData);
       return await this.providerRepository.save(newProvider);

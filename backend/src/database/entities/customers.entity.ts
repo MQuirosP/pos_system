@@ -23,7 +23,6 @@ export class Customer extends BaseFormattedEntity implements ICustomers {
     length: 255,
     nullable: false,
   })
-  @Capitalize()
   customer_name!: string;
 
   @Column({
@@ -32,7 +31,6 @@ export class Customer extends BaseFormattedEntity implements ICustomers {
     length: 255,
     nullable: false,
   })
-  @Capitalize()
   customer_first_lastname!: string;
 
   @Column({
@@ -50,7 +48,6 @@ export class Customer extends BaseFormattedEntity implements ICustomers {
     length: 255,
     nullable: false,
   })
-  @ToLowerCase()
   customer_address!: string;
 
   @Column({
@@ -67,7 +64,6 @@ export class Customer extends BaseFormattedEntity implements ICustomers {
     length: 255,
     nullable: false,
   })
-  @ToLowerCase()
   customer_email!: string;
 
   @Column({

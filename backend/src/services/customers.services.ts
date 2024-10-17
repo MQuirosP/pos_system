@@ -10,7 +10,7 @@ export class CustomerService {
     this.customerRepository = customerRepository;
   }
 
-  async createCustomer(customerData: Customer): Promise<Customer> {
+  async createCustomer(customerData: Partial<Customer>): Promise<Customer> {
     try {
       const newCustomer = this.customerRepository.create(customerData);
       return await this.customerRepository.save(newCustomer);
