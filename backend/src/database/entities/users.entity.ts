@@ -6,8 +6,8 @@ import {
   UpdateDateColumn,
 } from "typeorm";
 import { IUser } from "@interfaces/users.interface";
-import { UserRole } from "../../enums/custom.enums";
-import { BaseFormattedEntity } from "./BaseFormatedEntity";
+import { UserRole } from "@enums/custom.enums";
+import { BaseFormattedEntity } from "@entities/BaseFormatedEntity";
 
 @Entity("users")
 export class Users extends BaseFormattedEntity implements IUser {
