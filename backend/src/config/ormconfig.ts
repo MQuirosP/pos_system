@@ -1,7 +1,7 @@
 import { DataSource } from "typeorm";
 import * as dotenv from "dotenv";
 import { Users } from "@entities/users.entity";
-import { UserModel } from "../database/models/User";
+import { UserModel } from "@models/User";
 import { Product } from "@entities/products.entity";
 import { Purchase } from "@entities/purchases.entity";
 import { PurchaseItem } from "@entities/purchaseItems.entity";

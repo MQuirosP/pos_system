@@ -55,6 +55,7 @@
     "@services/*": "dist/services",
     "@decorators/*": "dist/decorators",
     "@interfaces/*": "dist/interfaces",
-    "@enums/*": "dist/enums"
+    "@enums/*": "dist/enums",
+    "@models/*": "dist/database/models"
   }
 }

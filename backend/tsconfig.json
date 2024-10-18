@@ -25,7 +25,8 @@
       "@services/*": ["services/*"],
       "@decorators/*": ["decorators/*"],
       "@interfaces/*": ["interfaces/*"],
-      "@enums/*": ["enums/*"]
+      "@enums/*": ["enums/*"],
+      "@models/*": ["database/models/*"]
 
     }
   },
