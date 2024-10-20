@@ -39,7 +39,7 @@ export class SaleService {
         where: { doc_number: docNumber },
         relations: ["sale_items"],
       });
-      if (!sale) throw new AppError("No sale found.", 404);
+      if (!sale) throw new AppError("Sale not found.", 404);
       return sale;
     } catch (error) {
       throw handleDatabaseError(error);
