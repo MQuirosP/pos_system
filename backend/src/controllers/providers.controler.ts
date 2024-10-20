@@ -6,7 +6,7 @@ import {
   ProviderCreateDTO,
   ProviderResponseDTO,
   ProviderUpdateDTO,
-} from "../dtos/providers.dto";
+} from "@dtos/providers.dto";
 
 export class ProviderController {
   private readonly providerService: ProvidersService;
