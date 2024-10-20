@@ -14,6 +14,6 @@ app.use(bodyParser.json({
 }));
 
 app.use(responseMiddleware);
-app.use("/api/", routes);
+app.use("/api", routes);
 
 export default app;
