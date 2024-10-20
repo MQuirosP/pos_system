@@ -6,7 +6,7 @@ import {
   CustomerCreateDTO,
   CustomerResponseDTO,
   CustomerUpdateDTO,
-} from "../dtos/customers.dto";
+} from "@dtos/customers.dto";
 
 export class CustomerController {
   private readonly customerService: CustomerService;
