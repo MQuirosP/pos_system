@@ -40,7 +40,7 @@ export class SaleController {
   }
 
   async fetchSaleByDocNumber(req: Request, res: Response, next: NextFunction) {
-    const docNumber = req.params.doc_number.toString();
+    const docNumber = req.params.doc_number;
     try {
       const sale = await this.saleService.fetchSaleByDocNumber(docNumber);
       return res.success(
@@ -54,7 +54,7 @@ export class SaleController {
   }
 
   async cancelSale(req: Request, res: Response, next: NextFunction) {
-    const docNumber = req.params.doc_number.toString();
+    const docNumber = req.params.doc_number;
     try {
       const sale = await this.saleService.cancelSale(docNumber);
       return res.success(

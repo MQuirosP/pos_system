@@ -1,4 +1,4 @@
-import { Sale } from "@entities/sales.entity";
+import { Purchase } from "@entities/purchases.entity";
 import {
   ArrayNotEmpty,
   IsArray,
@@ -10,23 +10,23 @@ import {
   validateOrReject,
 } from "class-validator";
 import { DTOBase } from "@dtos/DTOBase";
-import { SALE_KEYS, SALEITEMS_KEYS } from "@dtos/dtoKeys";
+import { PURCHASE_KEYS, PURCHASEITEMS_KEYS } from "@dtos/dtoKeys";
 import { Type } from "class-transformer";
 import { convertToLocalTime } from "@utils/dateUtils";
 import { Product } from "@entities/products.entity";
 import { PaymentMethod, TransactionStatus } from "@enums/custom.enums";
 import { IsEnumWithMessage } from "@decorators/isEnumWithMessage.decorator";
 
-export class SaleCreateDTO extends DTOBase {
-  static expectedKeys: string[] = SALE_KEYS;
+export class PurchaseCreateDTO extends DTOBase {
+  static expectedKeys: string[] = PURCHASE_KEYS;
 
   @IsNotEmpty()
   @IsNumber()
-  customer_id!: number;
+  provider_id!: number;
 
   @IsNotEmpty()
   @IsString()
-  customer_name!: string;
+  provider_name!: string;
 
   @IsNotEmpty()
   @IsEnumWithMessage(PaymentMethod)
@@ -65,49 +65,49 @@ export class SaleCreateDTO extends DTOBase {
   @IsArray()
   @ArrayNotEmpty()
   @ValidateNested({ each: true })
-  @Type(() => CreateSaleItemDTO)
-  sale_items!: CreateSaleItemDTO[];
+  @Type(() => CreatePurchaseItemDTO)
+  purchase_items!: CreatePurchaseItemDTO[];
 
-  constructor(data: Partial<SaleCreateDTO>) {
+  constructor(data: Partial<PurchaseCreateDTO>) {
     super();
     Object.assign(this, data);
-    if (data.sale_items) {
-      this.sale_items = data.sale_items?.map(
-        (item) => new CreateSaleItemDTO(item)
+    if (data.purchase_items) {
+      this.purchase_items = data.purchase_items?.map(
+        (item) => new CreatePurchaseItemDTO(item)
       );
     }
   }
 
   async validate(): Promise<void> {
     await validateOrReject(this);
-    if (this.sale_items) {
-      await Promise.all(this.sale_items.map((item) => item.validate()));
+    if (this.purchase_items) {
+      await Promise.all(this.purchase_items.map((item) => item.validate()));
     }
   }
 }
 
-export class SaleResponseDto {
-  sale_id!: number;
-  customer_name!: string;
+export class PurchaseResponseDTO {
+  purchase_id!: number;
+  provider_name!: string;
   doc_number!: string;
   total!: number;
   status!: TransactionStatus;
   created_at!: string | Date;
-  sale_items: CreateSaleItemDTO[];
+  purchase_items: CreatePurchaseItemDTO[];
 
-  constructor(data: Sale) {
-    this.customer_name = data.customer_name;
+  constructor(data: Purchase) {
+    this.provider_name = data.provider_name;
     this.doc_number = data.doc_number;
     this.total = data.total;
     this.status = data.status;
     this.created_at = convertToLocalTime(data.created_at);
-    this.sale_items = data.sale_items.map(
+    this.purchase_items = data.purchase_items.map(
       (product) =>
-        new CreateSaleItemDTO({
+        new CreatePurchaseItemDTO({
           int_code: product.int_code,
           name: product.name,
           quantity: product.quantity,
-          sale_price: product.sale_price,
+          purchase_price: product.purchase_price,
           sub_total: product.sub_total,
           taxes_amount: product.taxes_amount,
           total: product.total,
@@ -116,8 +116,8 @@ export class SaleResponseDto {
   }
 }
 
-export class CreateSaleItemDTO extends DTOBase {
-  static expectedKeys: string[] = SALEITEMS_KEYS;
+export class CreatePurchaseItemDTO extends DTOBase {
+  static expectedKeys: string[] = PURCHASEITEMS_KEYS;
 
   @IsOptional()
   @IsNumber()
@@ -129,11 +129,11 @@ export class CreateSaleItemDTO extends DTOBase {
 
   @IsOptional()
   @IsNumber()
-  sale!: Sale;
+  purchase!: Purchase;
 
   @IsOptional()
   @IsNumber()
-  sale_id!: number;
+  purchase_id!: number;
 
   @IsOptional()
   created_at!: Date;
@@ -164,7 +164,7 @@ export class CreateSaleItemDTO extends DTOBase {
 
   @IsNotEmpty()
   @IsNumber()
-  sale_price!: number;
+  purchase_price!: number;
 
   @IsNotEmpty()
   @IsNumber()
@@ -178,7 +178,7 @@ export class CreateSaleItemDTO extends DTOBase {
   @IsNumber()
   total!: number;
 
-  constructor(data: Partial<CreateSaleItemDTO>) {
+  constructor(data: Partial<CreatePurchaseItemDTO>) {
     super();
     Object.assign(this, data);
   }
@@ -188,15 +188,14 @@ export class CreateSaleItemDTO extends DTOBase {
   }
 }
 
-export class SaleUpdateDTO extends DTOBase {
-  static expectedKeys = ["status"];
+export class PurchaseUpdateDTO extends DTOBase {
+  static expectedKeys: string[] = ["status"];
 
   @IsEnumWithMessage(TransactionStatus)
   status!: TransactionStatus;
 
   constructor(data: { status: TransactionStatus }) {
     super();
-    // Object.assign(this, data);
     this.status = data.status;
   }
 

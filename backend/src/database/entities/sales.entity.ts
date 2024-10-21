@@ -11,7 +11,7 @@ import {
 import { Customer } from "@entities/customers.entity"; // Ajustar ruta según sea necesario
 import { SaleItem } from "@entities/saleItems.entity";
 import { ISales } from "@interfaces/sales.interface";
-import { PaymentMethod, SaleStatus } from "@enums/custom.enums";
+import { PaymentMethod, TransactionStatus } from "@enums/custom.enums";
 
 @Entity("sales")
 export class Sale implements ISales {
@@ -49,8 +49,8 @@ export class Sale implements ISales {
   })
   updated_at!: Date;
 
-  @Column({ name: "status", type: "enum", enum: SaleStatus, nullable: false })
-  status!: SaleStatus;
+  @Column({ name: "status", type: "enum", enum: TransactionStatus, nullable: false })
+  status!: TransactionStatus;
 
   @Column({ name: "observations", type: "text", nullable: true })
   observations!: string;
@@ -90,6 +90,8 @@ export class Sale implements ISales {
   customer?: Customer;
 
   // Relación One-to-Many con SaleItem
-  @OneToMany(() => SaleItem, (saleItem) => saleItem.sale, { cascade: true })
+  @OneToMany(() => SaleItem, (saleItem) => saleItem.sale, { 
+    cascade: true 
+  })
   sale_items!: SaleItem[];
 }

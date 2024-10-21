@@ -7,24 +7,31 @@ import {
   ManyToOne,
   JoinColumn,
   ManyToMany,
+  OneToMany,
 } from "typeorm";
 import { Provider } from "@entities/providers.entity";
-import { IPurchases } from "@interfaces/purchases.interface";
 import { PurchaseItem } from "@entities/purchaseItems.entity";
+import { IPurchases } from "@interfaces/purchases.interface";
+import { PaymentMethod, TransactionStatus } from "@enums/custom.enums";
 
 @Entity("purchases")
 export class Purchase implements IPurchases {
   @PrimaryGeneratedColumn({ name: "purchase_id" })
-  purchase_id!: number;
+  purchase_id?: number;
 
   @Column({ name: "provider_id", type: "int", nullable: false })
-  provider_id!: number;
+  provider_id?: number;
 
   @Column({ name: "provider_name", type: "varchar", nullable: false })
   provider_name!: string;
 
-  @Column({ name: "payment_method", type: "varchar", nullable: false })
-  payment_method!: string;
+  @Column({
+    name: "payment_method",
+    type: "enum",
+    enum: PaymentMethod,
+    nullable: false,
+  })
+  payment_method!: PaymentMethod;
 
   @Column({ name: "doc_number", type: "varchar", nullable: false })
   doc_number!: string;
@@ -47,8 +54,13 @@ export class Purchase implements IPurchases {
   })
   taxes_amount!: number;
 
-  @Column({ name: "status", type: "varchar", nullable: false })
-  status!: string;
+  @Column({
+    name: "status",
+    type: "enum",
+    enum: TransactionStatus,
+    nullable: false,
+  })
+  status!: TransactionStatus;
 
   @Column({ name: "observations", type: "text", nullable: false })
   observations!: string;
@@ -80,11 +92,10 @@ export class Purchase implements IPurchases {
     onDelete: "SET NULL",
   })
   @JoinColumn({ name: "provider_id" })
-  provider!: Provider;
+  provider?: Provider;
 
-  @ManyToMany(() => PurchaseItem, (purchaseItem) => purchaseItem.purchase, {
+  @OneToMany(() => PurchaseItem, (purchaseItem) => purchaseItem.purchase, {
     cascade: true,
   })
   purchase_items!: PurchaseItem[];
-
 }

@@ -19,7 +19,7 @@ export const PRODUCT_KEYS = [
   "margin",
   "tax_percentage",
   "category_id",
-  "category_name"
+  "category_name",
 ];
 
 export const SALE_KEYS = [
@@ -32,7 +32,20 @@ export const SALE_KEYS = [
   "sub_total",
   "taxes_amount",
   "total",
-  "sale_items"
+  "sale_items",
+];
+
+export const PURCHASE_KEYS = [
+  "provider_id",
+  "provider_name",
+  "payment_method",
+  "doc_number",
+  "status",
+  "observations",
+  "sub_total",
+  "taxes_amount",
+  "total",
+  "purchase_items",
 ];
 
 export const SALEITEMS_KEYS = [
@@ -42,7 +55,17 @@ export const SALEITEMS_KEYS = [
   "sale_price",
   "sub_total",
   "taxes_amount",
-  "total"
+  "total",
+];
+
+export const PURCHASEITEMS_KEYS = [
+  "int_code",
+  "name",
+  "quantity",
+  "purchase_price",
+  "sub_total",
+  "taxes_amount",
+  "total",
 ];
 
 export const CUSTOMERS_KEYS = [
@@ -53,7 +76,7 @@ export const CUSTOMERS_KEYS = [
   "customer_phone",
   "customer_email",
   "customer_dni",
-]
+];
 
 export const PROVIDERS_KEYS = [
   "provider_name",
@@ -61,4 +84,4 @@ export const PROVIDERS_KEYS = [
   "provider_phone",
   "provider_email",
   "provider_dni",
-]
+];

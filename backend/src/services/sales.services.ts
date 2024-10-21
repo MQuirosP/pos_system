@@ -1,9 +1,9 @@
 import { EntityManager, Repository } from "typeorm";
-import { Sale } from "@entities/sales.entity";
+import dataSource from "@config/ormconfig";
 import { handleDatabaseError } from "@middlewares/databaseErrorHandler";
 import { AppError } from "@middlewares/errorHandler";
-import dataSource from "@config/ormconfig";
-import { SaleStatus } from "@enums/custom.enums";
+import { Sale } from "@entities/sales.entity";
+import { TransactionStatus } from "@enums/custom.enums";
 
 export class SaleService {
   private saleRepository: Repository<Sale>;
@@ -39,7 +39,7 @@ export class SaleService {
         where: { doc_number: docNumber },
         relations: ["sale_items"],
       });
-      if (!sale) throw new AppError("Sale not found.", 404);
+      if ( !sale ) throw new AppError("Sale not found.", 404);
       return sale;
     } catch (error) {
       throw handleDatabaseError(error);
@@ -52,11 +52,11 @@ export class SaleService {
         where: { doc_number: docNumber },
         relations: ["sale_items"],
       });
-      if (!sale) throw new AppError("Sale not found.", 404);
-      if (sale.status === SaleStatus.Canceled) {
+      if ( !sale ) throw new AppError("Sale not found.", 404);
+      if ( sale.status === TransactionStatus.Canceled ) {
         throw new AppError("Sale already cancelled.", 409);
       }
-      sale.status = SaleStatus.Canceled;
+      sale.status = TransactionStatus.Canceled;
       sale.sale_items.forEach((item) => (item.status = sale.status));
 
       await this.saleRepository.save(sale);

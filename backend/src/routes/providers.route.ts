@@ -1,5 +1,5 @@
 import express from "express";
-import { ProviderController } from "@controllers/providers.controler";
+import { ProviderController } from "@controllers/providers.controller";
 import { validateDTO } from "@middlewares/validateDTO";
 import { ProviderCreateDTO, ProviderUpdateDTO } from "@dtos/providers.dto";
 

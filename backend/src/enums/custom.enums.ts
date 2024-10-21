@@ -3,7 +3,7 @@ export enum UserRole {
   User = "user",
 }
 
-export enum SaleStatus {
+export enum TransactionStatus {
     Completed = "completed",
     Canceled = "canceled"
 }
@@ -13,3 +13,4 @@ export enum PaymentMethod {
     Cash = "cash",
     BankTransfer = "bank_transfer"
 }
+
