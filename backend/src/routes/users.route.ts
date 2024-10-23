@@ -12,7 +12,7 @@ router.post(
   userController.createUser.bind(userController)
 );
 router.get("/", userController.getUsers.bind(userController));
-router.get("/id/:id", userController.getUserById.bind(userController));
+router.get("/:id", userController.getUserById.bind(userController));
 router.get(
   "/password/:id",
   userController.comparePassword.bind(userController)
