@@ -38,7 +38,7 @@ export class Purchase implements IPurchases {
 
   @Column({
     name: "sub_total",
-    type: "decimal",
+    type: "numeric",
     precision: 10,
     scale: 2,
     nullable: false,
@@ -47,7 +47,7 @@ export class Purchase implements IPurchases {
 
   @Column({
     name: "taxes_amount",
-    type: "decimal",
+    type: "numeric",
     precision: 10,
     scale: 2,
     nullable: false,
@@ -67,7 +67,7 @@ export class Purchase implements IPurchases {
 
   @Column({
     name: "total",
-    type: "decimal",
+    type: "numeric",
     precision: 10,
     scale: 2,
     nullable: false,
