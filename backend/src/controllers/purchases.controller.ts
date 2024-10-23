@@ -52,7 +52,7 @@ export class PurchaseController {
     res: Response,
     next: NextFunction
   ) {
-    const docNumber = req.params.docNumber;
+    const docNumber = req.params.doc_number;
     try {
       const purchase = await this.purchaseService.fetchPurchaseByDocNumber(
         docNumber
