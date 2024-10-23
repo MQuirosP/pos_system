@@ -33,8 +33,8 @@ export class ProductController {
   }
 
   async getProductById(req: Request, res: Response, next: NextFunction) {
-    const productId = parseInt(req.params.id);
     try {
+      const productId = parseInt(req.params.id);
       const product = await this.productService.getProductByPK(productId);
 
       return res.success(
@@ -48,10 +48,10 @@ export class ProductController {
   }
 
   async getProducts(req: Request, res: Response, next: NextFunction) {
-    const { name } = req.query;
-    let products: Product[] = [];
-
     try {
+      const { name } = req.query;
+      let products: Product[] = [];
+
       if (name && typeof name === "string" && name.trim() !== "") {
         products = await this.productService.getProductByName(name);
       } else {
@@ -72,8 +72,8 @@ export class ProductController {
   }
 
   async updateProduct(req: Request, res: Response, next: NextFunction) {
-    const productId = parseInt(req.params.id);
     try {
+      const productId = parseInt(req.params.id);
       const productUpdateDTO = new ProductUpdateDTO(req.body);
 
       await productUpdateDTO.validate();
@@ -92,8 +92,8 @@ export class ProductController {
   }
 
   async deleteProduct(req: Request, res: Response, next: NextFunction) {
-    const productId = parseInt(req.params.id);
     try {
+      const productId = parseInt(req.params.id);
       const productToDelete = await this.productService.getProductByPK(
         productId
       );

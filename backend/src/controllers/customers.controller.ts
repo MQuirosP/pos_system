@@ -17,13 +17,13 @@ export class CustomerController {
   }
 
   async createCustomer(req: Request, res: Response, next: NextFunction) {
-    const customerData = new CustomerCreateDTO(req.body);
-    await customerData.validate();
-    const newCustomer = await this.customerService.createCustomer(
-      customerData
-    );
-    
     try {
+      const customerData = new CustomerCreateDTO(req.body);
+      await customerData.validate();
+      const newCustomer = await this.customerService.createCustomer(
+        customerData
+      );
+
       return res.success(
         new CustomerResponseDTO(newCustomer),
         "Customer created successfully.",
@@ -35,15 +35,15 @@ export class CustomerController {
   }
 
   async getCustomers(req: Request, res: Response, next: NextFunction) {
-    const { name } = req.query;
-    let customers: Customer[] = [];
-    if (name && typeof name === "string" && name.trim() !== "") {
-      customers = await this.customerService.getCustomerByName(name);
-    } else {
-      customers = await this.customerService.fetchAllCustomers();
-    }
-    
     try {
+      const { name } = req.query;
+      let customers: Customer[] = [];
+      if (name && typeof name === "string" && name.trim() !== "") {
+        customers = await this.customerService.getCustomerByName(name);
+      } else {
+        customers = await this.customerService.fetchAllCustomers();
+      }
+
       const customerResponseDTOs = customers.map(
         (customer) => new CustomerResponseDTO(customer)
       );
@@ -58,9 +58,9 @@ export class CustomerController {
   }
 
   async getCustomerById(req: Request, res: Response, next: NextFunction) {
-    const customerId = parseInt(req.params.id);
-    const customer = await this.customerService.getCustomerByPK(customerId);
     try {
+      const customerId = parseInt(req.params.id);
+      const customer = await this.customerService.getCustomerByPK(customerId);
 
       return res.success(
         new CustomerResponseDTO(customer),
@@ -73,11 +73,11 @@ export class CustomerController {
   }
 
   async updateCustomer(req: Request, res: Response, next: NextFunction) {
-    const customerId = parseInt(req.params.id);
-    const customerUpdateDTO = new CustomerUpdateDTO(req.body);
-    
-    await customerUpdateDTO.validate();
     try {
+      const customerId = parseInt(req.params.id);
+      const customerUpdateDTO = new CustomerUpdateDTO(req.body);
+
+      await customerUpdateDTO.validate();
       const updatedCustomer = await this.customerService.updateCustomer(
         customerId,
         customerUpdateDTO
@@ -93,8 +93,8 @@ export class CustomerController {
   }
 
   async deleteCustomer(req: Request, res: Response, next: NextFunction) {
-    const customerId = parseInt(req.params.id);
     try {
+      const customerId = parseInt(req.params.id);
       const customerToDelete = await this.customerService.getCustomerByPK(
         customerId
       );

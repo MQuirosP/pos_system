@@ -13,9 +13,9 @@ export class PurchaseController {
   }
 
   async createPurchase(req: Request, res: Response, next: NextFunction) {
-    const purchaseData = new PurchaseCreateDTO(req.body);
-    await purchaseData.validate();
     try {
+      const purchaseData = new PurchaseCreateDTO(req.body);
+      await purchaseData.validate();
       const newPurchase = await this.purchaseService.createPurchase(
         purchaseData
       );
@@ -52,8 +52,8 @@ export class PurchaseController {
     res: Response,
     next: NextFunction
   ) {
-    const docNumber = req.params.doc_number;
     try {
+      const docNumber = req.params.doc_number;
       const purchase = await this.purchaseService.fetchPurchaseByDocNumber(
         docNumber
       );
@@ -68,8 +68,8 @@ export class PurchaseController {
   }
 
   async cancelPurchase(req: Request, res: Response, next: NextFunction) {
-    const docNumber = req.params.doc_number;
     try {
+      const docNumber = req.params.doc_number;
       const purchase = await this.purchaseService.cancelPurchase(docNumber);
       return res.success(
         new PurchaseResponseDTO(purchase),

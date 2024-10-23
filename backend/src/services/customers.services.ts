@@ -56,13 +56,13 @@ export class CustomerService {
     customerId: number,
     updates: Partial<Customer>
   ): Promise<Customer> {
-    const customer = await this.customerRepository.findOne({
-      where: { customer_id: customerId },
-    });
-
-    if (!customer) throw new AppError("Customer not found.", 400);
-
     try {
+      const customer = await this.customerRepository.findOne({
+        where: { customer_id: customerId },
+      });
+
+      if (!customer) throw new AppError("Customer not found.", 400);
+
       Object.assign(customer, updates);
 
       return await this.customerRepository.save(customer);
@@ -72,12 +72,12 @@ export class CustomerService {
   }
 
   async deleteCustomer(customerId: number): Promise<void> {
-    const customer = await this.customerRepository.findOne({
-      where: { customer_id: customerId },
-    });
-
-    if (!customer) throw new AppError("Customer not found.", 400);
     try {
+      const customer = await this.customerRepository.findOne({
+        where: { customer_id: customerId },
+      });
+
+      if (!customer) throw new AppError("Customer not found.", 400);
       await this.customerRepository.delete(customerId);
     } catch (error) {
       throw handleDatabaseError(error);

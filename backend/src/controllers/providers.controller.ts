@@ -17,13 +17,13 @@ export class ProviderController {
   }
 
   async createProvider(req: Request, res: Response, next: NextFunction) {
-    const providerData = new ProviderCreateDTO(req.body);
-    await providerData.validate();
-    const newProvider = await this.providerService.createProvider(
-      providerData
-    );
-    
     try {
+      const providerData = new ProviderCreateDTO(req.body);
+      await providerData.validate();
+      const newProvider = await this.providerService.createProvider(
+        providerData
+      );
+
       return res.success(
         new ProviderResponseDTO(newProvider),
         "Provider created successfully.",
@@ -35,15 +35,15 @@ export class ProviderController {
   }
 
   async getProviders(req: Request, res: Response, next: NextFunction) {
-    const { name } = req.query;
-    let providers: Provider[] = [];
-    if (name && typeof name === "string" && name.trim() !== "") {
-      providers = await this.providerService.getProviderByName(name);
-    } else {
-      providers = await this.providerService.fetchAllProviders();
-    }
-    
     try {
+      const { name } = req.query;
+      let providers: Provider[] = [];
+      if (name && typeof name === "string" && name.trim() !== "") {
+        providers = await this.providerService.getProviderByName(name);
+      } else {
+        providers = await this.providerService.fetchAllProviders();
+      }
+
       const providerResponseDTOs = providers.map(
         (provider) => new ProviderResponseDTO(provider)
       );
@@ -58,9 +58,9 @@ export class ProviderController {
   }
 
   async getProviderById(req: Request, res: Response, next: NextFunction) {
-    const providerId = parseInt(req.params.id);
-    const provider = await this.providerService.getProviderByPk(providerId);
     try {
+      const providerId = parseInt(req.params.id);
+      const provider = await this.providerService.getProviderByPk(providerId);
 
       return res.success(
         new ProviderResponseDTO(provider),
@@ -73,11 +73,11 @@ export class ProviderController {
   }
 
   async updateProvider(req: Request, res: Response, next: NextFunction) {
-    const providerId = parseInt(req.params.id);
-    const providerData = new ProviderUpdateDTO(req.body);
-    
-    await providerData.validate();
     try {
+      const providerId = parseInt(req.params.id);
+      const providerData = new ProviderUpdateDTO(req.body);
+
+      await providerData.validate();
       const updatedProvider = await this.providerService.updateProvider(
         providerId,
         providerData
@@ -96,7 +96,9 @@ export class ProviderController {
   async deleteProvider(req: Request, res: Response, next: NextFunction) {
     try {
       const providerId = parseInt(req.params.id);
-      const deletedProvider = await this.providerService.deleteProvider(providerId)
+      const deletedProvider = await this.providerService.deleteProvider(
+        providerId
+      );
       return res.success(
         new ProviderResponseDTO(deletedProvider.raw),
         "Provider deleted successfully.",

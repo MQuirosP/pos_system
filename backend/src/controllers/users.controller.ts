@@ -13,9 +13,9 @@ export class UserController {
   }
 
   async createUser(req: Request, res: Response, next: NextFunction) {
-    const userData = new UserCreateDTO(req.body);
-    await userData.validate();
     try {
+      const userData = new UserCreateDTO(req.body);
+      await userData.validate();
       const newUser = await this.userService.createUser(userData);
 
       return res.success(
@@ -60,11 +60,11 @@ export class UserController {
   }
 
   async updateUser(req: Request, res: Response, next: NextFunction) {
-    const userId = parseInt(req.params.id);
-    const userUpdateDTO = new UserUpdateDTO(req.body);
-
-    await userUpdateDTO.validate();
     try {
+      const userId = parseInt(req.params.id);
+      const userUpdateDTO = new UserUpdateDTO(req.body);
+
+      await userUpdateDTO.validate();
       const updatedUser = await this.userService.updateUser(
         userId,
         userUpdateDTO
@@ -80,8 +80,8 @@ export class UserController {
   }
 
   async deleteUser(req: Request, res: Response, next: NextFunction) {
-    const userId = parseInt(req.params.id);
     try {
+      const userId = parseInt(req.params.id);
       await this.userService.deleteUser(userId);
 
       return res.success({}, "User deleted successfully.", 200);
@@ -91,9 +91,9 @@ export class UserController {
   }
 
   async comparePassword(req: Request, res: Response, next: NextFunction) {
-    const userId = parseInt(req.params.id);
-    const password = req.body.password;
     try {
+      const userId = parseInt(req.params.id);
+      const password = req.body.password;
       await this.userService.comparePassword(userId, password);
 
       return res.success({ user_id: userId }, "Password is correct.", 200);

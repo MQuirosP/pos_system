@@ -13,9 +13,9 @@ export class SaleController {
   }
 
   async createSale(req: Request, res: Response, next: NextFunction) {
-    const saleData = new SaleCreateDTO(req.body);
-    await saleData.validate();
     try {
+      const saleData = new SaleCreateDTO(req.body);
+      await saleData.validate();
       const newSale = await this.saleService.createSale(saleData);
 
       return res.success(
@@ -40,8 +40,8 @@ export class SaleController {
   }
 
   async fetchSaleByDocNumber(req: Request, res: Response, next: NextFunction) {
-    const docNumber = req.params.doc_number;
     try {
+      const docNumber = req.params.doc_number;
       const sale = await this.saleService.fetchSaleByDocNumber(docNumber);
       return res.success(
         new SaleResponseDto(sale),
@@ -54,8 +54,8 @@ export class SaleController {
   }
 
   async cancelSale(req: Request, res: Response, next: NextFunction) {
-    const docNumber = req.params.doc_number;
     try {
+      const docNumber = req.params.doc_number;
       const sale = await this.saleService.cancelSale(docNumber);
       return res.success(
         new SaleResponseDto(sale),
