@@ -1,7 +1,7 @@
 import { ValidationError } from "class-validator";
 import { Request, Response, NextFunction } from "express";
 
-// Extiende la clase Error para agregar información adicional
+// Extendemos la clase Error para agregar información adicional
 export class AppError extends Error {
   statusCode: number;
   status: string;

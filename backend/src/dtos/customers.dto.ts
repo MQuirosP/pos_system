@@ -2,7 +2,6 @@ import {
   IsNotEmpty,
   IsOptional,
   IsString,
-  ValidateIf,
   validateOrReject,
 } from "class-validator";
 import { Customer } from "@entities/customers.entity";

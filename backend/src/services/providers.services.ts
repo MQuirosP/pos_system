@@ -72,20 +72,22 @@ export class ProvidersService {
     }
   }
 
- async deleteProvider(providerId: number): Promise<DeleteResult> {
-  try {
-    const provider = await this.providerRepository.findOne({
-      where: { provider_id: providerId },
-    });
+  async deleteProvider(providerId: number): Promise<DeleteResult> {
+    try {
+      const provider = await this.providerRepository.findOne({
+        where: { provider_id: providerId },
+      });
 
-    if (!provider) throw new AppError("Provider not found.", 400);
+      if (!provider) throw new AppError("Provider not found.", 400);
 
-    const deleteResult: DeleteResult = await this.providerRepository.delete(providerId);
-    deleteResult.raw = provider; 
+      const deleteResult: DeleteResult = await this.providerRepository.delete(
+        providerId
+      );
+      deleteResult.raw = provider;
 
-    return deleteResult; 
-  } catch (error) {
-    throw handleDatabaseError(error);
+      return deleteResult;
+    } catch (error) {
+      throw handleDatabaseError(error);
+    }
   }
-}
 }

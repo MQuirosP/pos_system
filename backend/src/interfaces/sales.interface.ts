@@ -11,7 +11,7 @@ export interface ISales {
   created_at: Date;
   updated_at: Date;
   status: TransactionStatus;
-  observations?: string; // Opcional
+  observations?: string; 
   sub_total: number;
   taxes_amount: number;
   total: number;

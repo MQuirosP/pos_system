@@ -12,10 +12,10 @@ import { Provider } from "@entities/providers.entity";
 
 dotenv.config(); // Cargar variables de entorno
 
-// Verifica si estás en desarrollo o producción
+// Verificamos si estamos en desarrollo o producción
 const isDevelopment = process.env.NODE_ENV !== "production";
 
-// Configuración de la conexión a la base de datos
+// Configursamos la conexión a la base de datos
 const dataSource = new DataSource({
   type: "postgres",
   host: process.env.DB_HOST,
@@ -33,19 +33,19 @@ const dataSource = new DataSource({
     SaleItem,
     Customer,
     Provider,
-    // Especificar la ruta de las entidades dependiendo del entorno
+    // Especificamos la ruta de las entidades dependiendo del entorno
     isDevelopment
       ? "./src/database/entities/*.ts"
       : "./dist/database/entities/*.js",
   ],
   migrations: [
-    // Especificar la ruta de las migraciones dependiendo del entorno
+    // Especificamos la ruta de las migraciones dependiendo del entorno
     isDevelopment
       ? "./src/database/migrations/*.ts"
       : "./dist/database/migrations/*.js",
   ],
-  synchronize: isDevelopment, // Habilitar sincronización solo en desarrollo
-  logging: process.env.LOGGER_LEVEL === "debug", // Activar el logging según el nivel configurado
+  synchronize: isDevelopment, // Habilitamos sincronización solo en desarrollo
+  logging: process.env.LOGGER_LEVEL === "debug", // Activamos el logging según el nivel configurado
 });
 
 export default dataSource;

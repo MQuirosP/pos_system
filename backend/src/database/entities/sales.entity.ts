@@ -8,7 +8,7 @@ import {
   JoinColumn,
   OneToMany,
 } from "typeorm";
-import { Customer } from "@entities/customers.entity"; // Ajustar ruta según sea necesario
+import { Customer } from "@entities/customers.entity";
 import { SaleItem } from "@entities/saleItems.entity";
 import { ISales } from "@interfaces/sales.interface";
 import { PaymentMethod, TransactionStatus } from "@enums/custom.enums";

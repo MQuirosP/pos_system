@@ -14,7 +14,7 @@ export const validateDTO =
       req.body = dto;
       next();
     } catch (error) {
-      // Pasar el error al manejador de errores global
+      // Pasamos el error al manejador de errores global
       next(error);
     }
   };

@@ -1,4 +1,3 @@
-// Archivo: customers.interface.ts
 import { ISales } from "@interfaces/sales.interface";
 
 export interface ICustomers {
@@ -12,5 +11,5 @@ export interface ICustomers {
   customer_dni: string;
   created_at?: Date;
   updated_at?: Date;
-  sales?: ISales[]; // Relación One-to-Many con Sale
+  sales?: ISales[]; 
 }

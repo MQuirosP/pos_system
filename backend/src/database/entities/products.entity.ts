@@ -91,7 +91,6 @@ export class Product {
   })
   updated_at!: Date;
 
-  // Relación One-to-Many con SaleItem
   @OneToMany(() => SaleItem, (saleItem) => saleItem.product, { cascade: true })
   sale_items!: SaleItem[];
 

@@ -6,7 +6,6 @@ import {
   UpdateDateColumn,
   ManyToOne,
   JoinColumn,
-  ManyToMany,
   OneToMany,
 } from "typeorm";
 import { Provider } from "@entities/providers.entity";
