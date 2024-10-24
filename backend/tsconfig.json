@@ -1,0 +1,36 @@
+{
+  "compilerOptions": {
+    "target": "ES2021",
+    "module": "CommonJS",
+    "lib": ["ES2018", "DOM"],
+    "moduleResolution": "Node",
+    "strict": true,
+    "outDir": "./dist", // Directorio de salida para los archivos compilados
+    "rootDir": "./src",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": "./src",
+    "paths": {
+      "*": ["node_modules"],
+      "@entities/*": ["database/entities/*"],
+      "@config/*": ["config/*"],
+      "@middlewares/*": ["middlewares/*"],
+      "@dtos/*": ["dtos/*"],
+      "@utils/*": ["utils/*"],
+      "@routes/*": ["routes/*"],
+      "@controllers/*": ["controllers/*"],
+      "@services/*": ["services/*"],
+      "@decorators/*": ["decorators/*"],
+      "@interfaces/*": ["interfaces/*"],
+      "@enums/*": ["enums/*"],
+      "@models/*": ["database/models/*"]
+
+    }
+  },
+  "include": [
+    "src/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}

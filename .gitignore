@@ -1,0 +1,15 @@
+node_modules/
+.env
+dist/
+
+build/
+out/
+
+.vscode/
+.idea/
+
+backend\estructura_proyecto.txt
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
