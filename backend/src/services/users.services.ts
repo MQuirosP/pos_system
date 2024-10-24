@@ -3,7 +3,7 @@ import dataSource from "@config/ormconfig";
 import { Repository, EntityManager } from "typeorm";
 import { AppError } from "@middlewares/errorHandler";
 import { UserCreateDTO, UserUpdateDTO } from "@dtos/users.dto";
-import { HashingService } from "@utils/HashService";
+import { HashingService } from "@services/HashService";
 import { handleDatabaseError } from "@middlewares/databaseErrorHandler";
 
 export class UserService {
