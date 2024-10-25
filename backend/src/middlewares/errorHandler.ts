@@ -37,7 +37,7 @@ export const globalErrorHandler = (
   res: Response,
   next: NextFunction
 ) => {
-  // console.log(err);
+  console.log(err);
   logger.error(`Error: ${err.message} - Path: ${req.path} - Method: ${req.method}`);
   
   // Manejo de errores de validación

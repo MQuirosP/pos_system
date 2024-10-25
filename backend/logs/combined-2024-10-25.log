@@ -9,3 +9,40 @@
 [2024-10-25 12:35:17] WARN: Validation error: customer_email must be a string, customer_email should not be empty - Path: /api/customers/.
 [2024-10-25 12:35:42] ERROR: Error: Invalid keys in request body: customer_email3 - Path: /api/customers/ - Method: POST.
 [2024-10-25 12:35:42] WARN: Operational error: Invalid keys in request body: customer_email3 - Status: fail.
+[2024-10-25 12:44:07] ERROR: Error: undefined - Path: /api/customers/1 - Method: PUT.
+[2024-10-25 12:44:07] WARN: Validation error: Customer DNI is inmutable and cannot be changed - Path: /api/customers/1.
+[2024-10-25 12:44:22] ERROR: Error: undefined - Path: /api/customers/1 - Method: PUT.
+[2024-10-25 12:44:22] WARN: Validation error: Customer DNI is inmutable and cannot be changed - Path: /api/customers/1.
+[2024-10-25 12:45:48] ERROR: Error: An instance of CustomerUpdateDTO has failed the validation:
+ - property customer_dni has failed the following constraints: ImmutableConstraint 
+ - Path: /api/customers/1 - Method: PUT.
+[2024-10-25 12:45:48] WARN: Validation error: Customer DNI is inmutable and cannot be changed - Path: /api/customers/1.
+[2024-10-25 12:46:45] ERROR: Error: An instance of CustomerUpdateDTO has failed the validation:
+ - property customer_dni has failed the following constraints: ImmutableConstraint 
+ - Path: /api/customers/1 - Method: PUT.
+[2024-10-25 12:46:45] WARN: Validation error: Customer DNI is inmutable and cannot be changed - Path: /api/customers/1.
+[2024-10-25 12:47:37] ERROR: Error: undefined - Path: /api/customers/1 - Method: PUT.
+[2024-10-25 12:47:37] WARN: Validation error: Customer DNI is inmutable and cannot be changed - Path: /api/customers/1.
+[2024-10-25 12:48:10] ERROR: Error: An instance of CustomerUpdateDTO has failed the validation:
+ - property customer_dni has failed the following constraints: ImmutableConstraint 
+ - Path: /api/customers/1 - Method: PUT.
+[2024-10-25 12:48:10] WARN: Validation error: Customer DNI is inmutable and cannot be changed - Path: /api/customers/1.
+[2024-10-25 12:49:47] ERROR: Error: undefined - Path: /api/customers/1 - Method: PUT.
+[2024-10-25 12:49:47] WARN: Validation error: Customer DNI is inmutable and cannot be changed - Path: /api/customers/1.
+[2024-10-25 12:50:10] ERROR: Error: undefined - Path: /api/customers/1 - Method: PUT.
+[2024-10-25 12:50:10] WARN: Validation error: Customer DNI is inmutable and cannot be changed - Path: /api/customers/1.
+[2024-10-25 12:50:39] ERROR: Error: undefined - Path: /api/customers/1 - Method: PUT.
+[2024-10-25 12:50:39] WARN: Validation error: Customer DNI is inmutable and cannot be changed - Path: /api/customers/1.
+[2024-10-25 12:51:12] ERROR: Error: An instance of CustomerUpdateDTO has failed the validation:
+ - property customer_dni has failed the following constraints: ImmutableConstraint 
+ - Path: /api/customers/1 - Method: PUT.
+[2024-10-25 12:51:12] WARN: Validation error: Customer DNI is inmutable and cannot be changed - Path: /api/customers/1.
+[2024-10-25 12:51:58] ERROR: Error: An instance of CustomerUpdateDTO has failed the validation:
+ - property customer_dni has failed the following constraints: ImmutableConstraint 
+ - Path: /api/customers/1 - Method: PUT.
+[2024-10-25 12:52:32] ERROR: Error: An instance of CustomerUpdateDTO has failed the validation:
+ - property customer_dni has failed the following constraints: ImmutableConstraint 
+ - Path: /api/customers/1 - Method: PUT.
+[2024-10-25 12:52:32] WARN: Validation error: Customer DNI is inmutable and cannot be changed - Path: /api/customers/1.
+[2024-10-25 12:53:22] ERROR: Error: Invalid keys in request body: customer_dni1 - Path: /api/customers/1 - Method: PUT.
+[2024-10-25 12:53:22] WARN: Operational error: Invalid keys in request body: customer_dni1 - Status: fail.
