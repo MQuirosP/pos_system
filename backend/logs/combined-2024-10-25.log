@@ -143,3 +143,4 @@
   "cust"... is not valid JSON - Path: /api/customers/.
 [2024-10-25 15:31:28] WARN: Invalid JSON format: Unexpected token ',', ..."_amount": ,
   "tota"... is not valid JSON - Path: /api/sales/.
+[2024-10-25 15:32:06] WARN: Operational error: Duplicate data: entry already exists in table customers: Ya existe la llave (customer_dni)=(12345678A). - Status: fail.
