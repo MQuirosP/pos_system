@@ -1,0 +1,2 @@
+[2024-10-25 12:25:37] ERROR: Error: undefined - Path: /api/customers/1 - Method: PUT.
+[2024-10-25 12:25:37] WARN: Validation error: Customer DNI is inmutable and cannot be changed - Path: /api/customers/1.
