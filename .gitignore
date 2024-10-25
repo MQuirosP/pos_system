@@ -5,6 +5,7 @@ dist/
 build/
 out/
 backend/logs
+logs/
 
 .vscode/
 .idea/
