@@ -29,3 +29,4 @@
  - property customer_dni has failed the following constraints: ImmutableConstraint 
  - Path: /api/customers/1 - Method: PUT.
 [2024-10-25 12:53:22] ERROR: Error: Invalid keys in request body: customer_dni1 - Path: /api/customers/1 - Method: PUT.
+[2024-10-25 12:53:58] ERROR: Error: Invalid keys in request body: customer_dni1 - Path: /api/customers/1 - Method: PUT.

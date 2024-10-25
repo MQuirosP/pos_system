@@ -46,3 +46,5 @@
 [2024-10-25 12:52:32] WARN: Validation error: Customer DNI is inmutable and cannot be changed - Path: /api/customers/1.
 [2024-10-25 12:53:22] ERROR: Error: Invalid keys in request body: customer_dni1 - Path: /api/customers/1 - Method: PUT.
 [2024-10-25 12:53:22] WARN: Operational error: Invalid keys in request body: customer_dni1 - Status: fail.
+[2024-10-25 12:53:58] ERROR: Error: Invalid keys in request body: customer_dni1 - Path: /api/customers/1 - Method: PUT.
+[2024-10-25 12:53:58] WARN: Operational error: Invalid keys in request body: customer_dni1 - Status: fail.
