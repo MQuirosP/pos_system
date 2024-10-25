@@ -13,4 +13,5 @@ backend\estructura_proyecto.txt
 Thumbs.db
 ehthumbs.db
 Desktop.ini
-backend/logs/*.*
+backend/logs/*
+.gitignore
