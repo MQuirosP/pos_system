@@ -1,0 +1,22 @@
+[2024-10-25 12:33:35] ERROR: uncaughtException: ⨯ Unable to compile TypeScript:
+[96msrc/middlewares/databaseErrorHandler.ts[0m:[93m7[0m:[93m51[0m - [91merror[0m[90m TS2304: [0mCannot find name 'req'.
+
+[7m7[0m   logger.error(`Error: ${error.message} - Path: ${req.path}`)
+[7m [0m [91m                                                  ~~~[0m
+
+TSError: ⨯ Unable to compile TypeScript:
+[96msrc/middlewares/databaseErrorHandler.ts[0m:[93m7[0m:[93m51[0m - [91merror[0m[90m TS2304: [0mCannot find name 'req'.
+
+[7m7[0m   logger.error(`Error: ${error.message} - Path: ${req.path}`)
+[7m [0m [91m                                                  ~~~[0m
+
+    at createTSError (C:\Users\mquir\Proyectos\pos_system\backend\node_modules\ts-node\src\index.ts:859:12)
+    at reportTSError (C:\Users\mquir\Proyectos\pos_system\backend\node_modules\ts-node\src\index.ts:863:19)
+    at getOutput (C:\Users\mquir\Proyectos\pos_system\backend\node_modules\ts-node\src\index.ts:1077:36)
+    at Object.compile (C:\Users\mquir\Proyectos\pos_system\backend\node_modules\ts-node\src\index.ts:1433:41)
+    at Module.m._compile (C:\Users\mquir\Proyectos\pos_system\backend\node_modules\ts-node\src\index.ts:1617:30)
+    at Module._extensions..js (node:internal/modules/cjs/loader:1548:10)
+    at Object.require.extensions.<computed> [as .ts] (C:\Users\mquir\Proyectos\pos_system\backend\node_modules\ts-node\src\index.ts:1621:12)
+    at Module.load (node:internal/modules/cjs/loader:1288:32)
+    at Function.Module._load (node:internal/modules/cjs/loader:1104:12)
+    at Module.require (node:internal/modules/cjs/loader:1311:19).

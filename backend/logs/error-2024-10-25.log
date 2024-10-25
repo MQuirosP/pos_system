@@ -1,1 +1,6 @@
 [2024-10-25 12:25:37] ERROR: Error: undefined - Path: /api/customers/1 - Method: PUT.
+[2024-10-25 12:34:01] ERROR: Error: llave duplicada viola restricción de unicidad «UQ_4f7d1b88c7e62c9b7010f2ab15b».
+[2024-10-25 12:34:01] ERROR: Error: Duplicate data: entry already exists in table customers: Ya existe la llave (customer_dni)=(12345678A). - Path: /api/customers/ - Method: POST.
+[2024-10-25 12:34:47] ERROR: Error: Duplicate data: entry already exists in table customers: Ya existe la llave (customer_dni)=(12345678A). - Path: /api/customers/ - Method: POST.
+[2024-10-25 12:35:17] ERROR: Error: undefined - Path: /api/customers/ - Method: POST.
+[2024-10-25 12:35:42] ERROR: Error: Invalid keys in request body: customer_email3 - Path: /api/customers/ - Method: POST.

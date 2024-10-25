@@ -1,2 +1,11 @@
 [2024-10-25 12:25:37] ERROR: Error: undefined - Path: /api/customers/1 - Method: PUT.
 [2024-10-25 12:25:37] WARN: Validation error: Customer DNI is inmutable and cannot be changed - Path: /api/customers/1.
+[2024-10-25 12:34:01] ERROR: Error: llave duplicada viola restricción de unicidad «UQ_4f7d1b88c7e62c9b7010f2ab15b».
+[2024-10-25 12:34:01] ERROR: Error: Duplicate data: entry already exists in table customers: Ya existe la llave (customer_dni)=(12345678A). - Path: /api/customers/ - Method: POST.
+[2024-10-25 12:34:01] WARN: Operational error: Duplicate data: entry already exists in table customers: Ya existe la llave (customer_dni)=(12345678A). - Status: fail.
+[2024-10-25 12:34:47] ERROR: Error: Duplicate data: entry already exists in table customers: Ya existe la llave (customer_dni)=(12345678A). - Path: /api/customers/ - Method: POST.
+[2024-10-25 12:34:47] WARN: Operational error: Duplicate data: entry already exists in table customers: Ya existe la llave (customer_dni)=(12345678A). - Status: fail.
+[2024-10-25 12:35:17] ERROR: Error: undefined - Path: /api/customers/ - Method: POST.
+[2024-10-25 12:35:17] WARN: Validation error: customer_email must be a string, customer_email should not be empty - Path: /api/customers/.
+[2024-10-25 12:35:42] ERROR: Error: Invalid keys in request body: customer_email3 - Path: /api/customers/ - Method: POST.
+[2024-10-25 12:35:42] WARN: Operational error: Invalid keys in request body: customer_email3 - Status: fail.
