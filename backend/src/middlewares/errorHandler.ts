@@ -61,20 +61,20 @@ export const globalErrorHandler = (
 
   // Manejo de errores personalizados (AppError)
   if (err instanceof AppError) {
-    logger.warn(`Operational error: ${err.message} - Status: ${err.status}`);
+    logger.warn(`${err.message} - Status: ${err.status}`);
     return res.status(err.statusCode).json({
       status: err.status,
       message: err.message,
     });
   }
 
-  if (err.isOperational) {
-    logger.warn(`Operational error: ${err.message} - Status: ${err.status}`);
-    return res.status(err.statusCode).json({
-      status: err.status,
-      message: err.message,
-    });
-  }
+  // if (err.isOperational) {
+  //   logger.warn(`Operational error: ${err.message} - Status: ${err.status}`);
+  //   return res.status(err.statusCode).json({
+  //     status: err.status,
+  //     message: err.message,
+  //   });
+  // }
 
   // Manejo de errores de análisis JSON
   if (err.type === "entity.parse.failed") {
