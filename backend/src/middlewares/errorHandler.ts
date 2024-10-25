@@ -1,6 +1,6 @@
 import { ValidationError } from "class-validator";
 import { Request, Response, NextFunction } from "express";
-import logger from "@utils/logger";
+import logger from "../utils/logger";
 
 // Extendemos la clase Error para agregar información adicional
 export class AppError extends Error {
@@ -37,8 +37,8 @@ export const globalErrorHandler = (
   res: Response,
   next: NextFunction
 ) => {
-  console.log(err);
-  logger.error(`Error: ${err.message} - Path: ${req.path} - Method: ${req.method}`);
+  // console.log(err.message);
+  // logger.error(`${err.message} - Path: ${req.path} - Method: ${req.method}`);
   
   // Manejo de errores de validación
   if (Array.isArray(err)) {

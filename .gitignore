@@ -4,6 +4,7 @@ dist/
 
 build/
 out/
+backend/logs/
 
 .vscode/
 .idea/
@@ -13,5 +14,3 @@ backend\estructura_proyecto.txt
 Thumbs.db
 ehthumbs.db
 Desktop.ini
-backend/logs/*
-.gitignore

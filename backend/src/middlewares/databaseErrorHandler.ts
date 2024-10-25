@@ -2,7 +2,7 @@ import { QueryFailedError } from "typeorm";
 import { AppError } from "@middlewares/errorHandler";
 
 export function handleDatabaseError(error: any): void {
-  console.log(error);
+  // console.log(error);
   if (error instanceof QueryFailedError) {
     const code = (error as any).code;
 

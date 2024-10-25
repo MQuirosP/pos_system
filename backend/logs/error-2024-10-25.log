@@ -30,3 +30,41 @@
  - Path: /api/customers/1 - Method: PUT.
 [2024-10-25 12:53:22] ERROR: Error: Invalid keys in request body: customer_dni1 - Path: /api/customers/1 - Method: PUT.
 [2024-10-25 12:53:58] ERROR: Error: Invalid keys in request body: customer_dni1 - Path: /api/customers/1 - Method: PUT.
+[2024-10-25 13:01:18] ERROR: Error: Invalid keys in request body: customer_dni1 - Path: /api/customers/1 - Method: PUT.
+[2024-10-25 13:01:23] ERROR: Error: undefined - Path: /api/customers/1 - Method: PUT.
+[2024-10-25 13:01:33] ERROR: Error: Invalid keys in request body: customer_email3 - Path: /api/customers/ - Method: POST.
+[2024-10-25 13:01:38] ERROR: Error: Duplicate data: entry already exists in table customers: Ya existe la llave (customer_dni)=(12345678A). - Path: /api/customers/ - Method: POST.
+[2024-10-25 13:04:12] ERROR: Error: Unhandled database error: la sintaxis de entrada no es válida para tipo integer: «NaN» - Path: /api/customers/a - Method: GET.
+[2024-10-25 13:35:50] ERROR: Error: Unhandled database error: la sintaxis de entrada no es válida para tipo integer: «NaN» - Path: /api/customers/a - Method: GET.
+[2024-10-25 13:36:02] ERROR: Error: A valid identifier is required in the URL for PUT requests. - Path: /api/users/ - Method: PUT.
+[2024-10-25 13:37:01] ERROR: Error: Sale not found. - Path: /api/sales/5678 - Method: GET.
+[2024-10-25 13:37:15] ERROR: Error: Sale already cancelled. - Path: /api/sales/123456 - Method: PUT.
+[2024-10-25 13:37:55] ERROR: Error: Password doesn't match. - Path: /api/users/password/1 - Method: GET.
+[2024-10-25 13:39:22] ERROR: Error: undefined - Path: /api/customers/ - Method: POST.
+[2024-10-25 13:59:39] ERROR: Error: undefined - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:12:20] ERROR: Error: Duplicate data: entry already exists in table customers: Ya existe la llave (customer_dni)=(12345678A). - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:12:42] ERROR: Error: undefined - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:13:18] ERROR: Error: undefined - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:14:14] ERROR: Error: undefined - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:14:36] ERROR: Error: undefined - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:15:08] ERROR: Error: undefined - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:16:12] ERROR: Error: undefined - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:17:11] ERROR: Error: undefined - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:17:39] ERROR: Error: undefined - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:20:14] ERROR: Error: undefined - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:20:43] ERROR: Error: An instance of CustomerCreateDTO has failed the validation:
+ - property customer_second_lastname has failed the following constraints: isString, isNotEmpty 
+ - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:21:09] ERROR: Error: An instance of CustomerCreateDTO has failed the validation:
+ - property customer_second_lastname has failed the following constraints: isString, isNotEmpty 
+ - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:21:50] ERROR: Error: An instance of CustomerCreateDTO has failed the validation:
+ - property customer_second_lastname has failed the following constraints: isString, isNotEmpty 
+ - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:22:29] ERROR: Error: customer_second_lastname must be a string, customer_second_lastname should not be empty - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:22:53] ERROR: Error: customer_second_lastname must be a string, customer_second_lastname should not be empty - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:23:20] ERROR: Error: customer_second_lastname must be a string, customer_second_lastname should not be empty - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:27:39] ERROR: Error: Expected double-quoted property name in JSON at position 283 - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:27:44] ERROR: Error: Duplicate data: entry already exists in table customers: Ya existe la llave (customer_dni)=(12345678A). - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:28:05] ERROR: Duplicate data: entry already exists in table customers: Ya existe la llave (customer_dni)=(12345678A). - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:28:40] ERROR: Duplicate data: entry already exists in table customers: Ya existe la llave (customer_dni)=(12345678A). - Path: /api/customers/ - Method: POST.

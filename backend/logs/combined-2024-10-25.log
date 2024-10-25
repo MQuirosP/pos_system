@@ -48,3 +48,98 @@
 [2024-10-25 12:53:22] WARN: Operational error: Invalid keys in request body: customer_dni1 - Status: fail.
 [2024-10-25 12:53:58] ERROR: Error: Invalid keys in request body: customer_dni1 - Path: /api/customers/1 - Method: PUT.
 [2024-10-25 12:53:58] WARN: Operational error: Invalid keys in request body: customer_dni1 - Status: fail.
+[2024-10-25 13:01:18] ERROR: Error: Invalid keys in request body: customer_dni1 - Path: /api/customers/1 - Method: PUT.
+[2024-10-25 13:01:18] WARN: Operational error: Invalid keys in request body: customer_dni1 - Status: fail.
+[2024-10-25 13:01:23] ERROR: Error: undefined - Path: /api/customers/1 - Method: PUT.
+[2024-10-25 13:01:23] WARN: Validation error: Customer DNI is inmutable and cannot be changed - Path: /api/customers/1.
+[2024-10-25 13:01:33] ERROR: Error: Invalid keys in request body: customer_email3 - Path: /api/customers/ - Method: POST.
+[2024-10-25 13:01:33] WARN: Operational error: Invalid keys in request body: customer_email3 - Status: fail.
+[2024-10-25 13:01:38] ERROR: Error: Duplicate data: entry already exists in table customers: Ya existe la llave (customer_dni)=(12345678A). - Path: /api/customers/ - Method: POST.
+[2024-10-25 13:01:38] WARN: Operational error: Duplicate data: entry already exists in table customers: Ya existe la llave (customer_dni)=(12345678A). - Status: fail.
+[2024-10-25 13:04:12] ERROR: Error: Unhandled database error: la sintaxis de entrada no es válida para tipo integer: «NaN» - Path: /api/customers/a - Method: GET.
+[2024-10-25 13:04:12] WARN: Operational error: Unhandled database error: la sintaxis de entrada no es válida para tipo integer: «NaN» - Status: error.
+[2024-10-25 13:04:33] INFO: Success response: All customers fetched succesfully. | Status: 200 | Path: /.
+[2024-10-25 13:04:39] INFO: Success response: No customers found. | Status: 200 | Path: /.
+[2024-10-25 13:35:07] INFO: Success response: User fetched successfully. | Status: 200 | Path: /1.
+[2024-10-25 13:35:38] INFO: Success response: Customer fetched successfully. | Status: 200 | Path: /1.
+[2024-10-25 13:35:44] INFO: Success response: All customers fetched succesfully. | Status: 200 | Path: /.
+[2024-10-25 13:35:50] ERROR: Error: Unhandled database error: la sintaxis de entrada no es válida para tipo integer: «NaN» - Path: /api/customers/a - Method: GET.
+[2024-10-25 13:35:50] WARN: Operational error: Unhandled database error: la sintaxis de entrada no es válida para tipo integer: «NaN» - Status: error.
+[2024-10-25 13:36:02] ERROR: Error: A valid identifier is required in the URL for PUT requests. - Path: /api/users/ - Method: PUT.
+[2024-10-25 13:36:02] WARN: Operational error: A valid identifier is required in the URL for PUT requests. - Status: fail.
+[2024-10-25 13:36:29] INFO: Success response: No customers found. | Status: 200 | Path: /.
+[2024-10-25 13:36:54] INFO: Success response: Sales fetched successfully. | Status: 200 | Path: /.
+[2024-10-25 13:37:01] ERROR: Error: Sale not found. - Path: /api/sales/5678 - Method: GET.
+[2024-10-25 13:37:01] WARN: Operational error: Sale not found. - Status: fail.
+[2024-10-25 13:37:15] ERROR: Error: Sale already cancelled. - Path: /api/sales/123456 - Method: PUT.
+[2024-10-25 13:37:15] WARN: Operational error: Sale already cancelled. - Status: fail.
+[2024-10-25 13:37:44] INFO: Success response: Password is correct. | Status: 200 | Path: /password/1.
+[2024-10-25 13:37:55] ERROR: Error: Password doesn't match. - Path: /api/users/password/1 - Method: GET.
+[2024-10-25 13:37:55] WARN: Operational error: Password doesn't match. - Status: fail.
+[2024-10-25 13:38:25] INFO: Success response: All customers fetched succesfully. | Status: 200 | Path: /.
+[2024-10-25 13:38:29] INFO: Success response: Customer fetched successfully. | Status: 200 | Path: /1.
+[2024-10-25 13:39:22] ERROR: Error: undefined - Path: /api/customers/ - Method: POST.
+[2024-10-25 13:39:22] WARN: Validation error: customer_name must be a string, customer_name should not be empty, customer_first_lastname must be a string, customer_first_lastname should not be empty, customer_second_lastname must be a string, customer_second_lastname should not be empty, customer_address must be a string, customer_address should not be empty, customer_phone must be a string, customer_phone should not be empty, customer_email must be a string, customer_email should not be empty, customer_dni must be a string, customer_dni should not be empty - Path: /api/customers/.
+[2024-10-25 13:59:39] ERROR: Error: undefined - Path: /api/customers/ - Method: POST.
+[2024-10-25 13:59:39] WARN: Validation error: customer_second_lastname must be a string, customer_second_lastname should not be empty - Path: /api/customers/.
+[2024-10-25 15:12:20] ERROR: Error: Duplicate data: entry already exists in table customers: Ya existe la llave (customer_dni)=(12345678A). - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:12:20] WARN: Operational error: Duplicate data: entry already exists in table customers: Ya existe la llave (customer_dni)=(12345678A). - Status: fail.
+[2024-10-25 15:12:42] ERROR: Error: undefined - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:13:18] ERROR: Error: undefined - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:13:18] WARN: Validation error: customer_second_lastname must be a string, customer_second_lastname should not be empty - Path: /api/customers/.
+[2024-10-25 15:14:14] ERROR: Error: undefined - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:14:14] WARN: Validation error: c, u, s, t, o, m, e, r, _, s, e, c, o, n, d, _, l, a, s, t, n, a, m, e,  , m, u, s, t,  , b, e,  , a,  , s, t, r, i, n, g - Path: /api/customers/.
+[2024-10-25 15:14:36] ERROR: Error: undefined - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:14:36] WARN: Validation error: customer_second_lastname must be a string, customer_second_lastname should not be empty - Path: /api/customers/.
+[2024-10-25 15:15:08] ERROR: Error: undefined - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:15:08] WARN: Validation error: customer_second_lastname must be a string, customer_second_lastname should not be empty - Path: /api/customers/.
+[2024-10-25 15:16:12] ERROR: Error: undefined - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:16:12] WARN: Validation error: customer_second_lastname must be a string, customer_second_lastname should not be empty - Path: /api/customers/.
+[2024-10-25 15:17:11] ERROR: Error: undefined - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:17:11] WARN: Validation error: customer_second_lastname must be a string, customer_second_lastname should not be empty - Path: /api/customers/.
+[2024-10-25 15:17:39] ERROR: Error: undefined - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:17:39] WARN: Validation error: customer_second_lastname must be a string, customer_second_lastname should not be empty - Path: /api/customers/.
+[2024-10-25 15:19:35] WARN: Validation error: customer_second_lastname must be a string, customer_second_lastname should not be empty - Path: /api/customers/.
+[2024-10-25 15:20:14] ERROR: Error: undefined - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:20:14] WARN: Validation error: customer_second_lastname must be a string, customer_second_lastname should not be empty - Path: /api/customers/.
+[2024-10-25 15:20:43] ERROR: Error: An instance of CustomerCreateDTO has failed the validation:
+ - property customer_second_lastname has failed the following constraints: isString, isNotEmpty 
+ - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:20:43] WARN: Validation error: customer_second_lastname must be a string, customer_second_lastname should not be empty - Path: /api/customers/.
+[2024-10-25 15:21:09] ERROR: Error: An instance of CustomerCreateDTO has failed the validation:
+ - property customer_second_lastname has failed the following constraints: isString, isNotEmpty 
+ - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:21:09] WARN: Validation error: customer_second_lastname must be a string, customer_second_lastname should not be empty - Path: /api/customers/.
+[2024-10-25 15:21:50] ERROR: Error: An instance of CustomerCreateDTO has failed the validation:
+ - property customer_second_lastname has failed the following constraints: isString, isNotEmpty 
+ - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:21:50] WARN: Validation error: customer_second_lastname must be a string, customer_second_lastname should not be empty - Path: /api/customers/.
+[2024-10-25 15:22:29] ERROR: Error: customer_second_lastname must be a string, customer_second_lastname should not be empty - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:22:29] WARN: Validation error: customer_second_lastname must be a string, customer_second_lastname should not be empty - Path: /api/customers/.
+[2024-10-25 15:22:53] ERROR: Error: customer_second_lastname must be a string, customer_second_lastname should not be empty - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:22:53] WARN: Validation error: customer_second_lastname must be a string, customer_second_lastname should not be empty - Path: /api/customers/.
+[2024-10-25 15:23:20] ERROR: Error: customer_second_lastname must be a string, customer_second_lastname should not be empty - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:23:20] WARN: Validation error: customer_second_lastname must be a string, customer_second_lastname should not be empty - Path: /api/customers/.
+[2024-10-25 15:23:42] WARN: Validation error: customer_second_lastname must be a string, customer_second_lastname should not be empty - Path: /api/customers/.
+[2024-10-25 15:23:56] WARN: Operational error: Invalid keys in request body: CUSTOMER_SECOND_LASTNAME - Status: fail.
+[2024-10-25 15:24:15] WARN: Operational error: Duplicate data: entry already exists in table customers: Ya existe la llave (customer_dni)=(12345678A). - Status: fail.
+[2024-10-25 15:25:40] WARN: Duplicate data: entry already exists in table customers: Ya existe la llave (customer_dni)=(12345678A). - Status: fail.
+[2024-10-25 15:26:11] WARN: customer_second_lastname must be a string, customer_second_lastname should not be empty - Path: /api/customers/.
+[2024-10-25 15:26:26] WARN: Validation error: customer_second_lastname must be a string, customer_second_lastname should not be empty - Path: /api/customers/.
+[2024-10-25 15:26:54] WARN: Invalid JSON format: Expected double-quoted property name in JSON at position 283 - Path: /api/customers/.
+[2024-10-25 15:27:39] ERROR: Error: Expected double-quoted property name in JSON at position 283 - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:27:39] WARN: Invalid JSON format: Expected double-quoted property name in JSON at position 283 - Path: /api/customers/.
+[2024-10-25 15:27:44] ERROR: Error: Duplicate data: entry already exists in table customers: Ya existe la llave (customer_dni)=(12345678A). - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:27:44] WARN: Operational error: Duplicate data: entry already exists in table customers: Ya existe la llave (customer_dni)=(12345678A). - Status: fail.
+[2024-10-25 15:28:05] ERROR: Duplicate data: entry already exists in table customers: Ya existe la llave (customer_dni)=(12345678A). - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:28:05] WARN: Operational error: Duplicate data: entry already exists in table customers: Ya existe la llave (customer_dni)=(12345678A). - Status: fail.
+[2024-10-25 15:28:40] ERROR: Duplicate data: entry already exists in table customers: Ya existe la llave (customer_dni)=(12345678A). - Path: /api/customers/ - Method: POST.
+[2024-10-25 15:28:40] WARN: Operational error: Duplicate data: entry already exists in table customers: Ya existe la llave (customer_dni)=(12345678A). - Status: fail.
+[2024-10-25 15:29:15] WARN: Operational error: Duplicate data: entry already exists in table customers: Ya existe la llave (customer_dni)=(12345678A). - Status: fail.
+[2024-10-25 15:30:01] WARN: Operational error: Duplicate data: entry already exists in table customers: Ya existe la llave (customer_dni)=(12345678A). - Status: fail.
+[2024-10-25 15:30:45] WARN: Operational error: Unhandled database error: llave duplicada viola restricción de unicidad «UQ_4f7d1b88c7e62c9b7010f2ab15b» - Status: error.
+[2024-10-25 15:31:01] WARN: Validation error: customer_second_lastname should not be empty - Path: /api/customers/.
+[2024-10-25 15:31:13] WARN: Invalid JSON format: Unexpected token ',', ..."astname": ,
+  "cust"... is not valid JSON - Path: /api/customers/.
+[2024-10-25 15:31:28] WARN: Invalid JSON format: Unexpected token ',', ..."_amount": ,
+  "tota"... is not valid JSON - Path: /api/sales/.
