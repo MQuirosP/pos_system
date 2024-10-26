@@ -22,7 +22,8 @@ const router = express.Router();
 //   next();
 // });
 
-router.use(validatePutParams)
+// responsabilidad pasada al databaseErrorHandler
+// router.use(validatePutParams)
 
 router.use('/users', users);
 router.use("/products", product);
