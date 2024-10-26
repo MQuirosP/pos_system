@@ -24,7 +24,7 @@ export class CustomerService {
     const customer = await this.customerRepository.findOne({
       where: { customer_id: customerId },
     });
-    if (!customer) throw new AppError("Customer not found.", 404);
+    if ( !customer ) throw new AppError("Customer not found.", 404);
     return customer;
   }
 
