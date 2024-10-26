@@ -1,4 +1,4 @@
-import "./server/server"
+import "@server/server"
 import "module-alias/register"
 
 // // src/index.ts

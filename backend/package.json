@@ -59,6 +59,7 @@
     "@decorators/*": "dist/decorators",
     "@interfaces/*": "dist/interfaces",
     "@enums/*": "dist/enums",
-    "@models/*": "dist/database/models"
+    "@models/*": "dist/database/models",
+    "@server/*": "dist/server"
   }
 }
