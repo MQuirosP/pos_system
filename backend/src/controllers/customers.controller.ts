@@ -16,28 +16,38 @@ export class CustomerController {
     this.customerService = new CustomerService(customerRepository);
   }
 
-  async createCustomer(req: Request, res: Response, next: NextFunction) {
+  private async handleControllerOperation(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+    operation: () => Promise<any>
+  ) {
     try {
-      const customerData = new CustomerCreateDTO(req.body);
-      await customerData.validate();
-      const newCustomer = await this.customerService.createCustomer(
-        customerData
-      );
-
-      return res.success(
-        new CustomerResponseDTO(newCustomer),
-        "Customer created successfully.",
-        201
-      );
+      await operation();
     } catch (error) {
       next(error);
     }
   }
 
-  async getCustomers(req: Request, res: Response, next: NextFunction) {
-    try {
+  createCustomer(req: Request, res: Response, next: NextFunction) {
+    this.handleControllerOperation(req, res, next, async () => {
+      const customerData = new CustomerCreateDTO(req.body);
+      await customerData.validate();
+      const newCustomer = await this.customerService.createCustomer(customerData);
+      
+      return res.success(
+        new CustomerResponseDTO(newCustomer),
+        "Customer created successfully.",
+        201
+      );
+    });
+  }
+
+  getCustomers(req: Request, res: Response, next: NextFunction) {
+    this.handleControllerOperation(req, res, next, async () => {
       const { name } = req.query;
       let customers: Customer[] = [];
+
       if (name && typeof name === "string" && name.trim() !== "") {
         customers = await this.customerService.getCustomerByName(name);
       } else {
@@ -50,15 +60,14 @@ export class CustomerController {
       const responseMessage =
         customerResponseDTOs.length === 0
           ? "No customers found."
-          : "All customers fetched succesfully.";
+          : "All customers fetched successfully.";
+
       return res.success(customerResponseDTOs, responseMessage, 200);
-    } catch (error) {
-      next(error);
-    }
+    });
   }
 
-  async getCustomerById(req: Request, res: Response, next: NextFunction) {
-    try {
+  getCustomerById(req: Request, res: Response, next: NextFunction) {
+    this.handleControllerOperation(req, res, next, async () => {
       const customerId = parseInt(req.params.id);
       const customer = await this.customerService.getCustomerByPK(customerId);
 
@@ -67,13 +76,11 @@ export class CustomerController {
         "Customer fetched successfully.",
         200
       );
-    } catch (error) {
-      next(error);
-    }
+    });
   }
 
-  async updateCustomer(req: Request, res: Response, next: NextFunction) {
-    try {
+  updateCustomer(req: Request, res: Response, next: NextFunction) {
+    this.handleControllerOperation(req, res, next, async () => {
       const customerId = parseInt(req.params.id);
       const customerUpdateDTO = new CustomerUpdateDTO(req.body);
 
@@ -87,25 +94,20 @@ export class CustomerController {
         new CustomerResponseDTO(updatedCustomer),
         "Customer updated successfully."
       );
-    } catch (error) {
-      next(error);
-    }
+    });
   }
 
-  async deleteCustomer(req: Request, res: Response, next: NextFunction) {
-    try {
+  deleteCustomer(req: Request, res: Response, next: NextFunction) {
+    this.handleControllerOperation(req, res, next, async () => {
       const customerId = parseInt(req.params.id);
-      const customerToDelete = await this.customerService.getCustomerByPK(
-        customerId
-      );
+      const customerToDelete = await this.customerService.getCustomerByPK(customerId);
       await this.customerService.deleteCustomer(customerId);
+
       return res.success(
         new CustomerResponseDTO(customerToDelete),
         "Customer deleted successfully.",
         200
       );
-    } catch (error) {
-      next(error);
-    }
+    });
   }
 }
