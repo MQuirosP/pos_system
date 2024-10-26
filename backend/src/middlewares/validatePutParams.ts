@@ -7,7 +7,7 @@ export function validatePutParams(
   next: NextFunction
 ) {
   if (req.method === "PUT") {
-    const paramsRegex = /\/\w+\/[^\/]+$/;
+    const paramsRegex = /\/\w+\/\d+$/;
 
     if (!paramsRegex.test(req.originalUrl)) {
       return next(
