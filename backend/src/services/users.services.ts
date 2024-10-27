@@ -15,16 +15,7 @@ export class UserService {
     this.hashingService = new HashingService();
   }
 
-  private async hashPassword(password: string): Promise<string> {
-    const hashedPassword = await this.hashingService.hashPassword(password);
-    if (!hashedPassword) {
-      throw new AppError("Hashing password couldn't be processed.", 422);
-    }
-    return hashedPassword;
-  }
-
   async createUser(userData: UserCreateDTO): Promise<Users> {
-    userData.password = await this.hashPassword(userData.password);
 
     try {
       return await dataSource.manager.transaction(
@@ -69,15 +60,6 @@ export class UserService {
       });
 
       if (!user) throw new AppError("User not found.", 404);
-
-      if (updates.password) {
-        try {
-          const hashingPassword = await this.hashPassword(updates.password);
-          updates.password = hashingPassword;
-        } catch (error) {
-          throw handleDatabaseError(error);
-        }
-      }
 
       Object.assign(user, updates);
 

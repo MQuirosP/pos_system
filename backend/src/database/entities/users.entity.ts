@@ -4,10 +4,13 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  BeforeInsert,
+  BeforeUpdate,
 } from "typeorm";
 import { IUser } from "@interfaces/users.interface";
 import { UserRole } from "@enums/custom.enums";
 import { BaseFormattedEntity } from "@entities/BaseFormatedEntity";
+import { HashingService } from "../../services/hashService";
 
 @Entity("users")
 export class Users extends BaseFormattedEntity implements IUser {
@@ -51,6 +54,16 @@ export class Users extends BaseFormattedEntity implements IUser {
     name: "updated_at",
   })
   updated_at!: Date;
+
+  private static hashingService = new HashingService();
+
+  @BeforeInsert()
+  @BeforeUpdate()
+  async hashPassword() {
+    if ( this.password ) {
+      this.password = await Users.hashingService.hashPassword(this.password)
+    }
+  }
 
   protected fieldsToLowerCase(): string[] {
     return ["username", "email", "name", "lastname"];
