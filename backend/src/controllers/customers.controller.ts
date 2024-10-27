@@ -48,7 +48,7 @@ export class CustomerController {
       const { name } = req.query;
       let customers: Customer[] = [];
 
-      if (name && typeof name === "string" && name.trim() !== "") {
+      if ( name && typeof name === "string" && name.trim() !== "" ) {
         customers = await this.customerService.getCustomerByName(name);
       } else {
         customers = await this.customerService.fetchAllCustomers();

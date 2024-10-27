@@ -1,6 +1,6 @@
 import { Users } from "@entities/users.entity";
 import dataSource from "@config/ormconfig";
-import { Repository, EntityManager } from "typeorm";
+import { Repository, EntityManager, ILike } from "typeorm";
 import { AppError } from "@middlewares/errorHandler";
 import { UserCreateDTO, UserUpdateDTO } from "@dtos/users.dto";
 import { HashingService } from "@services/hashService";
@@ -15,71 +15,66 @@ export class UserService {
     this.hashingService = new HashingService();
   }
 
-  async createUser(userData: UserCreateDTO): Promise<Users> {
-
+  private async handleDatabaseOperation<T>(operation: () => Promise<T>): Promise<T> {
     try {
-      return await dataSource.manager.transaction(
-        async (transactionalEntityManager: EntityManager) => {
-          const newUser = transactionalEntityManager.create(Users, userData);
-          return await transactionalEntityManager.save(newUser);
-        }
-      );
+      return await operation();
     } catch (error) {
       throw handleDatabaseError(error);
     }
+  }
+
+  private async findUserById(userId: number): Promise<Users> {
+    const user = await this.userRepository.findOne({
+      where: { user_id: userId},
+    });
+    if ( !user ) throw new AppError("User not found.", 404);
+    return user;
+  }
+
+  async createUser(userData: Partial<Users>): Promise<Users> {
+    return this.handleDatabaseOperation(async () => {
+      const newUser = this.userRepository.create(userData);
+      return await this.userRepository.save(newUser);
+    })
   }
 
   async fetchAllUsers(): Promise<Users[]> {
-    try {
-      const users = await this.userRepository.find();
-      return users;
-    } catch (error) {
-      throw handleDatabaseError(error);
-    }
+    return this.handleDatabaseOperation(async () => {
+      return await this.userRepository.find();
+    })
   }
 
-  async fetchUserByPk(userId: number): Promise<Users> {
-    try {
-      const user = await this.userRepository.findOne({
-        where: { user_id: userId },
+  async getUserByPK(userId: number): Promise<Users> {
+    return this.handleDatabaseOperation(() => this.findUserById(userId));
+  }
+
+  async getUserByUsername(username: string): Promise<Users[]> {
+    return this.handleDatabaseOperation(async () => {
+      const users = await this.userRepository.find({
+        where: { 
+          username: ILike(`%${username}%`),
+        },
       });
-      if (!user) throw new AppError("User not found.", 404);
-      return user;
-    } catch (error) {
-      throw handleDatabaseError(error);
-    }
+      return users;
+    })
   }
 
   async updateUser(
     userId: number,
-    updates: Partial<UserUpdateDTO>
+    updates: Partial<Users>
   ): Promise<Users> {
-    try {
-      const user = await this.userRepository.findOne({
-        where: { user_id: userId },
-      });
-
-      if (!user) throw new AppError("User not found.", 404);
-
+    return this.handleDatabaseOperation(async () => {
+      const user = await this.findUserById(userId);
       Object.assign(user, updates);
-
       return await this.userRepository.save(user);
-    } catch (error) {
-      throw handleDatabaseError(error);
-    }
+    });
   }
 
   async deleteUser(userId: number): Promise<void> {
-    const user = await this.userRepository.findOne({
-      where: { user_id: userId },
-    });
-
-    if (!user) throw new AppError("User not found.", 404);
-    try {
-      await this.userRepository.delete(userId);
-    } catch (error) {
-      throw handleDatabaseError(error);
-    }
+    return this.handleDatabaseOperation(async () => {
+      const user = await this.findUserById(userId);
+      await this.userRepository.delete(user.user_id);
+    })
   }
 
   async comparePassword(userId: number, password: string): Promise<boolean> {

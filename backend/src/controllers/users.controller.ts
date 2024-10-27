@@ -12,8 +12,21 @@ export class UserController {
     this.userService = new UserService(userRepository);
   }
 
-  async createUser(req: Request, res: Response, next: NextFunction) {
+  private async handleControllerOperation(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+    operation: () => Promise<any>
+  ) {
     try {
+      await operation();
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  createUser(req: Request, res: Response, next: NextFunction) {
+    this.handleControllerOperation(req, res, next, async () => {
       const userData = new UserCreateDTO(req.body);
       await userData.validate();
       const newUser = await this.userService.createUser(userData);
@@ -23,71 +36,71 @@ export class UserController {
         "User created successfully.",
         201
       );
-    } catch (error) {
-      next(error);
-    }
+    });
   }
 
-  async getUsers(req: Request, res: Response, next: NextFunction) {
-    try {
-      const users = await this.userService.fetchAllUsers();
-      const userResponseDTOs = users.map((user) => new UserResponseDTO(user));
+  getUsers(req: Request, res: Response, next: NextFunction) {
+    this.handleControllerOperation(req, res, next, async () => {
+      const { name } = req.query;
+      let users: Users[] = [];
 
-      const responseMessage =
-        userResponseDTOs.length === 0
-          ? "No users found."
-          : "Users fetched succesfully.";
+      if ( name && typeof name === "string" && name.trim() !== "" ) {
+        users = await this.userService.getUserByUsername(name);
+      } else {
+        users = await this.userService.fetchAllUsers();
+      }
 
+      const userResponseDTOs = users.map(
+        (user) => new UserResponseDTO(user)
+      );
+      const responseMessage = userResponseDTOs.length === 0
+        ? "No users found."
+        : "All users fetched successfully.";
+      
       return res.success(userResponseDTOs, responseMessage, 200);
-    } catch (error) {
-      next(error);
-    }
+    })
   }
 
-  async getUserById(req: Request, res: Response, next: NextFunction) {
-    try {
+  getUserById(req: Request, res: Response, next: NextFunction) {
+    this.handleControllerOperation(req, res, next, async () => {
       const userId = parseInt(req.params.id);
-      const user = await this.userService.fetchUserByPk(userId);
+      const user = await this.userService.getUserByPK(userId);
 
       return res.success(
         new UserResponseDTO(user),
         "User fetched successfully.",
         200
       );
-    } catch (error) {
-      next(error);
-    }
+    });
   }
 
-  async updateUser(req: Request, res: Response, next: NextFunction) {
-    try {
+  updateUser(req: Request, res: Response, next: NextFunction) {
+    this.handleControllerOperation(req, res, next, async () => {
       const userId = parseInt(req.params.id);
       const userUpdateDTO = new UserUpdateDTO(req.body);
 
       await userUpdateDTO.validate();
-      const updatedUser = await this.userService.updateUser(
-        userId,
-        userUpdateDTO
-      );
+      const updatedUser = await this.userService.updateUser(userId, userUpdateDTO);
 
       return res.success(
         new UserResponseDTO(updatedUser),
-        "User updated sucessfully."
-      );
-    } catch (error) {
-      next(error);
-    }
+        "User updated successfully."
+      )
+    })
   }
 
-  async deleteUser(req: Request, res: Response, next: NextFunction) {
-    try {
+  deleteUser(req: Request, res: Response, next: NextFunction) {
+    this.handleControllerOperation(req, res, next, async () => {
       const userId = parseInt(req.params.id);
+      const userToDelete = await this.userService.getUserByPK(userId);
       await this.userService.deleteUser(userId);
 
-      return res.success({}, "User deleted successfully.", 200);
-    } catch (error) {
-      next(error);
-    }
+      return res.success(
+        new UserResponseDTO(userToDelete),
+        "User deleted successfully.",
+        200
+      )
+    })
   }
 
   async comparePassword(req: Request, res: Response, next: NextFunction) {
