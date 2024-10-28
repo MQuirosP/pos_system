@@ -42,7 +42,7 @@ export class UserService {
     })
   }
 
-  async getUserByPK(userId: number): Promise<Users> {
+  async fetchUserByPK(userId: number): Promise<Users> {
     return this.handleDatabaseOperation(() => this.findUserById(userId));
   }
 

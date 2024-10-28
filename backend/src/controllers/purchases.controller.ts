@@ -85,7 +85,7 @@ export class PurchaseController {
   async getPurchaseById(req: Request, res: Response, next: NextFunction) {
     this.handleControllerOperation(req, res, next, async () => {
       const purchaseId = parseInt(req.params.id);
-      const purchase = await this.purchaseService.findPurchaseById(purchaseId);
+      const purchase = await this.purchaseService.fetchPurchaseByPK(purchaseId);
       return res.success(
         new PurchaseResponseDTO(purchase),
         "Purchase fetched successfully.",

@@ -22,7 +22,7 @@ export class PurchaseService {
     }
   }
 
-  async findPurchaseById(purchaseId: number): Promise<Purchase> {
+  private async findPurchaseById(purchaseId: number): Promise<Purchase> {
     const purchase = await this.purchaseRepository.findOne({
       where: { purchase_id: purchaseId },
       relations: ["purchase_items"],
@@ -51,6 +51,10 @@ export class PurchaseService {
         relations: ["purchase_items"]
       });
     });
+  }
+
+  async fetchPurchaseByPK(purchaseId: number): Promise<Purchase> {
+    return this.handleDatabaseOperation(() => this.findPurchaseById(purchaseId));
   }
 
   async fetchPurchaseByDocNumber(docNumber: string): Promise<Purchase[]> {

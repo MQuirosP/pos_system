@@ -63,7 +63,7 @@ export class UserController {
   getUserById(req: Request, res: Response, next: NextFunction) {
     this.handleControllerOperation(req, res, next, async () => {
       const userId = parseInt(req.params.id);
-      const user = await this.userService.getUserByPK(userId);
+      const user = await this.userService.fetchUserByPK(userId);
 
       return res.success(
         new UserResponseDTO(user),
@@ -94,7 +94,7 @@ export class UserController {
   deleteUser(req: Request, res: Response, next: NextFunction) {
     this.handleControllerOperation(req, res, next, async () => {
       const userId = parseInt(req.params.id);
-      const userToDelete = await this.userService.getUserByPK(userId);
+      const userToDelete = await this.userService.fetchUserByPK(userId);
       await this.userService.deleteUser(userId);
 
       return res.success(
