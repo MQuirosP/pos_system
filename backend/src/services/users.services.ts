@@ -1,8 +1,6 @@
 import { Users } from "@entities/users.entity";
-import dataSource from "@config/ormconfig";
-import { Repository, EntityManager, ILike } from "typeorm";
+import { Repository, ILike } from "typeorm";
 import { AppError } from "@middlewares/errorHandler";
-import { UserCreateDTO, UserUpdateDTO } from "@dtos/users.dto";
 import { HashingService } from "@services/hashService";
 import { handleDatabaseError } from "@middlewares/databaseErrorHandler";
 
