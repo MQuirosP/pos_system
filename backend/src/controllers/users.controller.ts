@@ -44,21 +44,20 @@ export class UserController {
       const { name } = req.query;
       let users: Users[] = [];
 
-      if ( name && typeof name === "string" && name.trim() !== "" ) {
+      if (name && typeof name === "string" && name.trim() !== "") {
         users = await this.userService.getUserByUsername(name);
       } else {
         users = await this.userService.fetchAllUsers();
       }
 
-      const userResponseDTOs = users.map(
-        (user) => new UserResponseDTO(user)
-      );
-      const responseMessage = userResponseDTOs.length === 0
-        ? "No users found."
-        : "All users fetched successfully.";
-      
+      const userResponseDTOs = users.map((user) => new UserResponseDTO(user));
+      const responseMessage =
+        userResponseDTOs.length === 0
+          ? "No users found."
+          : "All users fetched successfully.";
+
       return res.success(userResponseDTOs, responseMessage, 200);
-    })
+    });
   }
 
   getUserById(req: Request, res: Response, next: NextFunction) {
@@ -80,13 +79,16 @@ export class UserController {
       const userUpdateDTO = new UserUpdateDTO(req.body);
 
       await userUpdateDTO.validate();
-      const updatedUser = await this.userService.updateUser(userId, userUpdateDTO);
+      const updatedUser = await this.userService.updateUser(
+        userId,
+        userUpdateDTO
+      );
 
       return res.success(
         new UserResponseDTO(updatedUser),
         "User updated successfully."
-      )
-    })
+      );
+    });
   }
 
   deleteUser(req: Request, res: Response, next: NextFunction) {
@@ -99,8 +101,8 @@ export class UserController {
         new UserResponseDTO(userToDelete),
         "User deleted successfully.",
         200
-      )
-    })
+      );
+    });
   }
 
   async comparePassword(req: Request, res: Response, next: NextFunction) {

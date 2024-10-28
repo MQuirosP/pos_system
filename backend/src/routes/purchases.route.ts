@@ -11,11 +11,7 @@ router.post(
   validateDTO(PurchaseCreateDTO),
   purchaseController.createPurchase.bind(purchaseController)
 );
-router.get("/", purchaseController.fetchAllPurchases.bind(purchaseController));
-router.get(
-  "/:doc_number",
-  purchaseController.fetchPurchaseByDocNumber.bind(purchaseController)
-);
+router.get("/", purchaseController.getPurchases.bind(purchaseController));
 router.put(
   "/:doc_number",
   validateDTO(PurchaseUpdateDTO),

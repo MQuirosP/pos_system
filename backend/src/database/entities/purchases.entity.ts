@@ -32,7 +32,7 @@ export class Purchase implements IPurchases {
   })
   payment_method!: PaymentMethod;
 
-  @Column({ name: "doc_number", type: "varchar", nullable: false })
+  @Column({ name: "doc_number", type: "varchar", nullable: false, unique: true })
   doc_number!: string;
 
   @Column({

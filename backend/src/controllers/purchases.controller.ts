@@ -12,8 +12,21 @@ export class PurchaseController {
     this.purchaseService = new PurchaseService(purchaseRepository);
   }
 
-  async createPurchase(req: Request, res: Response, next: NextFunction) {
+  private async handleControllerOperation(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+    operation: () => Promise<any>
+  ) {
     try {
+      await operation();
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async createPurchase(req: Request, res: Response, next: NextFunction) {
+    this.handleControllerOperation(req, res, next, async () => {
       const purchaseData = new PurchaseCreateDTO(req.body);
       await purchaseData.validate();
       const newPurchase = await this.purchaseService.createPurchase(
@@ -25,46 +38,36 @@ export class PurchaseController {
         "Purchase created successfully.",
         201
       );
-    } catch (error) {
-      next(error);
-    }
+    });
   }
 
-  async fetchAllPurchases(req: Request, res: Response, next: NextFunction) {
-    try {
-      const purchases = await this.purchaseService.fetchPurchases();
+  async getPurchases(req: Request, res: Response, next: NextFunction) {
+    this.handleControllerOperation(req, res, next, async () => {
+      const { doc_number } = req.query;
+      let purchases: Purchase[] = [];
 
-      const purchaseResponseDTO = purchases.map(
+      if (
+        doc_number &&
+        typeof doc_number === "string" &&
+        doc_number.trim() !== ""
+      ) {
+        purchases = await this.purchaseService.fetchPurchaseByDocNumber(
+          doc_number
+        );
+      } else {
+        purchases = await this.purchaseService.fetchAllPurchases();
+      }
+
+      const purchaseResponseDTOs = purchases.map(
         (purchase) => new PurchaseResponseDTO(purchase)
       );
-      return res.success(
-        purchaseResponseDTO,
-        "Purchases fetched successfully.",
-        200
-      );
-    } catch (error) {
-      next(error);
-    }
-  }
+      const responseMessage =
+        purchaseResponseDTOs.length === 0
+          ? "No purchases found."
+          : "All purchases fetched successfully.";
 
-  async fetchPurchaseByDocNumber(
-    req: Request,
-    res: Response,
-    next: NextFunction
-  ) {
-    try {
-      const docNumber = req.params.doc_number;
-      const purchase = await this.purchaseService.fetchPurchaseByDocNumber(
-        docNumber
-      );
-      return res.success(
-        new PurchaseResponseDTO(purchase),
-        "Purchase fetched successfully.",
-        200
-      );
-    } catch (error) {
-      next(error);
-    }
+      return res.success(purchaseResponseDTOs, responseMessage, 200);
+    });
   }
 
   async cancelPurchase(req: Request, res: Response, next: NextFunction) {
