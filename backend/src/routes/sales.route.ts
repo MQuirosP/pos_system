@@ -12,6 +12,7 @@ router.post(
   saleController.createSale.bind(saleController)
 );
 router.get("/", saleController.fetchAllSales.bind(saleController));
+router.get("/:id", saleController.getSaleById.bind(saleController));
 router.put(
   "/:doc_number",
   validateDTO(SaleUpdateDTO),

@@ -76,6 +76,18 @@ export class SaleController {
     });
   }
 
+  async getSaleById(req: Request, res: Response, next: NextFunction) {
+    this.handleControllerOperation(req, res, next, async () => {
+      const saleId = parseInt(req.params.id);
+      const sale = await this.saleService.findSaleById(saleId);
+      return res.success(
+        new SaleResponseDto(sale),
+        "Sale fetched successfully.",
+        200
+      );
+    });
+  }
+
   async cancelSale(req: Request, res: Response, next: NextFunction) {
     this.handleControllerOperation(req, res, next, async () => {
       const docNumber = req.params.doc_number;

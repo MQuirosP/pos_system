@@ -22,7 +22,7 @@ export class SaleService {
     }
   }
 
-  private async findSaleById(saleId: number): Promise<Sale> {
+  async findSaleById(saleId: number): Promise<Sale> {
     const sale = await this.saleRepository.findOne({
       where: { sale_id: saleId },
       relations: ["sale_items"],

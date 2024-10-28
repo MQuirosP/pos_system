@@ -22,7 +22,7 @@ export class PurchaseService {
     }
   }
 
-  private async findPurchaseById(purchaseId: number): Promise<Purchase> {
+  async findPurchaseById(purchaseId: number): Promise<Purchase> {
     const purchase = await this.purchaseRepository.findOne({
       where: { purchase_id: purchaseId },
       relations: ["purchase_items"],

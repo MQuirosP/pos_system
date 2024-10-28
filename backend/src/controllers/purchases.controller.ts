@@ -82,6 +82,18 @@ export class PurchaseController {
     });
   }
 
+  async getPurchaseById(req: Request, res: Response, next: NextFunction) {
+    this.handleControllerOperation(req, res, next, async () => {
+      const purchaseId = parseInt(req.params.id);
+      const purchase = await this.purchaseService.findPurchaseById(purchaseId);
+      return res.success(
+        new PurchaseResponseDTO(purchase),
+        "Purchase fetched successfully.",
+        200
+      );
+    });
+  }
+
   async cancelPurchase(req: Request, res: Response, next: NextFunction) {
     this.handleControllerOperation(req, res, next, async () => {
       const docNumber = req.params.doc_number;
