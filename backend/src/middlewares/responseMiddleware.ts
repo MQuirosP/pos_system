@@ -22,7 +22,7 @@ export const responseMiddleware = (
   ) => {
     if (!res.headersSent) {
       logger.info(
-        `Success response: ${message} | Status: ${statusCode} | Path: ${req.path}`
+        `Success response: ${message} | Status: ${statusCode} | Path: ${req.originalUrl}`
       );
       res.status(statusCode).json({
         success: true,

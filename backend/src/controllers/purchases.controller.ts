@@ -3,6 +3,7 @@ import { Request, Response, NextFunction } from "express";
 import dataSource from "@config/ormconfig";
 import { Purchase } from "@entities/purchases.entity";
 import { PurchaseService } from "@services/purchases.services";
+import logger from "@utils/logger";
 
 export class PurchaseController {
   private readonly purchaseService: PurchaseService;
@@ -19,7 +20,18 @@ export class PurchaseController {
     operation: () => Promise<any>
   ) {
     try {
+      const startTime = Date.now();
       await operation();
+      const duration = Date.now() - startTime;
+      logger.info({
+        message: `Request processed`,
+        method: req.method,
+        url: req.originalUrl,
+        statusCode: res.statusCode,
+        duration: `${duration}ms`,
+        clientIp: req.ip,
+        // userId: req.user?.id || "Anonymous",
+      });
     } catch (error) {
       next(error);
     }

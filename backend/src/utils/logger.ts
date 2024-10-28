@@ -1,10 +1,12 @@
-import winston from "winston";
+import { stringify } from "querystring";
+import winston, { format } from "winston";
 import DailyRotateFile from "winston-daily-rotate-file"
 
 const logFormat = winston.format.combine(
-    winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss'}),
-    winston.format.printf(({ timestamp, level, message }) => {
-        return `[${timestamp}] ${level.toUpperCase()}: ${message}.`
+    winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }),
+    winston.format.printf(({ timestamp, level, message, ...meta }) => {
+        const metaString = Object.keys(meta).length ? ` - ${JSON.stringify(meta)}` : "";
+        return `[${timestamp}] ${level.toUpperCase()}: ${message}${metaString}`;
     })
 );
 
