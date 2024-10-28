@@ -83,7 +83,7 @@ export class PurchaseController {
   }
 
   async cancelPurchase(req: Request, res: Response, next: NextFunction) {
-    try {
+    this.handleControllerOperation(req, res, next, async () => {
       const docNumber = req.params.doc_number;
       const purchase = await this.purchaseService.cancelPurchase(docNumber);
       return res.success(
@@ -91,8 +91,6 @@ export class PurchaseController {
         "Purchase canceled successfully.",
         200
       );
-    } catch (error) {
-      next(error);
-    }
+    });
   }
 }

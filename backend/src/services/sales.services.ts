@@ -12,48 +12,61 @@ export class SaleService {
     this.saleRepository = saleRepository;
   }
 
-  async createSale(saleData: Sale): Promise<Sale> {
+  private async handleDatabaseOperation<T>(
+    operation: () => Promise<T>
+  ): Promise<T> {
     try {
+      return await operation();
+    } catch (error) {
+      throw handleDatabaseError(error);
+    }
+  }
+
+  private async findSaleById(saleId: number): Promise<Sale> {
+    const sale = await this.saleRepository.findOne({
+      where: { sale_id: saleId },
+      relations: ["sale_items"],
+    });
+    if (!sale) throw new AppError("Sale not found.", 404);
+    return sale;
+  }
+
+  async createSale(saleData: Sale): Promise<Sale> {
+    return this.handleDatabaseOperation(async () => {
       return await dataSource.manager.transaction(
         async (transactionalEntityManager: EntityManager) => {
           const newSale = transactionalEntityManager.create(Sale, saleData);
           return await transactionalEntityManager.save(newSale);
         }
       );
-    } catch (error) {
-      throw handleDatabaseError(error);
-    }
+    });
   }
 
-  async fetchSales(): Promise<Sale[]> {
-    try {
+  async fetchAllSales(): Promise<Sale[]> {
+    return this.handleDatabaseOperation(async () => {
       return await this.saleRepository.find({ relations: ["sale_items"] });
-    } catch (error) {
-      throw handleDatabaseError(error);
-    }
+    });
   }
 
-  async fetchSaleByDocNumber(docNumber: string): Promise<Sale> {
-    try {
-      const sale = await this.saleRepository.findOne({
+  async fetchSaleByDocNumber(docNumber: string): Promise<Sale[]> {
+    return this.handleDatabaseOperation(async () => {
+      const sale = await this.saleRepository.find({
         where: { doc_number: docNumber },
         relations: ["sale_items"],
       });
-      if ( !sale ) throw new AppError("Sale not found.", 404);
+      if (!sale) throw new AppError("Sale not found.", 404);
       return sale;
-    } catch (error) {
-      throw handleDatabaseError(error);
-    }
+    });
   }
 
   async cancelSale(docNumber: string): Promise<Sale> {
-    try {
+    return this.handleDatabaseOperation(async () => {
       const sale = await this.saleRepository.findOne({
         where: { doc_number: docNumber },
         relations: ["sale_items"],
       });
-      if ( !sale ) throw new AppError("Sale not found.", 404);
-      if ( sale.status === TransactionStatus.Canceled ) {
+      if (!sale) throw new AppError("Sale not found.", 404);
+      if (sale.status === TransactionStatus.Canceled) {
         throw new AppError("Sale already cancelled.", 409);
       }
       sale.status = TransactionStatus.Canceled;
@@ -61,8 +74,6 @@ export class SaleService {
 
       await this.saleRepository.save(sale);
       return sale;
-    } catch (error) {
-      throw handleDatabaseError(error);
-    }
+    });
   }
 }
