@@ -2,7 +2,7 @@ import { ValidationError } from "class-validator";
 import { Request, Response, NextFunction } from "express";
 import logger from "../utils/logger";
 
-// Extendemos la clase Error para agregar información adicional
+// Clase de error personalizado con información adicional
 export class AppError extends Error {
   statusCode: number;
   status: string;
@@ -17,42 +17,57 @@ export class AppError extends Error {
   }
 }
 
-// Función auxiliar para extraer mensajes de error
+// Función auxiliar para obtener mensajes de error de validación
 const extractValidationErrors = (errors: ValidationError[]): string => {
   return errors
     .map((error) => {
       const constraints = error.constraints || {};
       const messages = Object.values(constraints).join(", ");
-      // Recursivamente procesar los errores en children
-      const childrenMessages = extractValidationErrors((error as any).children);
+      const childrenMessages = error.children
+        ? extractValidationErrors(error.children)
+        : "";
       return [messages, childrenMessages].filter(Boolean).join(", ");
     })
     .join(", ");
 };
 
-// Middleware para manejar errores globales
+// Función auxiliar para generar el mensaje de error detallado
+const getDetailedErrorMessage = (err: any): string => {
+  if (Array.isArray(err) && err[0] instanceof ValidationError) {
+    return extractValidationErrors(err);
+  }
+  return err.message || "Unknown error occurred";
+};
+
+// Middleware de manejo de errores global
 export const globalErrorHandler = (
   err: any,
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  // console.log(err.message);
-  // logger.error(`${err.message} - Path: ${req.path} - Method: ${req.method}`);
-  
-  // Manejo de errores de validación
-  if (Array.isArray(err)) {
-    const validationErrors = err as ValidationError[];
-    const errorMessages = extractValidationErrors(validationErrors);
-    logger.warn(`Validation error: ${errorMessages} - Path: ${req.path}`);
+  const detailedMessage = getDetailedErrorMessage(err);
+
+  logger.error({
+    message: `${detailedMessage}`,
+    method: req.method,
+    path: req.path,
+    statusCode: res.statusCode,
+    clientIp: req.ip,
+    headers: req.headers.host,
+    requestBody: req.body,
+  });
+
+  // Manejo específico de errores de validación
+  if (Array.isArray(err) && err[0] instanceof ValidationError) {
     return res.status(400).json({
       status: "fail",
-      message: `Validation error: ${errorMessages}.`,
+      message: `Validation error: ${detailedMessage}.`,
     });
   }
 
-  if (err.message.includes('Database error')) {
-    logger.error(`Database error encountered: ${err.message}`);
+  // Manejo de errores de base de datos
+  if (err.message?.includes("Database error")) {
     return res.status(500).json({
       status: "error",
       message: "A database error occurred.",
@@ -61,24 +76,14 @@ export const globalErrorHandler = (
 
   // Manejo de errores personalizados (AppError)
   if (err instanceof AppError) {
-    logger.warn(`${err.message} - Status: ${err.status}`);
     return res.status(err.statusCode).json({
       status: err.status,
       message: err.message,
     });
   }
 
-  // if (err.isOperational) {
-  //   logger.warn(`Operational error: ${err.message} - Status: ${err.status}`);
-  //   return res.status(err.statusCode).json({
-  //     status: err.status,
-  //     message: err.message,
-  //   });
-  // }
-
-  // Manejo de errores de análisis JSON
+  // Manejo de errores de JSON inválido
   if (err.type === "entity.parse.failed") {
-    logger.warn(`Invalid JSON format: ${err.message} - Path: ${req.path}`);
     return res.status(400).json({
       status: "fail",
       message: "Invalid JSON format in request body.",
@@ -87,15 +92,13 @@ export const globalErrorHandler = (
 
   // Manejo de errores de tamaño excesivo
   if (err.type === "entity.too.large") {
-    logger.warn(`Request body too large - Path: ${req.path}`);
-    return res.status(err.statusCode).json({
+    return res.status(413).json({
       status: "fail",
       message: "Request body is too large",
     });
   }
 
   // Manejo de errores inesperados
-  logger.error(`Unexpected error: ${err.message} - Path: ${req.path}`);
   return res.status(500).json({
     status: "error",
     message: "Something went wrong. Please try again later.",
