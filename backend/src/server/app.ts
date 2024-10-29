@@ -3,7 +3,7 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import { responseMiddleware } from "@middlewares/responseMiddleware";
 import routes from "@routes/index";
-import requestLogger from "../middlewares/requestLogger";
+import requestLogger from "@middlewares/requestLogger";
 import logger from "@utils/logger";
 
 const app = express();
