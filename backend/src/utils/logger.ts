@@ -1,5 +1,4 @@
-import { stringify } from "querystring";
-import winston, { format } from "winston";
+import winston from "winston";
 import DailyRotateFile from "winston-daily-rotate-file"
 
 const logFormat = winston.format.combine(

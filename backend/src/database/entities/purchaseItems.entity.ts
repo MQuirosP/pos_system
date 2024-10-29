@@ -10,6 +10,7 @@ import {
 import { Purchase } from "@entities/purchases.entity";
 import { Product } from "@entities/products.entity";
 import { IPurchaseItems } from "@interfaces/purchaseItems.interface";
+import { TransactionStatus } from "@enums/custom.enums";
 
 @Entity("purchase_items")
 export class PurchaseItem implements IPurchaseItems {
@@ -91,7 +92,7 @@ export class PurchaseItem implements IPurchaseItems {
     nullable: false,
     default: "completed",
   })
-  status!: string;
+  status!: TransactionStatus;
 
   @ManyToOne(() => Purchase, (purchase) => purchase.purchase_items, {
     onDelete: "CASCADE" })

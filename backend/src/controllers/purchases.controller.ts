@@ -23,15 +23,6 @@ export class PurchaseController {
       const startTime = Date.now();
       await operation();
       const duration = Date.now() - startTime;
-      logger.info({
-        message: `Request processed`,
-        method: req.method,
-        url: req.originalUrl,
-        statusCode: res.statusCode,
-        duration: `${duration}ms`,
-        clientIp: req.ip,
-        // userId: req.user?.id || "Anonymous",
-      });
     } catch (error) {
       next(error);
     }

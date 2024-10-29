@@ -3,7 +3,7 @@ import {
   ProductUpdateDTO,
   ProductResponseDTO,
 } from "@dtos/products.dto";
-import { Request, Response, NextFunction, json } from "express";
+import { Request, Response, NextFunction } from "express";
 import dataSource from "@config/ormconfig";
 import { Product } from "@entities/products.entity";
 import { ProductService } from "@services/products.services";

@@ -10,7 +10,7 @@ import {
 import { IUser } from "@interfaces/users.interface";
 import { UserRole } from "@enums/custom.enums";
 import { BaseFormattedEntity } from "@entities/BaseFormatedEntity";
-import { HashingService } from "../../services/hashService";
+import { HashingService } from "@services/hashService";
 
 @Entity("users")
 export class Users extends BaseFormattedEntity implements IUser {

@@ -3,7 +3,6 @@ import { Request, Response, NextFunction } from "express";
 import { UserService } from "@services/users.services";
 import dataSource from "@config/ormconfig";
 import { Users } from "@entities/users.entity";
-import logger from "@utils/logger";
 
 export class UserController {
   private readonly userService: UserService;

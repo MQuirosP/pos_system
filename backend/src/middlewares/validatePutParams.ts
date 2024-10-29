@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { AppError } from "@middlewares/errorHandler";
-import logger from "../utils/logger";
+import logger from "@utils/logger";
 
 export function validatePutParams(
   req: Request,

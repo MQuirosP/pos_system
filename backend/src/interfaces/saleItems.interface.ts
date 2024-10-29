@@ -1,5 +1,6 @@
 import { SaleItem } from "@entities/saleItems.entity";
 import { Sale } from "@entities/sales.entity";
+import { TransactionStatus } from "@enums/custom.enums";
 
 
 export interface ISaleItem {
@@ -14,7 +15,7 @@ export interface ISaleItem {
   updated_at: Date;
   name?: string; 
   total?: number; 
-  status: string;
+  status?: TransactionStatus;
   sale: Sale; 
   sale_items?: SaleItem; 
 }

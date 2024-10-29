@@ -94,6 +94,8 @@ export class Product {
   @OneToMany(() => SaleItem, (saleItem) => saleItem.product, { cascade: true })
   sale_items!: SaleItem[];
 
-  @OneToMany(() => PurchaseItem, (purchaseItem) => purchaseItem.product, { cascade: true })
+  @OneToMany(() => PurchaseItem, (purchaseItem) => purchaseItem.product, {
+    cascade: true,
+  })
   purchase_items!: PurchaseItem[];
 }

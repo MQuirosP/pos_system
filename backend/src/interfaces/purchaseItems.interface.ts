@@ -1,6 +1,7 @@
 // Archivo: purchaseItems.interface.ts
 import { Purchase } from "@entities/purchases.entity";
 import { PurchaseItem } from "@entities/purchaseItems.entity";
+import { TransactionStatus } from "@enums/custom.enums";
 
 export interface IPurchaseItems {
   id: number;
@@ -14,7 +15,7 @@ export interface IPurchaseItems {
   updated_at: Date;
   name?: string;
   total?: number;
-  status: string;
+  status: TransactionStatus;
   purchase: Purchase; // Relación obligatoria
   purchase_items?: PurchaseItem; // Relación opcional
 }

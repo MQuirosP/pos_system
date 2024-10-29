@@ -10,6 +10,7 @@ import {
 import { Sale } from "@entities/sales.entity";
 import { Product } from "@entities/products.entity";
 import { ISaleItem } from "@interfaces/saleItems.interface";
+import { TransactionStatus } from "@enums/custom.enums";
 
 @Entity("sale_items")
 export class SaleItem implements ISaleItem {
@@ -91,7 +92,7 @@ export class SaleItem implements ISaleItem {
     nullable: false,
     default: "completed",
   })
-  status!: string;
+  status!: TransactionStatus;
 
   @ManyToOne(() => Sale, (sale) => sale.sale_items, {
     onDelete: "CASCADE",

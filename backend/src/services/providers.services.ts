@@ -19,7 +19,7 @@ export class ProvidersService {
     }
   }
 
-  // Método auxiliar para buscar un proveedor por ID
+  // Método auxiliar para buscar un proveedor por id
   private async findProviderById(providerId: number): Promise<Provider> {
     const provider = await this.providerRepository.findOne({
       where: { provider_id: providerId },
