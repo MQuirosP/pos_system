@@ -1,6 +1,6 @@
 import { ValidationError } from "class-validator";
 import { Request, Response, NextFunction } from "express";
-import logger from "../utils/logger";
+import logger from "@utils/logger";
 
 // Clase de error personalizado con información adicional
 export class AppError extends Error {
