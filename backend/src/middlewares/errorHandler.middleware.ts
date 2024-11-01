@@ -47,7 +47,6 @@ export const globalErrorHandler = (
   res: Response,
   next: NextFunction
 ) => {
-  console.log(err);
   const detailedMessage = getDetailedErrorMessage(err);
 
   logger.error({
