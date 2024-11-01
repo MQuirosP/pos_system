@@ -1,6 +1,6 @@
 import { Repository, ILike } from "typeorm";
 import { handleDatabaseError } from "@middlewares/databaseErrorHandler";
-import { AppError } from "@middlewares/errorHandler";
+import { AppError } from "@middlewares/errorHandler.middleware";
 import { Customer } from "@entities/customers.entity";
 
 export class CustomerService {

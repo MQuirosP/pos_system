@@ -1,6 +1,6 @@
 import { Users } from "@entities/users.entity";
 import { Repository, ILike } from "typeorm";
-import { AppError } from "@middlewares/errorHandler";
+import { AppError } from "@middlewares/errorHandler.middleware";
 import { HashingService } from "@services/hashService";
 import { handleDatabaseError } from "@middlewares/databaseErrorHandler";
 

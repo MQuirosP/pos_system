@@ -1,14 +1,16 @@
 import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
-import { responseMiddleware } from "@middlewares/responseMiddleware";
+import { responseMiddleware } from "@middlewares/response.middleware";
 import routes from "@routes/index";
-import requestLogger from "@middlewares/requestLogger";
+import requestLogger from "@middlewares/requestLogger.middleware";
 import logger from "@utils/logger";
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+    exposedHeaders: ['Authorization']
+}));
 app.use(bodyParser.json({
     limit: "10mb",
     strict: true,

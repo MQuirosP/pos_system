@@ -1,6 +1,6 @@
 import express from "express";
 import { ProviderController } from "@controllers/providers.controller";
-import { validateDTO } from "@middlewares/validateDTO";
+import { validateDTO } from "@middlewares/validateDTO.middleware";
 import { ProviderCreateDTO, ProviderUpdateDTO } from "@dtos/providers.dto";
 
 const router = express.Router();

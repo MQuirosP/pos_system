@@ -1,6 +1,7 @@
 import { ValidationError } from "class-validator";
 import { Request, Response, NextFunction } from "express";
 import logger from "@utils/logger";
+import { TokenExpiredError } from "jsonwebtoken";
 
 // Clase de error personalizado con información adicional
 export class AppError extends Error {
@@ -46,6 +47,7 @@ export const globalErrorHandler = (
   res: Response,
   next: NextFunction
 ) => {
+  console.log(err);
   const detailedMessage = getDetailedErrorMessage(err);
 
   logger.error({
@@ -54,8 +56,8 @@ export const globalErrorHandler = (
     path: req.path,
     statusCode: res.statusCode,
     clientIp: req.ip,
-    headers: req.headers.host,
-    requestBody: req.body,
+    // headers: req.headers,
+    // requestBody: req.body,
   });
 
   // Manejo específico de errores de validación
@@ -80,6 +82,19 @@ export const globalErrorHandler = (
       status: err.status,
       message: err.message,
     });
+  }
+
+  if (err instanceof TokenExpiredError) {
+    logger.warn({
+      message: "Token expired. User needs to authenticate again.",
+      method: req.method,
+      path: req.path,
+      clientIp: req.ip,
+    })
+    return res.status(401).json({
+      status: "fail",
+      message: "Session has expired. Please log in again."
+    })
   }
 
   // Manejo de errores de JSON inválido

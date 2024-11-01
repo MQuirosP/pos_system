@@ -1,7 +1,7 @@
 import { EntityManager, Repository } from "typeorm";
 import dataSource from "@config/ormconfig";
 import { handleDatabaseError } from "@middlewares/databaseErrorHandler";
-import { AppError } from "@middlewares/errorHandler";
+import { AppError } from "@middlewares/errorHandler.middleware";
 import { Sale } from "@entities/sales.entity";
 import { TransactionStatus } from "@enums/custom.enums";
 

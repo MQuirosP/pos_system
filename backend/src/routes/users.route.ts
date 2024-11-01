@@ -1,7 +1,8 @@
 import express from "express";
 import { UserController } from "@controllers/users.controller";
-import { validateDTO } from "@middlewares/validateDTO";
+import { validateDTO } from "@middlewares/validateDTO.middleware";
 import { UserCreateDTO, UserUpdateDTO } from "@dtos/users.dto";
+import { authMiddleware } from "../middlewares/auth.middleware";
 
 const router = express.Router();
 const userController = new UserController();

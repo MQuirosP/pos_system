@@ -1,7 +1,7 @@
 import { Product } from "@entities/products.entity";
 import { Repository, ILike } from "typeorm";
 import { handleDatabaseError } from "@middlewares/databaseErrorHandler";
-import { AppError } from "@middlewares/errorHandler";
+import { AppError } from "@middlewares/errorHandler.middleware";
 import { ProductCreateDTO } from "@dtos/products.dto";
 
 export class ProductService {

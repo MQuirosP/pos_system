@@ -1,7 +1,7 @@
 import dotenv from 'dotenv';
 import app from "./app"
 import dataSource from '@config/ormconfig';
-import { globalErrorHandler } from "@middlewares/errorHandler";
+import { globalErrorHandler } from "@middlewares/errorHandler.middleware";
 
 dotenv.config();
 

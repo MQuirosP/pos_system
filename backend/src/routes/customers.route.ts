@@ -1,6 +1,6 @@
 import { CustomerController } from "@controllers/customers.controller";
 import express from "express";
-import { validateDTO } from "@middlewares/validateDTO";
+import { validateDTO } from "@middlewares/validateDTO.middleware";
 import { CustomerCreateDTO, CustomerUpdateDTO } from "@dtos/customers.dto";
 
 const router = express.Router();

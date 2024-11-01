@@ -1,5 +1,5 @@
 import { QueryFailedError } from "typeorm";
-import { AppError } from "@middlewares/errorHandler";
+import { AppError } from "@middlewares/errorHandler.middleware";
 
 export function handleDatabaseError(error: any): void {
   // console.log(error);

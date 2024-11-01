@@ -24,15 +24,16 @@ const dataSource = new DataSource({
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   entities: [
-    Users,
-    UserModel,
-    Product,
-    Purchase,
-    PurchaseItem,
-    Sale,
-    SaleItem,
-    Customer,
-    Provider,
+    // Users,
+    // UserModel,
+    // Product,
+    // Purchase,
+    // PurchaseItem,
+    // Sale,
+    // SaleItem,
+    // Customer,
+    // Provider,
+    "src/database/entities/**/*.ts",
     // Especificamos la ruta de las entidades dependiendo del entorno
     isDevelopment
       ? "./src/database/entities/*.ts"
