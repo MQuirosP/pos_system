@@ -36,7 +36,9 @@ export class ProductService {
 
   async fetchAllProducts(): Promise<Product[]> {
     try {
-      return await this.productRepository.find();
+      return await this.productRepository.find({
+        relations: ["category"]
+      });
     } catch (error) {
       throw handleDatabaseError(error);
     }

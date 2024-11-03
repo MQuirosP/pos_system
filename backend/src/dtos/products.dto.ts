@@ -135,7 +135,7 @@ export class ProductUpdateDTO extends DTOBase {
   @IsNumber()
   category_id?: number;
 
-  @IsOptional()
+  @Inmutable()
   @IsString()
   category_name?: string;
 
@@ -152,6 +152,7 @@ export class ProductUpdateDTO extends DTOBase {
 export class ProductResponseDTO {
   int_code: string;
   name: string;
+  category_name?: string;
   description: string;
   purchase_price: number;
   quantity?: number;
@@ -161,6 +162,7 @@ export class ProductResponseDTO {
   constructor(product: Product) {
     this.int_code = product.int_code;
     this.name = product.name;
+    this.category_name = product?.category_name || product.category?.category_name;
     this.description = product.description;
     this.purchase_price = product.purchase_price;
     this.sale_price = product.sale_price;

@@ -7,23 +7,34 @@ import { Request, Response, NextFunction } from "express";
 import dataSource from "@config/ormconfig";
 import { Product } from "@entities/products.entity";
 import { ProductService } from "@services/products.services";
+import { CategoryServices } from "../services/categories.services";
+import { Categories } from "../database/entities/categories.entity";
 
 export class ProductController {
   private readonly productService: ProductService;
+  private readonly categoryService: CategoryServices;
 
   constructor() {
     const productRepository = dataSource.getRepository(Product);
+    const categoryRepository = dataSource.getRepository(Categories);
     this.productService = new ProductService(productRepository);
+    this.categoryService = new CategoryServices(categoryRepository)
   }
 
   async createProduct(req: Request, res: Response, next: NextFunction) {
     try {
       const productData = new ProductCreateDTO(req.body);
       await productData.validate();
-      const newProduct = await this.productService.createProduct(productData);
+      const newProduct: any = await this.productService.createProduct(productData);
+
+      const category = await this.categoryService.fetchCategoryByPK(newProduct.category_id)
+      const productResponseDTO = new ProductResponseDTO({
+        ...newProduct,
+        category_name: category.category_name,
+    });
 
       return res.success(
-        new ProductResponseDTO(newProduct),
+        productResponseDTO,
         "Product created successfully.",
         201
       );
@@ -57,7 +68,6 @@ export class ProductController {
       } else {
         products = await this.productService.fetchAllProducts();
       }
-
       const productResponseDTOs = products?.map(
         (product) => new ProductResponseDTO(product)
       );
@@ -105,6 +115,7 @@ export class ProductController {
         200
       );
     } catch (error) {
+      console.log(error);
       next(error);
     }
   }

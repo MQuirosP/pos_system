@@ -18,8 +18,8 @@ export interface IProduct {
   category_name?: string;
   created_at: Date;
   updated_at: Date;
-  purchases: IPurchases[]; // Relación Many-to-Many con Purchase
-  sales: ISales[]; // Relación Many-to-Many con Sale
+  purchases?: IPurchases[]; // Relación Many-to-Many con Purchase
+  sales?: ISales[]; // Relación Many-to-Many con Sale
   purchase_items: IPurchaseItems[]; // Relación One-to-Many con PurchaseItem
   sale_items: ISaleItem[]; // Relación One-to-Many con SaleItem
 }

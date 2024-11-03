@@ -10,10 +10,19 @@ import {
 } from "typeorm";
 import { SaleItem } from "@entities/saleItems.entity";
 import { PurchaseItem } from "@entities/purchaseItems.entity";
-import { Categories } from "./categories.entity";
+import { Categories } from "@entities/categories.entity";
+import { BaseFormattedEntity } from "./BaseFormatedEntity";
+import { IProduct } from "../../interfaces/products.interface";
 
 @Entity("products")
-export class Product {
+export class Product extends BaseFormattedEntity {
+  
+  protected fieldsToLowerCase(): string[] {
+    return ["description"];
+  }
+  protected fieldsToCapitalize(): string[] {
+    return ["name"];
+  }
   @PrimaryGeneratedColumn({ name: "product_id" })
   product_id!: number;
 
@@ -74,8 +83,8 @@ export class Product {
   })
   tax_percentage!: number;
 
-  // @Column({ name: "category_id", type: "int", nullable: false })
-  // category_id!: number;
+  @Column({ name: "category_id", type: "int", nullable: false })
+  category_id!: number;
 
   @CreateDateColumn({
     name: "created_at",
