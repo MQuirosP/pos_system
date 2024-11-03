@@ -119,7 +119,6 @@ export class ProductUpdateDTO extends DTOBase {
   sale_price?: number;
 
   @IsOptional()
-  @IsNotEmpty()
   @IsBoolean()
   is_taxed?: boolean;
 
@@ -136,6 +135,7 @@ export class ProductUpdateDTO extends DTOBase {
   category_id?: number;
 
   @Inmutable()
+  @IsOptional()
   @IsString()
   category_name?: string;
 

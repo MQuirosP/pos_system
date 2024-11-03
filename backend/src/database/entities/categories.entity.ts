@@ -14,7 +14,7 @@ export class Categories extends BaseFormattedEntity {
       return ["category_name"];
     }
     protected fieldsToCapitalize(): string[] {
-      return []
+      return ["category_name"]
     }
 
     @PrimaryGeneratedColumn("increment")
