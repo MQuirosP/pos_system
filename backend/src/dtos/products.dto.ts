@@ -54,7 +54,7 @@ export class ProductCreateDTO extends DTOBase {
   @IsNumber()
   category_id: number;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   category_name: string;
 
@@ -94,33 +94,27 @@ export class ProductUpdateDTO extends DTOBase {
   static expectedKeys: string[] = PRODUCT_KEYS;
 
   @IsOptional()
-  @IsNotEmpty()
   @IsString()
   @Inmutable({ message: "Product int_code is inmutable and cannot be changed"})
   int_code?: string;
 
   @IsOptional()
-  @IsNotEmpty()
   @IsString()
   name?: string;
 
   @IsOptional()
-  @IsNotEmpty()
   @IsString()
   description?: string;
 
   @IsOptional()
-  @IsNotEmpty()
   @IsNumber()
   purchase_price?: number;
 
   @IsOptional()
-  @IsNotEmpty()
   @IsNumber()
   quantity?: number;
 
   @IsOptional()
-  @IsNotEmpty()
   @IsNumber()
   sale_price?: number;
 
@@ -130,22 +124,18 @@ export class ProductUpdateDTO extends DTOBase {
   is_taxed?: boolean;
 
   @IsOptional()
-  @IsNotEmpty()
   @IsNumber()
   margin?: number;
 
   @IsOptional()
-  @IsNotEmpty()
   @IsNumber()
   tax_percentage?: number;
 
   @IsOptional()
-  @IsNotEmpty()
   @IsNumber()
   category_id?: number;
 
   @IsOptional()
-  @IsNotEmpty()
   @IsString()
   category_name?: string;
 
@@ -167,7 +157,6 @@ export class ProductResponseDTO {
   quantity?: number;
   sale_price: number;
   tax_percentage: number;
-  category_name: string;
 
   constructor(product: Product) {
     this.int_code = product.int_code;
@@ -177,6 +166,5 @@ export class ProductResponseDTO {
     this.sale_price = product.sale_price;
     this.quantity = product.quantity;
     this.tax_percentage = product.tax_percentage;
-    this.category_name = product.category_name;
   }
 }

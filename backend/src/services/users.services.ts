@@ -13,7 +13,9 @@ export class UserService {
     this.hashingService = new HashingService();
   }
 
-  private async handleDatabaseOperation<T>(operation: () => Promise<T>): Promise<T> {
+  private async handleDatabaseOperation<T>(
+    operation: () => Promise<T>
+  ): Promise<T> {
     try {
       return await operation();
     } catch (error) {
@@ -23,9 +25,9 @@ export class UserService {
 
   private async findUserById(userId: number): Promise<Users> {
     const user = await this.userRepository.findOne({
-      where: { user_id: userId},
+      where: { user_id: userId },
     });
-    if ( !user ) throw new AppError("User not found.", 404);
+    if (!user) throw new AppError("User not found.", 404);
     return user;
   }
 
@@ -33,13 +35,13 @@ export class UserService {
     return this.handleDatabaseOperation(async () => {
       const newUser = this.userRepository.create(userData);
       return await this.userRepository.save(newUser);
-    })
+    });
   }
 
   async fetchAllUsers(): Promise<Users[]> {
     return this.handleDatabaseOperation(async () => {
       return await this.userRepository.find();
-    })
+    });
   }
 
   async fetchUserByPK(userId: number): Promise<Users> {
@@ -49,18 +51,15 @@ export class UserService {
   async getUserByUsername(username: string): Promise<Users[]> {
     return this.handleDatabaseOperation(async () => {
       const users = await this.userRepository.find({
-        where: { 
+        where: {
           username: ILike(`%${username}%`),
         },
       });
       return users;
-    })
+    });
   }
 
-  async updateUser(
-    userId: number,
-    updates: Partial<Users>
-  ): Promise<Users> {
+  async updateUser(userId: number, updates: Partial<Users>): Promise<Users> {
     return this.handleDatabaseOperation(async () => {
       const user = await this.findUserById(userId);
       Object.assign(user, updates);
@@ -72,7 +71,7 @@ export class UserService {
     return this.handleDatabaseOperation(async () => {
       const user = await this.findUserById(userId);
       await this.userRepository.delete(user.user_id);
-    })
+    });
   }
 
   async comparePassword(userId: number, password: string): Promise<boolean> {
@@ -85,9 +84,8 @@ export class UserService {
         password,
         user.password
       );
-      if ( !isMatch ) throw new AppError("Password doesn't match.", 400);
+      if (!isMatch) throw new AppError("Password doesn't match.", 400);
       return isMatch;
-      
     } catch (error) {
       throw handleDatabaseError(error);
     }

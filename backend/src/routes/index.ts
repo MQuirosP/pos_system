@@ -6,8 +6,9 @@ import customer from "@routes/customers.route";
 import provider from "@routes/providers.route";
 import purchase from "@routes/purchases.route";
 import auth from "@routes/auth.route";
+import category from "@routes/categories.route";
 import { validatePutParams } from '@middlewares/validatePutParams.middleware';
-import { authMiddleware } from '../middlewares/auth.middleware';
+import { authMiddleware } from '@middlewares/auth.middleware';
 
 const router = express.Router();
 
@@ -32,6 +33,7 @@ router.use("/sales", authMiddleware, sale);
 router.use("/customers", authMiddleware, customer);
 router.use("/providers", authMiddleware, provider);
 router.use("/purchases", authMiddleware, purchase);
+router.use("/categories", authMiddleware, category)
 router.use("/auth", auth)
 
 export default router;

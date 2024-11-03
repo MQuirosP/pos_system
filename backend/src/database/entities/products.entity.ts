@@ -5,9 +5,12 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   OneToMany,
+  ManyToOne,
+  JoinColumn,
 } from "typeorm";
 import { SaleItem } from "@entities/saleItems.entity";
 import { PurchaseItem } from "@entities/purchaseItems.entity";
+import { Categories } from "./categories.entity";
 
 @Entity("products")
 export class Product {
@@ -71,11 +74,8 @@ export class Product {
   })
   tax_percentage!: number;
 
-  @Column({ name: "category_id", type: "int", nullable: false })
-  category_id!: number;
-
-  @Column({ name: "category_name", type: "varchar", nullable: false })
-  category_name!: string;
+  // @Column({ name: "category_id", type: "int", nullable: false })
+  // category_id!: number;
 
   @CreateDateColumn({
     name: "created_at",
@@ -98,4 +98,8 @@ export class Product {
     cascade: true,
   })
   purchase_items!: PurchaseItem[];
+
+  @ManyToOne(() => Categories, (category) => category.products, { nullable: false})
+  @JoinColumn({ name: "category_id"})
+  category!: Categories;
 }
