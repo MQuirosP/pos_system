@@ -115,7 +115,6 @@ export class ProductController {
         200
       );
     } catch (error) {
-      console.log(error);
       next(error);
     }
   }

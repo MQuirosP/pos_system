@@ -24,6 +24,7 @@ export class ProductService {
     try {
       const product = await this.productRepository.findOne({
         where: { product_id: productId },
+        relations: ["category"]
       });
 
       if (!product) throw new AppError("Product not found.", 404);
@@ -50,6 +51,7 @@ export class ProductService {
         where: {
           name: ILike(`%${productName}%`),
         },
+        relations: ["category"]
       });
     } catch (error) {
       throw handleDatabaseError(error);
@@ -63,6 +65,7 @@ export class ProductService {
     try {
       const product = await this.productRepository.findOne({
         where: { product_id: productId },
+        relations: ["category"]
       });
 
       if (!product) throw new AppError("Product not found.", 404);
@@ -79,6 +82,7 @@ export class ProductService {
     try {
       const product = await this.productRepository.findOne({
         where: { product_id: productId },
+        relations: ["category"]
       });
 
       if (!product) throw new AppError("Product not found.", 400);
