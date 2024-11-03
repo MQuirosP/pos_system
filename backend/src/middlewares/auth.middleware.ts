@@ -15,6 +15,9 @@ export const authMiddleware = async (
 
     if (!token) throw new AppError("No valid token was provided.", 400);
 
+    const isBlacklisted = await jwtService.isBlacklisted(token);
+    if (isBlacklisted) throw new AppError("Token has been revoked.", 401);
+
     const userData = await jwtService.verifyAccessToken(token);
     (req as any).user = userData;
     next();

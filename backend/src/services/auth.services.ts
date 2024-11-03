@@ -28,7 +28,7 @@ export class AuthService {
     }
 
     const accessToken = await this.jwtService.generateAccessToken(user);
-    const refreshToken = await this.jwtService.generateRefresthToken(user);
+    const refreshToken = await this.jwtService.generateRefreshToken(user);
     return { accessToken, refreshToken };
   }
 

@@ -7,8 +7,8 @@ import { AppError } from "../middlewares/errorHandler.middleware";
 export class JwtService {
   private accessTokenSecret = process.env.ACCESS_TOKEN_SECRET!;
   private refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET!;
-  private accessTokenExpiry = "15m";
-  private refresthTokenExpiry = "7d";
+  private accessTokenExpiry = process.env.ACCESS_TOKEN_EXPIRY!;
+  private refresthTokenExpiry = process.env.REFRESH_TOKEN_EXPIRY!;
 
   async generateAccessToken(user: Users): Promise<string> {
     return jwt.sign({ userId: user.user_id }, this.accessTokenSecret, {
@@ -16,7 +16,7 @@ export class JwtService {
     });
   }
 
-  async generateRefresthToken(user: Users): Promise<string> {
+  async generateRefreshToken(user: Users): Promise<string> {
     return jwt.sign({ userId: user.user_id }, this.refreshTokenSecret, {
       expiresIn: this.refresthTokenExpiry,
     });
