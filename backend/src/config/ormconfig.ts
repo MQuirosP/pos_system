@@ -10,7 +10,7 @@ import * as dotenv from "dotenv";
 // import { Customer } from "@entities/customers.entity";
 // import { Provider } from "@entities/providers.entity";
 
-dotenv.config(); // Cargar variables de entorno
+dotenv.config(); // Cargamos variables de entorno
 
 // Verificamos si estamos en desarrollo o producción
 const isDevelopment = process.env.NODE_ENV !== "production";
