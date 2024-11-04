@@ -7,63 +7,57 @@ import { Request, Response, NextFunction } from "express";
 import dataSource from "@config/ormconfig";
 import { Product } from "@entities/products.entity";
 import { ProductService } from "@services/products.services";
-import { CategoryServices } from "@services/categories.services";
-import { Categories } from "@entities/categories.entity";
 
 export class ProductController {
   private readonly productService: ProductService;
-  private readonly categoryService: CategoryServices;
 
   constructor() {
     const productRepository = dataSource.getRepository(Product);
-    const categoryRepository = dataSource.getRepository(Categories);
     this.productService = new ProductService(productRepository);
-    this.categoryService = new CategoryServices(categoryRepository);
   }
 
-  async createProduct(req: Request, res: Response, next: NextFunction) {
+  private async handleControllerOperation(
+    req: Request,
+    res: Response,
+    next: NextFunction,
+    operation: () => Promise<any>
+  ) {
     try {
-      const productData = new ProductCreateDTO(req.body);
-      await productData.validate();
-      const newProduct: any = await this.productService.createProduct(
-        productData
-      );
-
-      const category = await this.categoryService.fetchCategoryByPK(
-        newProduct.category_id
-      );
-      const productResponseDTO = new ProductResponseDTO({
-        ...newProduct,
-        category_name: category.category_name,
-      });
-
-      return res.success(
-        productResponseDTO,
-        "Product created successfully.",
-        201
-      );
+      await operation();
     } catch (error) {
       next(error);
     }
   }
 
+  async createProduct(req: Request, res: Response, next: NextFunction) {
+    this.handleControllerOperation(req, res, next, async () => {
+      const productData = new ProductCreateDTO(req.body);
+      await productData.validate();
+      const newProduct = await this.productService.createProduct(productData);
+
+      return res.success(
+        new ProductResponseDTO(newProduct),
+        "Product created successfully.",
+        201
+      );
+    });
+  }
+
   async getProductById(req: Request, res: Response, next: NextFunction) {
-    try {
+    this.handleControllerOperation(req, res, next, async () => {
       const productId = parseInt(req.params.id);
-      const product = await this.productService.getProductByPK(productId);
+      const product = await this.productService.fetchProductByPK(productId);
 
       return res.success(
         new ProductResponseDTO(product),
         "Product fetched successfully.",
         200
       );
-    } catch (error) {
-      next(error);
-    }
+    });
   }
 
   async getProducts(req: Request, res: Response, next: NextFunction) {
-    try {
+    this.handleControllerOperation(req, res, next, async () => {
       const { name } = req.query;
       let products: Product[] = [];
 
@@ -80,17 +74,16 @@ export class ProductController {
           ? "No products found."
           : "All products fetched successfully.";
       return res.success(productResponseDTOs, responseMessage, 200);
-    } catch (error) {
-      next(error);
-    }
+    });
   }
 
   async updateProduct(req: Request, res: Response, next: NextFunction) {
-    try {
+    this.handleControllerOperation(req, res, next, async () => {
       const productId = parseInt(req.params.id);
       const productUpdateDTO = new ProductUpdateDTO(req.body);
 
       await productUpdateDTO.validate();
+
       const updatedProduct = await this.productService.updateProduct(
         productId,
         productUpdateDTO
@@ -100,15 +93,13 @@ export class ProductController {
         new ProductResponseDTO(updatedProduct),
         "Product updated successfully."
       );
-    } catch (error) {
-      next(error);
-    }
+    });
   }
 
   async deleteProduct(req: Request, res: Response, next: NextFunction) {
-    try {
+    this.handleControllerOperation(req, res, next, async () => {
       const productId = parseInt(req.params.id);
-      const productToDelete = await this.productService.getProductByPK(
+      const productToDelete = await this.productService.fetchProductByPK(
         productId
       );
 
@@ -118,8 +109,6 @@ export class ProductController {
         "Product deleted successfully.",
         200
       );
-    } catch (error) {
-      next(error);
-    }
+    });
   }
 }
