@@ -1,14 +1,14 @@
 import { DataSource } from "typeorm";
 import * as dotenv from "dotenv";
-import { Users } from "@entities/users.entity";
-import { UserModel } from "@models/User";
-import { Product } from "@entities/products.entity";
-import { Purchase } from "@entities/purchases.entity";
-import { PurchaseItem } from "@entities/purchaseItems.entity";
-import { Sale } from "@entities/sales.entity";
-import { SaleItem } from "@entities/saleItems.entity";
-import { Customer } from "@entities/customers.entity";
-import { Provider } from "@entities/providers.entity";
+// import { Users } from "@entities/users.entity";
+// import { UserModel } from "@models/User";
+// import { Product } from "@entities/products.entity";
+// import { Purchase } from "@entities/purchases.entity";
+// import { PurchaseItem } from "@entities/purchaseItems.entity";
+// import { Sale } from "@entities/sales.entity";
+// import { SaleItem } from "@entities/saleItems.entity";
+// import { Customer } from "@entities/customers.entity";
+// import { Provider } from "@entities/providers.entity";
 
 dotenv.config(); // Cargar variables de entorno
 
@@ -33,7 +33,7 @@ const dataSource = new DataSource({
     // SaleItem,
     // Customer,
     // Provider,
-    "src/database/entities/**/*.ts",
+    // "src/database/entities/**/*.ts",
     // Especificamos la ruta de las entidades dependiendo del entorno
     isDevelopment
       ? "./src/database/entities/*.ts"

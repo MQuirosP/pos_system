@@ -30,10 +30,12 @@ export class ProviderController {
   }
 
   createProvider(req: Request, res: Response, next: NextFunction) {
-    this.handleControllerOperation(req, res, next, async() => {
+    this.handleControllerOperation(req, res, next, async () => {
       const providerData = new ProviderCreateDTO(req.body);
       await providerData.validate();
-      const newProvider = await this.providerService.createProvider(providerData);
+      const newProvider = await this.providerService.createProvider(
+        providerData
+      );
 
       return res.success(
         new ProviderResponseDTO(newProvider),
@@ -48,7 +50,7 @@ export class ProviderController {
       const { name } = req.query;
       let providers: Provider[] = [];
 
-      if (name && typeof name === 'string' && name.trim() !== '') {
+      if (name && typeof name === "string" && name.trim() !== "") {
         providers = await this.providerService.getProviderByName(name);
       } else {
         providers = await this.providerService.fetchAllProviders();
@@ -59,11 +61,11 @@ export class ProviderController {
       );
       const responseMessage =
         providerResponseDTOs.length === 0
-        ? "No providers found."
-        : "All providers fetched successfully.";
+          ? "No providers found."
+          : "All providers fetched successfully.";
 
       return res.success(providerResponseDTOs, responseMessage, 200);
-    })
+    });
   }
 
   getProviderById(req: Request, res: Response, next: NextFunction) {
@@ -100,7 +102,9 @@ export class ProviderController {
   deleteProvider(req: Request, res: Response, next: NextFunction) {
     this.handleControllerOperation(req, res, next, async () => {
       const providerId = parseInt(req.params.id);
-      const providerToDelete = await this.providerService.getProviderByPK(providerId);
+      const providerToDelete = await this.providerService.getProviderByPK(
+        providerId
+      );
       await this.providerService.deleteProvider(providerId);
 
       return res.success(

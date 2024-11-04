@@ -12,10 +12,10 @@ import { SaleItem } from "@entities/saleItems.entity";
 import { PurchaseItem } from "@entities/purchaseItems.entity";
 import { Categories } from "@entities/categories.entity";
 import { BaseFormattedEntity } from "./BaseFormatedEntity";
-import { IProduct } from "../../interfaces/products.interface";
+import { IProduct } from "@interfaces/products.interface";
 
 @Entity("products")
-export class Product extends BaseFormattedEntity {
+export class Product extends BaseFormattedEntity implements IProduct {
   
   protected fieldsToLowerCase(): string[] {
     return ["description"];

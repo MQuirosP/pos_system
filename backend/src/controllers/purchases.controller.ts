@@ -3,7 +3,6 @@ import { Request, Response, NextFunction } from "express";
 import dataSource from "@config/ormconfig";
 import { Purchase } from "@entities/purchases.entity";
 import { PurchaseService } from "@services/purchases.services";
-import logger from "@utils/logger";
 
 export class PurchaseController {
   private readonly purchaseService: PurchaseService;

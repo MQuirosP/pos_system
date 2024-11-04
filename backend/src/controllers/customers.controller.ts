@@ -33,8 +33,10 @@ export class CustomerController {
     this.handleControllerOperation(req, res, next, async () => {
       const customerData = new CustomerCreateDTO(req.body);
       await customerData.validate();
-      const newCustomer = await this.customerService.createCustomer(customerData);
-      
+      const newCustomer = await this.customerService.createCustomer(
+        customerData
+      );
+
       return res.success(
         new CustomerResponseDTO(newCustomer),
         "Customer created successfully.",
@@ -48,7 +50,7 @@ export class CustomerController {
       const { name } = req.query;
       let customers: Customer[] = [];
 
-      if ( name && typeof name === "string" && name.trim() !== "" ) {
+      if (name && typeof name === "string" && name.trim() !== "") {
         customers = await this.customerService.getCustomerByName(name);
       } else {
         customers = await this.customerService.fetchAllCustomers();
@@ -100,7 +102,9 @@ export class CustomerController {
   deleteCustomer(req: Request, res: Response, next: NextFunction) {
     this.handleControllerOperation(req, res, next, async () => {
       const customerId = parseInt(req.params.id);
-      const customerToDelete = await this.customerService.getCustomerByPK(customerId);
+      const customerToDelete = await this.customerService.getCustomerByPK(
+        customerId
+      );
       await this.customerService.deleteCustomer(customerId);
 
       return res.success(
