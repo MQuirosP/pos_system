@@ -38,7 +38,7 @@
     cursor: pointer;
   }
   
-  .navbar-toggler-icon {
+  /* .navbar-toggler-icon {
     background-color: white;
     width: 30px;
     height: 3px;
@@ -63,7 +63,7 @@
   
   .navbar-toggler-icon::after {
     top: 8px;
-  }
+  } */
   
   #sidebar {
     background-color: #343a40;
@@ -76,7 +76,7 @@
     transition: transform 0.3s ease-in-out;
     transform: translateX(0); /* Muestra el sidebar desde el inicio */
     z-index: 999; /* Asegura que el sidebar quede encima del contenido */
-    margin-top: 50px; /* Deja espacio para el header */
+    margin-top: 40px; /* Deja espacio para el header */
   }
   
   #sidebar .nav-link {
@@ -133,7 +133,7 @@
     }
   
     #sidebar {
-      transform: translateX(-90%); /* Inicia fuera de vista */
+      transform: translateX(-80%); /* Inicia fuera de vista */
     }
   
     main {

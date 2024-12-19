@@ -10,7 +10,7 @@ import { RouterOutlet } from '@angular/router';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-  sidebarVisible: boolean = true;
+  sidebarVisible: boolean = false;
 
   toggleSidebar() {
     this.sidebarVisible = !this.sidebarVisible;

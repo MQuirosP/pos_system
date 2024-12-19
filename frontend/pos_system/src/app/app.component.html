@@ -12,13 +12,17 @@
     <nav class="navbar navbar-expand-md bg-light shadow-sm" [ngClass]="{'show': sidebarVisible, 'collapsed': !sidebarVisible}" id="sidebar">
       <!-- Botón Hamburguesa -->
       <button
-        class="btn btn-outline-light d-md-none position-absolute top-0 end-0 m-3"
+        class="navbar-toggler collapsed d-md-none m-3"
+        style="position: absolute; right: 10px; top: 15px;"
+        [ngClass]="{'collapsed': !sidebarVisible}"
         id="toggleSidebarBtn"
         type="button"
         aria-label="Toggle navigation"
         (click)="toggleSidebar()"
       >
         <span class="navbar-toggler-icon"></span>
+        <span></span>
+        <span></span>
       </button>
 
       <ul class="nav flex-column p-2">
