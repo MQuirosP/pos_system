@@ -1,0 +1,157 @@
+/* Estilos Globales */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    height: 100%;
+    background: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  header {
+    background: #343a40; /* Oscuro */
+    color: white;
+    padding: 10px 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    position: fixed; /* Fijar el header en la parte superior */
+    top: 0;
+    left: 0;
+    width: 100%;
+  }
+  
+  header h1 {
+    margin: 0;
+    font-size: 1.5rem;
+  }
+  
+  #toggleSidebarBtn {
+    background: transparent;
+    border: none;
+    color: white;
+    display: none; /* Solo visible en pantallas pequeñas */
+    cursor: pointer;
+  }
+  
+  .navbar-toggler-icon {
+    background-color: white;
+    width: 30px;
+    height: 3px;
+    display: block;
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  
+  .navbar-toggler-icon::before,
+  .navbar-toggler-icon::after {
+    content: '';
+    position: absolute;
+    width: 30px;
+    height: 3px;
+    background-color: white;
+    transition: all 0.3s ease;
+  }
+  
+  .navbar-toggler-icon::before {
+    top: -8px;
+  }
+  
+  .navbar-toggler-icon::after {
+    top: 8px;
+  }
+  
+  #sidebar {
+    background-color: #343a40;
+    width: 250px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 20px 10px;
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(0); /* Muestra el sidebar desde el inicio */
+    z-index: 999; /* Asegura que el sidebar quede encima del contenido */
+    margin-top: 50px; /* Deja espacio para el header */
+  }
+  
+  #sidebar .nav-link {
+    color: white;
+    font-weight: 500;
+    padding: 10px 10px;
+    border-radius: 5px;
+    transition: all 0.2s ease;
+  }
+
+  #sidebar .nav-item {
+    margin-top: 20px;
+  }
+  
+  #sidebar .nav-link:hover {
+    background: #007bff;
+    color: white;
+    transform: translateX(5px);
+    cursor: pointer;
+  }
+  
+  .hidden {
+    transform: translateX(-100%); /* Mueve el sidebar fuera de la vista */
+  }
+  
+  main {
+    margin-left: 250px; /* Ajusta el contenido principal al lado del sidebar */
+    padding: 20px;
+    flex-grow: 1;
+    background-color: #f8f9fa;
+    transition: margin-left 0.3s ease-in-out;
+    margin-top: 60px; /* Deja espacio para el header */
+  }
+  
+  footer {
+    background-color: #343a40;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    margin-top: auto;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+  
+  footer small {
+    font-size: 0.8rem;
+  }
+  
+  /* Responsive: Ajustes para pantallas pequeñas */
+  @media (max-width: 768px) {
+    #toggleSidebarBtn {
+      display: block;
+    }
+  
+    #sidebar {
+      transform: translateX(-90%); /* Inicia fuera de vista */
+    }
+  
+    main {
+      margin-left: 0;
+    }
+  
+    #sidebar.show {
+      transform: translateX(0);
+    }
+  
+    main.sidebar-visible {
+      margin-left: 250px;
+    }
+  }
+  
+  @media (orientation: landscape) and (max-width: 768px) {
+    #sidebar {
+      width: 50%;
+    }
+  }
+  

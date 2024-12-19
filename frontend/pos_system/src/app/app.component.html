@@ -1,0 +1,55 @@
+<div class="d-flex flex-column vh-100">
+  <!-- Header -->
+  <header class="bg-dark text-light py-3 px-4 shadow-sm">
+    <div class="container-fluid d-flex justify-content-between align-items-center">
+      <h1 class="h4 mb-0">Sistema Punto de Venta</h1>
+    </div>
+  </header>
+
+  <!-- Contenedor principal -->
+  <div class="d-flex flex-grow-1">
+    <!-- Navbar lateral -->
+    <nav class="navbar navbar-expand-md bg-light shadow-sm" [ngClass]="{'show': sidebarVisible, 'collapsed': !sidebarVisible}" id="sidebar">
+      <!-- Botón Hamburguesa -->
+      <button
+        class="btn btn-outline-light d-md-none position-absolute top-0 end-0 m-3"
+        id="toggleSidebarBtn"
+        type="button"
+        aria-label="Toggle navigation"
+        (click)="toggleSidebar()"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <ul class="nav flex-column p-2">
+        <li class="nav-item">
+          <a routerLink="/ventas" class="nav-link px-3">📋 Ventas</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/compras" class="nav-link px-3">🛒 Compras</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/articulos" class="nav-link px-3">📦 Artículos</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/reportes" class="nav-link px-3">📊 Reportes</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="/configuracion" class="nav-link px-3">⚙ Configuración</a>
+        </li>
+      </ul>
+    </nav>
+
+    <!-- Contenido principal -->
+    <main class="flex-grow-1 p-4 bg-light">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-light text-center py-2 mt-auto">
+    <div class="container">
+      <small>&copy; 2024 Sistema Punto de Venta - Todos los derechos reservados.</small>
+    </div>
+  </footer>
+</div>
