@@ -45,7 +45,7 @@ const dataSource = new DataSource({
       ? "./src/database/migrations/*.ts"
       : "./dist/database/migrations/*.js",
   ],
-  synchronize: isDevelopment, // Habilitamos sincronización solo en desarrollo
+  synchronize: false, // Habilitamos sincronización solo en desarrollo
   logging: process.env.LOGGER_LEVEL === "debug", // Activamos el logging según el nivel configurado
 });
 
