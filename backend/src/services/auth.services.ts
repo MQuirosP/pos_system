@@ -13,24 +13,22 @@ export class AuthService {
   ) {}
 
   async login(userData: UserLoginDTO) {
+    const username = userData.username.trim();
+    const password = userData.password.trim();
+
     const user = await this.userRepository.findOne({
-      where: { username: userData.username },
+        where: { username },
     });
 
-    if (
-      !user ||
-      !(await this.hashingService.comparePassword(
-        userData.password,
-        user.password
-      ))
-    ) {
-      throw new AppError("Invalid credentials.", 400);
+    if (!user || !(await this.hashingService.comparePassword(password, user.password))) {
+        throw new AppError("Invalid credentials.", 400);
     }
 
     const accessToken = await this.jwtService.generateAccessToken(user);
     const refreshToken = await this.jwtService.generateRefreshToken(user);
     return { accessToken, refreshToken };
-  }
+}
+
 
   async logout(refreshToken: string) {
     await this.jwtService.addToBlacklist(refreshToken);
