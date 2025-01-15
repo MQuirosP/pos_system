@@ -110,6 +110,8 @@
     transition: margin-left 0.3s ease-in-out;
     margin-top: 60px; /* Deja espacio para el header */
   }
+
+  
   
   footer {
     background-color: #343a40;

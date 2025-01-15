@@ -9,10 +9,10 @@
   <!-- Contenedor principal -->
   <div class="d-flex flex-grow-1">
     <!-- Navbar lateral -->
-    <nav class="navbar navbar-expand-md bg-light shadow-sm" [ngClass]="{'show': sidebarVisible, 'collapsed': !sidebarVisible}" id="sidebar">
+    <nav class="bg-dark navbar navbar-expand-md bg-light shadow-sm" [ngClass]="{'show': sidebarVisible, 'collapsed': !sidebarVisible}" id="sidebar">
       <!-- Botón Hamburguesa -->
       <button
-        class="navbar-toggler collapsed d-md-none m-3"
+        class="float-end navbar-toggler collapsed d-md-none m-3"
         style="position: absolute; right: 10px; top: 15px;"
         [ngClass]="{'collapsed': !sidebarVisible}"
         id="toggleSidebarBtn"
@@ -20,12 +20,12 @@
         aria-label="Toggle navigation"
         (click)="toggleSidebar()"
       >
-        <span class="navbar-toggler-icon"></span>
+        <span class=""></span>
         <span></span>
         <span></span>
       </button>
 
-      <ul class="nav flex-column p-2">
+      <ul class="nav flex-column align-self-start p-2">
         <li class="nav-item">
           <a routerLink="/ventas" class="nav-link px-3">📋 Ventas</a>
         </li>
@@ -53,7 +53,7 @@
   <!-- Footer -->
   <footer class="bg-dark text-light text-center py-2 mt-auto">
     <div class="container">
-      <small>&copy; 2024 Sistema Punto de Venta - Todos los derechos reservados.</small>
+      <small>&copy; 2025 Sistema Punto de Venta - Todos los derechos reservados.</small>
     </div>
   </footer>
 </div>

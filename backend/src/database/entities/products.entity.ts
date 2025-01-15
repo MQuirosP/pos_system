@@ -14,7 +14,7 @@ import { PurchaseItem } from "@entities/purchaseItems.entity";
 import { Categories } from "@entities/categories.entity";
 import { BaseFormattedEntity } from "./BaseFormatedEntity";
 import { IProduct } from "@interfaces/products.interface";
-import dataSource from "../../config/ormconfig";
+import dataSource from "@config/ormconfig";
 
 @Entity("products")
 export class Product extends BaseFormattedEntity implements IProduct {
@@ -118,7 +118,7 @@ export class Product extends BaseFormattedEntity implements IProduct {
 
   category_name?: string;
 
-  // Este hook es para asignar el category_name al crear
+  // Asigna el category_name al crear
   // un nuevo producto, ya que en su información solo se
   // recibe el id de la categoría. Para incluir en el dto response
   @AfterInsert()
