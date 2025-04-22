@@ -14,7 +14,11 @@ dotenv.config(); // Cargamos variables de entorno
 
 // Verificamos si estamos en desarrollo o producción
 const isDevelopment = process.env.NODE_ENV !== "production";
-
+if (isDevelopment) {
+  console.log("Running in development mode.");
+} else {
+  console.log("Running in production mode.");
+}
 // Configursamos la conexión a la base de datos
 const dataSource = new DataSource({
   type: "postgres",

@@ -9,7 +9,8 @@ import logger from "@utils/logger";
 const app = express();
 
 app.use(cors({
-    exposedHeaders: ['Authorization']
+    methods: ['GET', 'POST', 'PUT', 'DELETE'],
+    allowedHeaders: ['Authorization', 'Content-Type'],
 }));
 app.use(bodyParser.json({
     limit: "10mb",

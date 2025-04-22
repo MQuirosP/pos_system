@@ -8,7 +8,7 @@ dotenv.config();
 const PORT = process.env.PORT || 3000;
 
 dataSource.initialize().then(() => {
-    console.log("Connected to the database!");
+    console.log("Database connection estalished successfully!");
 
     app.use(globalErrorHandler);
 
