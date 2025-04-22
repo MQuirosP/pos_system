@@ -47,6 +47,7 @@ const dataSource = new DataSource({
   ],
   synchronize: false, // Habilitamos sincronización solo en desarrollo
   logging: process.env.LOGGER_LEVEL === "debug", // Activamos el logging según el nivel configurado
+  logger: "advanced-console",
 });
 
 export default dataSource;
