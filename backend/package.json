@@ -60,6 +60,7 @@
     "@interfaces/*": "dist/interfaces",
     "@enums/*": "dist/enums",
     "@models/*": "dist/database/models",
-    "@server/*": "dist/server"
+    "@server/*": "dist/server",
+    "@migrations/*": "dist/database/migrations"
   }
 }

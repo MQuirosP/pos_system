@@ -27,7 +27,8 @@
       "@interfaces/*": ["interfaces/*"],
       "@enums/*": ["enums/*"],
       "@models/*": ["database/models/*"],
-      "@server/*": ["server/*"]
+      "@server/*": ["server/*"],
+      "@migrations/*": ["database/migrations/*"]
 
     }
   },

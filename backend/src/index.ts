@@ -1,5 +1,8 @@
-import "@server/server"
 import "module-alias/register"
+import dotenv from 'dotenv';
+dotenv.config()
+import "@server/server"
+
 
 // // src/index.ts
 // import express from "express";
