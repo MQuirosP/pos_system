@@ -1,7 +1,7 @@
 import { globalErrorHandler } from './../middlewares/errorHandler.middleware';
 import express from "express";
 import cors from "cors";
-import bodyParser from "body-parser";
+import corsOptions from "@config/cors";
 import { responseMiddleware } from "@middlewares/response.middleware";
 import routes from "@routes/index";
 import requestLogger from "@middlewares/requestLogger.middleware";
@@ -9,10 +9,7 @@ import logger from "@utils/logger";
 
 const app = express();
 
-app.use(cors({
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Authorization', 'Content-Type'],
-}));
+app.use(cors(corsOptions));
 app.use(express.json({
     limit: "10mb",
     strict: true,

@@ -28,7 +28,7 @@
       "@enums/*": ["enums/*"],
       "@models/*": ["database/models/*"],
       "@server/*": ["server/*"],
-      "@migrations/*": ["database/migrations/*"]
+      "@migrations/*": ["database/migrations/*"],
 
     }
   },
