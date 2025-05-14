@@ -2,7 +2,7 @@
   "compilerOptions": {
     "target": "ES2021",
     "module": "CommonJS",
-    "lib": ["ES2018", "DOM"],
+    // "lib": ["ES2018", "DOM"],
     "moduleResolution": "Node",
     "strict": true,
     "outDir": "./dist", // Directorio de salida para los archivos compilados
