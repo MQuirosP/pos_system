@@ -1,3 +1,4 @@
+import './register-aliases'
 import "module-alias/register"
 import dotenv from 'dotenv';
 dotenv.config()
