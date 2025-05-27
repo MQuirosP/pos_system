@@ -1,7 +1,7 @@
 import "module-alias/register"
 import dotenv from 'dotenv';
 dotenv.config()
-import "@server/server"
+import "@server/start"
 
 
 // // src/index.ts

@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "",
   "type": "commonjs",
-  "main": "dist/index.js",
+  "main": "src/index.js",
   "scripts": {
     "dev": "nodemon",
     "build": "tsc",
-    "start": "ts-node -r tsconfig-paths/register dist/index.js",
+    "start": "ts-node -r tsconfig-paths/register src/index.js",
     "migrate": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:run -d ./src/config/ormconfig.ts",
     "migrate:revert": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js migration:revert -d ./src/config/ormconfig.ts"
   },
@@ -48,19 +48,19 @@
     "typescript": "^5.5.4"
   },
   "_moduleAliases": {
-    "@entities": "dist/database/entities",
-    "@config": "dist/config",
-    "@middlewares": "dist/middlewares",
-    "@dtos": "dist/dtos",
-    "@utils": "dist/utils",
-    "@routes": "dist/routes",
-    "@controllers/*": "dist/controllers",
-    "@services/*": "dist/services",
-    "@decorators/*": "dist/decorators",
-    "@interfaces/*": "dist/interfaces",
-    "@enums/*": "dist/enums",
-    "@models/*": "dist/database/models",
-    "@server/*": "dist/server",
-    "@migrations/*": "dist/database/migrations"
+    "@entities": "src/database/entities",
+    "@config": "src/config",
+    "@middlewares": "src/middlewares",
+    "@dtos": "src/dtos",
+    "@utils": "src/utils",
+    "@routes": "src/routes",
+    "@controllers/*": "src/controllers",
+    "@services/*": "src/services",
+    "@decorators/*": "src/decorators",
+    "@interfaces/*": "src/interfaces",
+    "@enums/*": "src/enums",
+    "@models/*": "src/database/models",
+    "@server/*": "src/server",
+    "@migrations/*": "src/database/migrations"
   }
 }
