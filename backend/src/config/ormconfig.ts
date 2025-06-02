@@ -12,16 +12,14 @@ import { DataSource } from "typeorm";
 
 // dotenv.config(); // Cargamos variables de entorno
 
-// Verificamos si el código está siendo ejecutado desde /dist (compilado)
-const isCompiled = __dirname.includes("dist");
-
-// console.log(
-//   isCompiled
-//     ? "Ejecutando desde compilado (/dist)"
-//     : "Ejecutando en desarrollo (/src)"
-// );
-
-// Configuramos la conexión a la base de datos
+// Verificamos si estamos en desarrollo o producción
+const isDevelopment = process.env.NODE_ENV !== "production";
+if (isDevelopment) {
+  console.log("Running in development mode.");
+} else {
+  console.log("Running in production mode.");
+}
+// Configursamos la conexión a la base de datos
 const dataSource = new DataSource({
   type: "postgres",
   host: process.env.DB_HOST,
@@ -29,7 +27,6 @@ const dataSource = new DataSource({
   username: process.env.DB_USERNAME,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-
   entities: [
     // Users,
     // UserModel,
@@ -41,19 +38,19 @@ const dataSource = new DataSource({
     // Customer,
     // Provider,
     // "src/database/entities/**/*.ts",
-    isCompiled
-      ? "./database/entities/*.js"
-      : "./database/entities/*.ts",
+    // Especificamos la ruta de las entidades dependiendo del entorno
+    isDevelopment
+      ? "./src/database/entities/*.ts"
+      : "./dist/database/entities/*.js",
   ],
-
   migrations: [
-    isCompiled
-      ? "./database/migrations/*.js"
-      : "./database/migrations/*.ts",
+    // Especificamos la ruta de las migraciones dependiendo del entorno
+    isDevelopment
+      ? "./src/database/migrations/*.ts"
+      : "./dist/database/migrations/*.js",
   ],
-
-  synchronize: false,
-  logging: process.env.LOGGER_LEVEL === "debug",
+  synchronize: false, // Habilitamos sincronización solo en desarrollo
+  logging: process.env.LOGGER_LEVEL === "debug", // Activamos el logging según el nivel configurado
   logger: "advanced-console",
 });
 

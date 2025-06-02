@@ -25,6 +25,7 @@ export class AuthController {
         try {
             await operation();
         } catch (error) {
+            console.log(error);
             next(error);
         }
     }
