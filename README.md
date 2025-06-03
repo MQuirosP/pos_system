@@ -2,6 +2,8 @@
 # POS System (Backend)
 
 Sistema de Punto de Venta con gestión de inventario, ventas, compras, reportes y control de usuarios mediante roles.
+> 🚧 Este proyecto está en desarrollo.
+
 
 ## Tecnologías utilizadas
 
