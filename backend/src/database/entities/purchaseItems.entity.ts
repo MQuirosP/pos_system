@@ -88,9 +88,10 @@ export class PurchaseItem implements IPurchaseItems {
 
   @Column({
     name: "status",
-    type: "varchar",
+    type: "enum",
+    enum: TransactionStatus,
     nullable: false,
-    default: "completed",
+    default: TransactionStatus.Completed,
   })
   status!: TransactionStatus;
 
