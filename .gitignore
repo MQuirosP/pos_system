@@ -10,7 +10,7 @@ src/config/Schema.sql
 .vscode/
 .idea/
 
-backend\estructura_proyecto.txt
+backend/estructura_proyecto.txt
 # Windows
 Thumbs.db
 ehthumbs.db
