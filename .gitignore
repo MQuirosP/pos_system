@@ -6,7 +6,7 @@ build/
 out/
 backend/logs/
 logs/
-
+src\config\Schema.sql
 .vscode/
 .idea/
 
@@ -15,4 +15,4 @@ backend\estructura_proyecto.txt
 Thumbs.db
 ehthumbs.db
 Desktop.ini
-src\config\Schema.sql
+
