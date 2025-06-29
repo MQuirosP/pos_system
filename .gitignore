@@ -15,4 +15,4 @@ backend\estructura_proyecto.txt
 Thumbs.db
 ehthumbs.db
 Desktop.ini
-backend\src\config\Schema.sql
+src\config\Schema.sql
