@@ -6,7 +6,7 @@ build/
 out/
 backend/logs/
 logs/
-src/config/Schema.sql
+backend/src/config/Schema.sql
 .vscode/
 .idea/
 
