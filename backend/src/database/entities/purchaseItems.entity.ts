@@ -36,7 +36,7 @@ export class PurchaseItem implements IPurchaseItems {
   })
   purchase_price!: number;
 
-  @Column({ name: "quantity", type: "float", nullable: false })
+  @Column({ name: "quantity", type: "float", nullable: false, default: 0.0 })
   quantity!: number;
 
   @Column({
@@ -96,11 +96,12 @@ export class PurchaseItem implements IPurchaseItems {
   status!: TransactionStatus;
 
   @ManyToOne(() => Purchase, (purchase) => purchase.purchase_items, {
-    onDelete: "CASCADE" })
+    onDelete: "CASCADE",
+  })
   @JoinColumn({ name: "purchase_id" })
   purchase!: Purchase;
 
   @ManyToOne(() => Product, (product) => product.int_code)
-  @JoinColumn({ name: 'int_code', referencedColumnName: 'int_code' })
+  @JoinColumn({ name: "int_code", referencedColumnName: "int_code" })
   product!: Product;
 }
