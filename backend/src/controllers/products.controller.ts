@@ -31,9 +31,7 @@ export class ProductController {
 
   async createProduct(req: Request, res: Response, next: NextFunction) {
     this.handleControllerOperation(req, res, next, async () => {
-      ProductCreateDTO.validateKeys(Object.keys(req.body));
-      const productData = new ProductCreateDTO(req.body);
-      await productData.validate();
+      const productData = req.body as ProductCreateDTO;
       const newProduct = await this.productService.createProduct(productData);
 
       return res.success(
@@ -80,15 +78,12 @@ export class ProductController {
 
   async updateProduct(req: Request, res: Response, next: NextFunction) {
     this.handleControllerOperation(req, res, next, async () => {
-      ProductUpdateDTO.validateKeys(Object.keys(req.body));
       const productId = parseInt(req.params.id);
-      const productUpdateDTO = new ProductUpdateDTO(req.body);
-
-      await productUpdateDTO.validate();
+      const productData = req.body as ProductUpdateDTO;
 
       const updatedProduct = await this.productService.updateProduct(
         productId,
-        productUpdateDTO
+        productData
       );
 
       return res.success(

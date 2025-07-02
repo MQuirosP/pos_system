@@ -85,3 +85,14 @@ export const PROVIDERS_KEYS = [
   "provider_email",
   "provider_dni",
 ];
+
+export const USER_LOGIN_KEYS = [
+  "username",
+  "password",
+];
+
+export const USER_REGISTER_KEYS = [
+  "username",
+  "email",
+  "password",
+];

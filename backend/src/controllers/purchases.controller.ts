@@ -29,9 +29,7 @@ export class PurchaseController {
 
   async createPurchase(req: Request, res: Response, next: NextFunction) {
     this.handleControllerOperation(req, res, next, async () => {
-      PurchaseCreateDTO.validateKeys(Object.keys(req.body));
-      const purchaseData = new PurchaseCreateDTO(req.body);
-      await purchaseData.validate();
+      const purchaseData = req.body as PurchaseCreateDTO;
       const newPurchase = await this.purchaseService.createPurchase(
         purchaseData
       );

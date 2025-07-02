@@ -27,9 +27,7 @@ export class SaleController {
 
   async createSale(req: Request, res: Response, next: NextFunction) {
     this.handleControllerOperation(req, res, next, async () => {
-      SaleCreateDTO.validateKeys(Object.keys(req.body));
-      const saleData = new SaleCreateDTO(req.body);
-      await saleData.validate();
+      const saleData = req.body as SaleCreateDTO;
       const newSale = await this.saleService.createSale(saleData);
 
       return res.success(

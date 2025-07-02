@@ -27,16 +27,7 @@ export class UserController {
 
   createUser(req: Request, res: Response, next: NextFunction) {
   this.handleControllerOperation(req, res, next, async () => {
-    // 1. Validar que no haya campos inesperados
-    UserCreateDTO.validateKeys(Object.keys(req.body));
-
-    // 2. Instanciar el DTO con los datos ya validados
-    const userData = new UserCreateDTO(req.body);
-
-    // 3. Validar las reglas de negocio con class-validator
-    await userData.validate();
-
-    // 4. Crear el usuario con el servicio
+    const userData = req.body as UserCreateDTO;
     const newUser = await this.userService.createUser(userData);
 
     // 5. Responder
@@ -85,10 +76,7 @@ export class UserController {
   updateUser(req: Request, res: Response, next: NextFunction) {
     this.handleControllerOperation(req, res, next, async () => {
       const userId = parseInt(req.params.id);
-      UserUpdateDTO.validateKeys(Object.keys(req.body));
-      const userData = new UserUpdateDTO(req.body);
-
-      await userData.validate();
+      const userData = req.body as UserUpdateDTO;
       const updatedUser = await this.userService.updateUser(
         userId,
         userData

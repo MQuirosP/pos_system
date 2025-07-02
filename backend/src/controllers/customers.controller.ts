@@ -31,9 +31,7 @@ export class CustomerController {
 
   createCustomer(req: Request, res: Response, next: NextFunction) {
     this.handleControllerOperation(req, res, next, async () => {
-      CustomerCreateDTO.validateKeys(Object.keys(req.body));
-      const customerData = new CustomerCreateDTO(req.body);
-      await customerData.validate();
+      const customerData = req.body as CustomerCreateDTO;
       const newCustomer = await this.customerService.createCustomer(
         customerData
       );
@@ -84,14 +82,12 @@ export class CustomerController {
 
   updateCustomer(req: Request, res: Response, next: NextFunction) {
     this.handleControllerOperation(req, res, next, async () => {
-      CustomerUpdateDTO.validateKeys(Object.keys(req.body));
       const customerId = parseInt(req.params.id);
-      const customerUpdateDTO = new CustomerUpdateDTO(req.body);
+      const customerData = req.body as CustomerUpdateDTO;
 
-      await customerUpdateDTO.validate();
       const updatedCustomer = await this.customerService.updateCustomer(
         customerId,
-        customerUpdateDTO
+        customerData
       );
 
       return res.success(

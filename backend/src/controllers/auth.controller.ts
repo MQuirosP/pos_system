@@ -32,9 +32,7 @@ export class AuthController {
 
     login(req: Request, res: Response, next: NextFunction) {
         this.handleControllerOperation(req, res, next, async () => {
-            UserLoginDTO.validateKeys(Object.keys(req.body));
-            const userData = new UserLoginDTO(req.body);
-            await userData.validate();
+            const userData = req.body as UserLoginDTO;
             const tokens = await this.authService.login(userData);
             return res.success(tokens, "Login succesful.", 200);
         });
