@@ -31,6 +31,7 @@ export class ProviderController {
 
   createProvider(req: Request, res: Response, next: NextFunction) {
     this.handleControllerOperation(req, res, next, async () => {
+      ProviderCreateDTO.validateKeys(Object.keys(req.body));
       const providerData = new ProviderCreateDTO(req.body);
       await providerData.validate();
       const newProvider = await this.providerService.createProvider(
@@ -84,8 +85,8 @@ export class ProviderController {
   updateProvider(req: Request, res: Response, next: NextFunction) {
     this.handleControllerOperation(req, res, next, async () => {
       const providerId = parseInt(req.params.id);
+      ProviderUpdateDTO.validateKeys(Object.keys(req.body));
       const providerUpdateDTO = new ProviderUpdateDTO(req.body);
-
       await providerUpdateDTO.validate();
       const updatedProvider = await this.providerService.updateProvider(
         providerId,
