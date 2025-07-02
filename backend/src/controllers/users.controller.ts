@@ -85,12 +85,13 @@ export class UserController {
   updateUser(req: Request, res: Response, next: NextFunction) {
     this.handleControllerOperation(req, res, next, async () => {
       const userId = parseInt(req.params.id);
-      const userUpdateDTO = new UserUpdateDTO(req.body);
+      UserUpdateDTO.validateKeys(Object.keys(req.body));
+      const userData = new UserUpdateDTO(req.body);
 
-      await userUpdateDTO.validate();
+      await userData.validate();
       const updatedUser = await this.userService.updateUser(
         userId,
-        userUpdateDTO
+        userData
       );
 
       return res.success(
