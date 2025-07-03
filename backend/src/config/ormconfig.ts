@@ -1,16 +1,4 @@
 import { DataSource } from "typeorm";
-// import * as dotenv from "dotenv";
-// import { Users } from "@entities/users.entity";
-// import { UserModel } from "@models/User";
-// import { Product } from "@entities/products.entity";
-// import { Purchase } from "@entities/purchases.entity";
-// import { PurchaseItem } from "@entities/purchaseItems.entity";
-// import { Sale } from "@entities/sales.entity";
-// import { SaleItem } from "@entities/saleItems.entity";
-// import { Customer } from "@entities/customers.entity";
-// import { Provider } from "@entities/providers.entity";
-
-// dotenv.config(); // Cargamos variables de entorno
 
 // Verificamos si estamos en desarrollo o producción
 const isDevelopment = process.env.NODE_ENV !== "production";
@@ -28,16 +16,6 @@ const dataSource = new DataSource({
   password: process.env.DB_PASSWORD || "3az5bkhr",
   database: process.env.DB_NAME,
   entities: [
-    // Users,
-    // UserModel,
-    // Product,
-    // Purchase,
-    // PurchaseItem,
-    // Sale,
-    // SaleItem,
-    // Customer,
-    // Provider,
-    // "src/database/entities/**/*.ts",
     // Especificamos la ruta de las entidades dependiendo del entorno
     isDevelopment
       ? "./src/database/entities/*.ts"
