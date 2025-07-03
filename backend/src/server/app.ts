@@ -4,7 +4,7 @@ import cors from "cors";
 import corsOptions from "@config/cors";
 import { responseMiddleware } from "@middlewares/response.middleware";
 import routes from "@routes/index";
-import requestLogger from "@middlewares/requestLogger.middleware";
+// import requestLogger from "@middlewares/requestLogger.middleware";
 import logger from "@utils/logger";
 
 const app = express();
@@ -16,7 +16,7 @@ app.use(express.json({
     type: "application/json"
 }));
 
-app.use(requestLogger(logger))
+// app.use(requestLogger(logger))
 app.use(responseMiddleware);
 
 app.use("/api", routes);

@@ -14,10 +14,10 @@ export function validateIdInUrl(
       if (!rawId || isNaN(id) || id <= 0 || !Number.isInteger(id)) {
         logger.error({
           message: `Request rejected: missing or invalid identifier '${paramName}' in the URL path for ${req.method} method.`,
-          method: req.method,
+          // method: req.method,
           url: req.originalUrl,
           statusCode: res.statusCode,
-          clientIp: req.ip,
+          // clientIp: req.ip,
           // userId: req.user?.id || "Anonymous"
         });
 

@@ -51,10 +51,10 @@ export const globalErrorHandler = (
 
   logger.error({
     message: `${detailedMessage}`,
-    method: req.method,
+    // method: req.method,
     path: req.path,
     statusCode: res.statusCode,
-    clientIp: req.ip,
+    // clientIp: req.ip,
     // headers: req.headers,
     // requestBody: req.body,
   });

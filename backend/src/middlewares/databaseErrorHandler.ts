@@ -33,11 +33,11 @@ export function handleDatabaseError(error: any): void {
           400
         );
       // Si cómo parámetro de busqueda es NaN
-      case "22P02":
-        throw new AppError(
-          "A valid identifier is required in the URL for this request.",
-          400
-        );
+      // case "22P02":
+      //   throw new AppError(
+      //     "A valid identifier is required in the URL for this request.",
+      //     400
+      //   );
       default:
         throw new AppError("Unhandled database error: " + error.message, 500);
     }

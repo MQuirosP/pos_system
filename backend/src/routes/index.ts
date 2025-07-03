@@ -7,12 +7,9 @@ import provider from "@routes/providers.route";
 import purchase from "@routes/purchases.route";
 import auth from "@routes/auth.route";
 import category from "@routes/categories.route";
-import { validateIdInUrl } from '@middlewares/validateIdParams.middleware';
 import { authMiddleware } from '@middlewares/auth.middleware';
 
 const router = express.Router();
-
-// router.use(validateIdInUrl)
 
 router.use('/users', authMiddleware, users);
 router.use("/products", authMiddleware, product);
