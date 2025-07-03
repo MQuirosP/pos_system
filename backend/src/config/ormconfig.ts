@@ -12,8 +12,8 @@ const dataSource = new DataSource({
   type: "postgres",
   host: process.env.DB_HOST,
   port: parseInt(process.env.DB_PORT || "5432", 10),
-  username: process.env.DB_USERNAME || "postgres",
-  password: process.env.DB_PASSWORD || "3az5bkhr",
+  username: process.env.DB_USERNAME,
+  password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
   entities: [
     // Especificamos la ruta de las entidades dependiendo del entorno
