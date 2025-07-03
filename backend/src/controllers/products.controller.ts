@@ -29,8 +29,8 @@ export class ProductController {
     }
   }
 
-  async createProduct(req: Request, res: Response, next: NextFunction) {
-    await this.handleControllerOperation(req, res, next, async () => {
+  createProduct(req: Request, res: Response, next: NextFunction) {
+    this.handleControllerOperation(req, res, next, async () => {
       const productData = req.body as ProductCreateDTO;
       const newProduct = await this.productService.createProduct(productData);
 
@@ -42,8 +42,8 @@ export class ProductController {
     });
   }
 
-  async getProductById(req: Request, res: Response, next: NextFunction) {
-    await this.handleControllerOperation(req, res, next, async () => {
+  getProductById(req: Request, res: Response, next: NextFunction) {
+    this.handleControllerOperation(req, res, next, async () => {
       const productId = parseInt(req.params.id);
       const product = await this.productService.fetchProductByPK(productId);
 
@@ -55,8 +55,8 @@ export class ProductController {
     });
   }
 
-  async getProducts(req: Request, res: Response, next: NextFunction) {
-    await this.handleControllerOperation(req, res, next, async () => {
+  getProducts(req: Request, res: Response, next: NextFunction) {
+    this.handleControllerOperation(req, res, next, async () => {
       const { name } = req.query;
       let products: Product[] = [];
 
@@ -76,8 +76,8 @@ export class ProductController {
     });
   }
 
-  async updateProduct(req: Request, res: Response, next: NextFunction) {
-    await this.handleControllerOperation(req, res, next, async () => {
+  updateProduct(req: Request, res: Response, next: NextFunction) {
+    this.handleControllerOperation(req, res, next, async () => {
       const productId = parseInt(req.params.id);
       const productData = req.body as ProductUpdateDTO;
 
@@ -93,8 +93,8 @@ export class ProductController {
     });
   }
 
-  async deleteProduct(req: Request, res: Response, next: NextFunction) {
-    await this.handleControllerOperation(req, res, next, async () => {
+  deleteProduct(req: Request, res: Response, next: NextFunction) {
+    this.handleControllerOperation(req, res, next, async () => {
       const productId = parseInt(req.params.id);
       const productToDelete = await this.productService.fetchProductByPK(
         productId
