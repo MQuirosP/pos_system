@@ -7,25 +7,12 @@ import provider from "@routes/providers.route";
 import purchase from "@routes/purchases.route";
 import auth from "@routes/auth.route";
 import category from "@routes/categories.route";
-import { validatePutParams } from '@middlewares/validatePutParams.middleware';
+import { validateIdInUrl } from '@middlewares/validateIdParams.middleware';
 import { authMiddleware } from '@middlewares/auth.middleware';
 
 const router = express.Router();
 
-// router.use((req, res, next) => {
-//   if (req.method === 'PUT') {
-//     // Verifica si la ruta contiene un identificador numérico o string requerido
-//     const idRegex = /\/\w+\/[^\/]+$/; // Esto asegura que haya algo después del último '/'
-    
-//     if (!idRegex.test(req.originalUrl)) {
-//       return next(new AppError("A valid identifier is required in the URL for PUT requests.", 400));
-//     }
-//   }
-  
-//   next();
-// });
-
-router.use(validatePutParams)
+// router.use(validateIdInUrl)
 
 router.use('/users', authMiddleware, users);
 router.use("/products", authMiddleware, product);

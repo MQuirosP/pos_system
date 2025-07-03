@@ -2,6 +2,7 @@ import express from "express";
 import { ProviderController } from "@controllers/providers.controller";
 import { validateDTO } from "@middlewares/validateDTO.middleware";
 import { ProviderCreateDTO, ProviderUpdateDTO } from "@dtos/providers.dto";
+import { validateIdInUrl } from "../middlewares/validateIdParams.middleware";
 
 const router = express.Router();
 const providerConstroller = new ProviderController();
@@ -13,16 +14,16 @@ router.post(
 );
 router.get("/", providerConstroller.getProviders.bind(providerConstroller));
 router.get(
-  "/:id",
+  "/:id", validateIdInUrl("id"),
   providerConstroller.getProviderById.bind(providerConstroller)
 );
 router.put(
-  "/:id",
+  "/:id", validateIdInUrl("id"),
   validateDTO(ProviderUpdateDTO),
   providerConstroller.updateProvider.bind(providerConstroller)
 );
 router.delete(
-  "/:id",
+  "/:id", validateIdInUrl("id"),
   providerConstroller.deleteProvider.bind(providerConstroller)
 );
 
