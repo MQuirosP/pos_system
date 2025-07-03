@@ -29,7 +29,8 @@ export function validateIdInUrl(
         );
       }
 
-      // Opcional: si quieres que el controlador use el id parseado
+      // Para que el controller use el parametro parseado
+      // Esto es útil si el controlador espera un número en lugar de una cadena
       (req as any)[paramName] = id;
     }
 
