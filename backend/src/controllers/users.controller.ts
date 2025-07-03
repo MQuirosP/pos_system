@@ -25,22 +25,22 @@ export class UserController {
     }
   }
 
-  createUser(req: Request, res: Response, next: NextFunction) {
-  this.handleControllerOperation(req, res, next, async () => {
-    const userData = req.body as UserCreateDTO;
-    const newUser = await this.userService.createUser(userData);
+  async createUser(req: Request, res: Response, next: NextFunction) {
+    await this.handleControllerOperation(req, res, next, async () => {
+      const userData = req.body as UserCreateDTO;
+      const newUser = await this.userService.createUser(userData);
 
-    // 5. Responder
-    return res.success(
-      new UserResponseDTO(newUser),
-      "User created successfully.",
-      201
-    );
-  });
-}
+      // 5. Responder
+      return res.success(
+        new UserResponseDTO(newUser),
+        "User created successfully.",
+        201
+      );
+    });
+  }
 
-  getUsers(req: Request, res: Response, next: NextFunction) {
-    this.handleControllerOperation(req, res, next, async () => {
+  async getUsers(req: Request, res: Response, next: NextFunction) {
+    await this.handleControllerOperation(req, res, next, async () => {
       const { name } = req.query;
       let users: Users[] = [];
 
@@ -60,8 +60,8 @@ export class UserController {
     });
   }
 
-  getUserById(req: Request, res: Response, next: NextFunction) {
-    this.handleControllerOperation(req, res, next, async () => {
+  async getUserById(req: Request, res: Response, next: NextFunction) {
+    await this.handleControllerOperation(req, res, next, async () => {
       const userId = parseInt(req.params.id);
       const user = await this.userService.fetchUserByPK(userId);
 
@@ -73,14 +73,11 @@ export class UserController {
     });
   }
 
-  updateUser(req: Request, res: Response, next: NextFunction) {
-    this.handleControllerOperation(req, res, next, async () => {
+  async updateUser(req: Request, res: Response, next: NextFunction) {
+    await this.handleControllerOperation(req, res, next, async () => {
       const userId = parseInt(req.params.id);
       const userData = req.body as UserUpdateDTO;
-      const updatedUser = await this.userService.updateUser(
-        userId,
-        userData
-      );
+      const updatedUser = await this.userService.updateUser(userId, userData);
 
       return res.success(
         new UserResponseDTO(updatedUser),
@@ -89,8 +86,8 @@ export class UserController {
     });
   }
 
-  deleteUser(req: Request, res: Response, next: NextFunction) {
-    this.handleControllerOperation(req, res, next, async () => {
+  async deleteUser(req: Request, res: Response, next: NextFunction) {
+    await this.handleControllerOperation(req, res, next, async () => {
       const userId = parseInt(req.params.id);
       const userToDelete = await this.userService.fetchUserByPK(userId);
       await this.userService.deleteUser(userId);
@@ -104,14 +101,11 @@ export class UserController {
   }
 
   async comparePassword(req: Request, res: Response, next: NextFunction) {
-    try {
+    await this.handleControllerOperation(req, res, next, async () => {
       const userId = parseInt(req.params.id);
       const password = req.body.password;
       await this.userService.comparePassword(userId, password);
-
       return res.success({ user_id: userId }, "Password is correct.", 200);
-    } catch (error) {
-      next(error);
-    }
+    });
   }
 }
