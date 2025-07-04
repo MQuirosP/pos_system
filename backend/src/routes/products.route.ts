@@ -2,7 +2,7 @@ import { ProductController } from "@controllers/products.controller";
 import express from "express";
 import { validateDTO } from "@middlewares/validateDTO.middleware";
 import { ProductCreateDTO, ProductUpdateDTO } from "@dtos/products.dto";
-import { validateIdInUrl } from "../middlewares/validateIdParams.middleware";
+import { validateIdInUrl } from "@middlewares/validateIdParams.middleware";
 
 const router = express.Router();
 const productController = new ProductController();
